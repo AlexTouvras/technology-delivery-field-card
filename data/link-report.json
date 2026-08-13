@@ -1,0 +1,77 @@
+{
+  "checkedAt": "2026-08-13T11:35:23.800Z",
+  "total": 14,
+  "failed": 0,
+  "results": [
+    {
+      "url": "https://alextouvras.com",
+      "ok": true,
+      "status": 200
+    },
+    {
+      "url": "https://developer.hashicorp.com/terraform/intro",
+      "ok": true,
+      "status": 200
+    },
+    {
+      "url": "https://docs.github.com/en/actions",
+      "ok": true,
+      "status": 200
+    },
+    {
+      "url": "https://dora.dev/guides/dora-metrics-four-keys/",
+      "ok": true,
+      "status": 200
+    },
+    {
+      "url": "https://learn.microsoft.com/en-us/azure/azure-app-configuration/concept-feature-management",
+      "ok": true,
+      "status": 200
+    },
+    {
+      "url": "https://learn.microsoft.com/en-us/azure/azure-monitor/overview",
+      "ok": true,
+      "status": 200
+    },
+    {
+      "url": "https://learn.microsoft.com/en-us/azure/azure-resource-manager/bicep/overview",
+      "ok": true,
+      "status": 200
+    },
+    {
+      "url": "https://learn.microsoft.com/en-us/azure/devops/boards/get-started/what-is-azure-boards",
+      "ok": true,
+      "status": 200
+    },
+    {
+      "url": "https://learn.microsoft.com/en-us/azure/devops/boards/plans/review-team-plans",
+      "ok": true,
+      "status": 200
+    },
+    {
+      "url": "https://learn.microsoft.com/en-us/azure/devops/pipelines/get-started/what-is-azure-pipelines",
+      "ok": true,
+      "status": 200
+    },
+    {
+      "url": "https://learn.microsoft.com/en-us/azure/devops/pipelines/process/approvals",
+      "ok": true,
+      "status": 200
+    },
+    {
+      "url": "https://martinfowler.com/bliki/ContinuousDelivery.html",
+      "ok": true,
+      "status": 200
+    },
+    {
+      "url": "https://trunkbaseddevelopment.com/",
+      "ok": true,
+      "status": 200
+    },
+    {
+      "url": "https://www.mountaingoatsoftware.com/blog/ai-doesnt-eliminate-agile-teams-it-increases-the-need-for-great-ones",
+      "ok": true,
+      "status": 200
+    }
+  ]
+}

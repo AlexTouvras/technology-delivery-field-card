@@ -1,0 +1,781 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Technology Delivery Field Card — Evidence before the call · Alex Touvras</title>
+  <meta name="description" content="A one-page decision card for sequenced delivery: intent, window, proof, and cutover. Methods are lanes — not the map." />
+  <meta name="author" content="Alex Touvras" />
+  <meta property="og:title" content="Technology Delivery Field Card — Evidence before the call" />
+  <meta property="og:description" content="Intent → window → proof → cutover. Pipeline green is not the same as held in production." />
+  <meta property="og:type" content="website" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Outfit:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,500;8..60,600;8..60,700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --ink: #18212b;
+      --ink-soft: #3a4654;
+      --muted: #6b7785;
+      --line: #c9d2dc;
+      --paper: #eef2f6;
+      --card: #f8fafc;
+      --steel: #53478a;
+      --steel-deep: #3d3468;
+      --signal: #0f766e;
+      --signal-soft: #d7ebe8;
+      --warn: #9a3412;
+      --warn-soft: #f3e0d6;
+      --layer-rag: #43367a;
+      --layer-agent: #53478a;
+      --layer-mcp: #0f766e;
+      --layer-a2a: #5b4d8a;
+      --shadow: 0 1px 0 rgba(24, 33, 43, 0.06), 0 12px 32px rgba(24, 33, 43, 0.06);
+      --radius: 10px;
+      --font-display: "Source Serif 4", Georgia, serif;
+      --font-body: "Outfit", system-ui, sans-serif;
+      --font-mono: "IBM Plex Mono", ui-monospace, monospace;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background:
+        radial-gradient(1200px 500px at 10% -10%, rgba(83, 71, 138, 0.10), transparent 60%),
+        radial-gradient(900px 400px at 100% 0%, rgba(15, 118, 110, 0.07), transparent 55%),
+        var(--paper);
+      font-family: var(--font-body);
+      font-size: 15px;
+      line-height: 1.45;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+
+    .sheet {
+      width: min(1100px, calc(100% - 2rem));
+      margin: 1.5rem auto 2.5rem;
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .topbar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 0.75rem 1.5rem;
+      padding: 1rem 1.35rem;
+      border-bottom: 1px solid var(--line);
+      background: linear-gradient(180deg, #fbfcfd, #f3f6f9);
+    }
+
+    .eyebrow {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--steel);
+      font-weight: 600;
+    }
+
+    .channels {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .channels button,
+    .channels a.btn {
+      appearance: none;
+      border: 1px solid var(--line);
+      background: #fff;
+      color: var(--ink);
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.02em;
+      padding: 0.45rem 0.7rem;
+      border-radius: 999px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: border-color 160ms ease, transform 120ms ease, background 160ms ease;
+    }
+
+    .channels button:hover,
+    .channels a.btn:hover {
+      border-color: var(--steel);
+      background: #f4f2fa;
+    }
+
+    .channels button:active,
+    .channels a.btn:active {
+      transform: scale(0.97);
+    }
+
+    header.hero {
+      padding: 1.5rem 1.35rem 1.25rem;
+      display: grid;
+      gap: 1.25rem;
+      grid-template-columns: 1.15fr 0.85fr;
+      align-items: end;
+      border-bottom: 1px solid var(--line);
+    }
+
+    h1 {
+      margin: 0.35rem 0 0.55rem;
+      font-family: var(--font-display);
+      font-size: clamp(1.85rem, 3.4vw, 2.55rem);
+      line-height: 1.12;
+      letter-spacing: -0.02em;
+      font-weight: 700;
+      max-width: 16ch;
+    }
+
+    .lede {
+      margin: 0;
+      color: var(--ink-soft);
+      font-size: 1.02rem;
+      max-width: 42ch;
+    }
+
+    .lede strong { color: var(--ink); font-weight: 600; }
+
+    .stack {
+      display: grid;
+      gap: 0.45rem;
+    }
+
+    .layer {
+      display: grid;
+      grid-template-columns: 4.6rem 1fr;
+      gap: 0.75rem;
+      align-items: center;
+      padding: 0.55rem 0.7rem;
+      border-radius: 8px;
+      border: 1px solid transparent;
+      color: #fff;
+      animation: rise 520ms cubic-bezier(0.16, 1, 0.3, 1) both;
+    }
+
+    .layer:nth-child(1) { background: var(--layer-rag); animation-delay: 40ms; }
+    .layer:nth-child(2) { background: var(--layer-agent); animation-delay: 110ms; }
+    .layer:nth-child(3) { background: var(--layer-mcp); animation-delay: 180ms; }
+    .layer:nth-child(4) { background: var(--layer-a2a); animation-delay: 250ms; }
+
+    .layer code {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      opacity: 0.92;
+    }
+
+    .layer span {
+      font-size: 0.84rem;
+      line-height: 1.3;
+      font-weight: 500;
+    }
+
+    @keyframes rise {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .layer { animation: none; }
+    }
+
+    section {
+      padding: 1.1rem 1.35rem 1.2rem;
+      border-bottom: 1px solid var(--line);
+    }
+
+    h2 {
+      margin: 0 0 0.75rem;
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--steel);
+      font-weight: 600;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.9rem;
+    }
+
+    th, td {
+      text-align: left;
+      vertical-align: top;
+      padding: 0.55rem 0.45rem;
+      border-bottom: 1px solid #e2e8ef;
+    }
+
+    th {
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--muted);
+      font-weight: 500;
+      padding-top: 0;
+    }
+
+    tr:last-child td { border-bottom: none; }
+
+    table.decisions td.problem { color: var(--ink); font-weight: 500; width: 32%; }
+    table.decisions td.reach { color: var(--ink-soft); width: 26%; }
+    table.decisions td.example {
+      color: var(--ink-soft);
+      font-size: 0.84rem;
+      width: 42%;
+    }
+    td.reach b {
+      color: var(--signal);
+      font-weight: 650;
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      letter-spacing: 0.02em;
+    }
+
+    a.use-link {
+      color: inherit;
+      text-decoration: none;
+      border-bottom: 1px solid rgba(15, 118, 110, 0.35);
+      transition: border-color 140ms ease, color 140ms ease;
+    }
+
+    a.use-link:hover,
+    a.use-link:focus-visible {
+      color: var(--steel-deep);
+      border-bottom-color: var(--steel);
+      outline: none;
+    }
+
+    a.use-link:focus-visible {
+      box-shadow: 0 0 0 3px rgba(36, 90, 122, 0.25);
+      border-radius: 2px;
+    }
+
+    .pick a {
+      color: inherit;
+      text-decoration: none;
+      border-bottom: 1px solid rgba(36, 90, 122, 0.3);
+    }
+
+    .pick a:hover,
+    .pick a:focus-visible {
+      border-bottom-color: var(--steel);
+      outline: none;
+    }
+
+    .tri {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .tri > section {
+      border-bottom: none;
+      border-right: 1px solid var(--line);
+    }
+
+    .tri > section:last-child { border-right: none; }
+
+    .gates {
+      display: grid;
+      gap: 0.55rem;
+    }
+
+    .gate {
+      padding: 0.55rem 0.65rem;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fff;
+    }
+
+    .gate strong {
+      display: block;
+      font-size: 0.86rem;
+      margin-bottom: 0.2rem;
+    }
+
+    .gate span {
+      font-size: 0.8rem;
+      color: var(--ink-soft);
+    }
+
+    .behavior {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.75rem;
+    }
+
+    .panel {
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 0.85rem 0.9rem;
+    }
+
+    .panel h3 {
+      margin: 0 0 0.35rem;
+      font-size: 0.98rem;
+      font-weight: 650;
+    }
+
+    .panel p {
+      margin: 0 0 0.55rem;
+      color: var(--ink-soft);
+      font-size: 0.88rem;
+    }
+
+    .panel ul {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      display: grid;
+      gap: 0.35rem;
+    }
+
+    .panel li {
+      position: relative;
+      padding-left: 0.85rem;
+      font-size: 0.84rem;
+      color: var(--ink);
+    }
+
+    .panel li::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0.55em;
+      width: 0.35rem;
+      height: 0.35rem;
+      border-radius: 50%;
+      background: var(--steel);
+    }
+
+    .tag {
+      display: inline-block;
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      padding: 0.18rem 0.4rem;
+      border-radius: 4px;
+      margin-bottom: 0.4rem;
+      font-weight: 600;
+    }
+
+    .tag.rules { background: #e8eef4; color: var(--steel-deep); }
+    .tag.skills { background: var(--signal-soft); color: #115e59; }
+
+    .aside-stack {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .picker {
+      display: grid;
+      gap: 0.55rem;
+    }
+
+    .pick {
+      display: grid;
+      grid-template-columns: 7.5rem 1fr;
+      gap: 0.65rem;
+      padding: 0.55rem 0;
+      border-bottom: 1px solid #e2e8ef;
+    }
+
+    .pick:last-child { border-bottom: none; }
+
+    .pick strong {
+      font-family: var(--font-mono);
+      font-size: 0.74rem;
+      letter-spacing: 0.02em;
+      color: var(--steel-deep);
+      font-weight: 600;
+    }
+
+    .pick span {
+      font-size: 0.84rem;
+      color: var(--ink-soft);
+    }
+
+    .ladder {
+      display: grid;
+      gap: 0.35rem;
+      counter-reset: step;
+    }
+
+    .ladder li {
+      list-style: none;
+      counter-increment: step;
+      display: grid;
+      grid-template-columns: 1.6rem 1fr;
+      gap: 0.55rem;
+      align-items: start;
+      font-size: 0.86rem;
+      padding: 0.2rem 0;
+    }
+
+    .ladder li::before {
+      content: counter(step);
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      font-weight: 600;
+      color: var(--steel);
+      background: #e8eef4;
+      border-radius: 4px;
+      width: 1.45rem;
+      height: 1.45rem;
+      display: grid;
+      place-items: center;
+      margin-top: 0.05rem;
+    }
+
+    .antis {
+      background: linear-gradient(180deg, #fcfaf8, #f8f1eb);
+    }
+
+    .anti-list {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.45rem 1rem;
+    }
+
+    .anti-list li {
+      font-size: 0.86rem;
+      color: var(--ink);
+      padding-left: 0.9rem;
+      position: relative;
+    }
+
+    .anti-list li::before {
+      content: "\00D7";
+      position: absolute;
+      left: 0;
+      color: var(--warn);
+      font-weight: 700;
+    }
+
+    .note {
+      margin: 0.85rem 0 0;
+      font-size: 0.84rem;
+      color: var(--ink-soft);
+      max-width: 70ch;
+    }
+
+    footer.meta {
+      padding: 0.95rem 1.35rem 1.15rem;
+      background: #f3f6f9;
+      display: grid;
+      gap: 0.55rem;
+    }
+
+    .version-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 0.5rem 1.25rem;
+    }
+
+    .version {
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      color: var(--steel-deep);
+      font-weight: 500;
+    }
+
+    .changed {
+      margin: 0;
+      font-size: 0.82rem;
+      color: var(--ink-soft);
+    }
+
+    .changed b {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--muted);
+      font-weight: 600;
+      margin-right: 0.4rem;
+    }
+
+    .credit {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.35rem 1rem;
+      align-items: baseline;
+      font-size: 0.82rem;
+      color: var(--muted);
+    }
+
+    .credit a {
+      color: var(--steel);
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .credit a:hover { text-decoration: underline; }
+
+    .share-banner {
+      display: none;
+    }
+
+    @media (max-width: 900px) {
+      header.hero,
+      .tri,
+      .behavior,
+      .anti-list {
+        grid-template-columns: 1fr;
+      }
+      .tri > section { border-right: none; border-bottom: 1px solid var(--line); }
+      .tri > section:last-child { border-bottom: none; }
+      .pick { grid-template-columns: 1fr; gap: 0.2rem; }
+      h1 { max-width: none; }
+      table.decisions td.problem,
+      table.decisions td.reach,
+      table.decisions td.example { width: auto; }
+    }
+
+    @media print {
+      @page {
+        size: A4 landscape;
+        margin: 8mm;
+      }
+
+      body {
+        background: #fff;
+        font-size: 10.5pt;
+      }
+
+      .sheet {
+        width: 100%;
+        margin: 0;
+        border: none;
+        border-radius: 0;
+        box-shadow: none;
+      }
+
+      .channels,
+      .share-banner { display: none !important; }
+
+      .topbar { padding: 0.4rem 0 0.55rem; background: none; }
+      header.hero { padding: 0.55rem 0 0.7rem; gap: 0.85rem; }
+      section { padding: 0.55rem 0 0.65rem; }
+      footer.meta { padding: 0.45rem 0 0; background: none; }
+      .layer { animation: none; print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+      .panel, .antis { break-inside: avoid; }
+      a { color: inherit; text-decoration: none; border-bottom: none !important; }
+    }
+  </style>
+</head>
+<body>
+  <article class="sheet" id="field-card">
+    <div class="topbar">
+      <div class="eyebrow">Field card · Technology delivery</div>
+      <div class="channels no-print">
+        <button type="button" onclick="window.print()">Print / PDF</button>
+        <button type="button" id="copy-link">Copy link</button>
+        <a class="btn" href="https://alextouvras.com" rel="noopener">alextouvras.com</a>
+      </div>
+    </div>
+
+    <header class="hero">
+      <div>
+        <div class="eyebrow">Evidence before the call</div>
+        <h1>Delivery is a sequence, not a ticket</h1>
+        <p class="lede">
+          Intent, window, proof, and cutover are <strong>layers</strong>.
+          Methods are lanes. Pipeline green is not the same as held in production — name rollback before anyone calls the change done.
+        </p>
+      </div>
+      <div class="stack" aria-label="Four-layer stack">
+        <div class="layer"><code>INTENT</code><span>Outcome — what this change is for, owned</span></div>
+        <div class="layer"><code>WINDOW</code><span>Calendars — platform, security, business freeze</span></div>
+        <div class="layer"><code>PROOF</code><span>Evidence — dependencies, blast radius, metrics</span></div>
+        <div class="layer"><code>CUTOVER</code><span>Sequence — rollback named before green</span></div>
+      </div>
+    </header>
+
+    <section>
+      <h2>Problem → use → example</h2>
+      <table class="decisions">
+        <thead>
+          <tr>
+            <th>If the real problem is…</th>
+            <th>Use</th>
+            <th>Example case</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="problem">Platform, security, and business clocks disagree</td>
+            <td class="reach"><a class="use-link" href="https://learn.microsoft.com/en-us/azure/devops/pipelines/process/approvals" target="_blank" rel="noopener noreferrer" title="Azure Pipelines: approvals and checks"><b>Change window</b></a></td>
+            <td class="example">Middleware patch waits for the freeze, then a named business-hours check — not a chat “we’ll find a slot”</td>
+          </tr>
+          <tr>
+            <td class="problem">Nobody can name who owns the dependency</td>
+            <td class="reach"><a class="use-link" href="https://learn.microsoft.com/en-us/azure/devops/boards/plans/review-team-plans" target="_blank" rel="noopener noreferrer" title="Azure Boards: Delivery Plans"><b>Dependency map</b></a></td>
+            <td class="example">Azure app change that needs a cert rotation: owner, blocker, and date on one plan; status names the wait</td>
+          </tr>
+          <tr>
+            <td class="problem">Must reverse without a weekend restore</td>
+            <td class="reach"><a class="use-link" href="https://learn.microsoft.com/en-us/azure/azure-app-configuration/concept-feature-management" target="_blank" rel="noopener noreferrer" title="Azure App Configuration: feature management"><b>Feature flag</b></a></td>
+            <td class="example">New middleware route ships dark; flip on for one tenant, flip off if error rate moves — code deploy ≠ user release</td>
+          </tr>
+          <tr>
+            <td class="problem">Pipeline is green; ops is not ready</td>
+            <td class="reach"><a class="use-link" href="https://martinfowler.com/bliki/ContinuousDelivery.html" target="_blank" rel="noopener noreferrer" title="Martin Fowler: Continuous Delivery"><b>Done that survives the room</b></a></td>
+            <td class="example">Rollback steps and who gets paged sit in the change note before anyone says green — tests passing is not held</td>
+          </tr>
+          <tr>
+            <td class="problem">Too many “ready” items, no sequence</td>
+            <td class="reach"><a class="use-link" href="https://www.mountaingoatsoftware.com/blog/ai-doesnt-eliminate-agile-teams-it-increases-the-need-for-great-ones" target="_blank" rel="noopener noreferrer" title="Mike Cohn: AI increases the need for great agile teams"><b>Priority gate</b></a></td>
+            <td class="example">Three Azure changes drafted in an afternoon; only the cert that blocks Friday’s window goes first — “not yet” is a decision</td>
+          </tr>
+          <tr>
+            <td class="problem">AI made drafts cheap; sequence got worse</td>
+            <td class="reach"><a class="use-link" href="https://learn.microsoft.com/en-us/azure/devops/pipelines/process/approvals" target="_blank" rel="noopener noreferrer" title="Azure Pipelines: environment approvals"><b>Human Approve</b></a></td>
+            <td class="example">Copilot wrote the runbook; a person still owns what next and why not yet — same gate Orbit uses for publish</td>
+          </tr>
+          <tr>
+            <td class="problem">After ship, nobody can tell if it held</td>
+            <td class="reach"><a class="use-link" href="https://learn.microsoft.com/en-us/azure/azure-monitor/overview" target="_blank" rel="noopener noreferrer" title="Azure Monitor overview"><b>Watch the service</b></a></td>
+            <td class="example">Error rate and queue depth for 30 minutes post-cutover; if they move, rollback is already written</td>
+          </tr>
+          <tr>
+            <td class="problem">Snowflake middleware / env drift</td>
+            <td class="reach"><a class="use-link" href="https://learn.microsoft.com/en-us/azure/azure-resource-manager/bicep/overview" target="_blank" rel="noopener noreferrer" title="Bicep overview"><b>Infra as code</b></a></td>
+            <td class="example">App setting and network rule in Bicep (or Terraform); the next environment is a replay, not a memory</td>
+          </tr>
+          <tr>
+            <td class="problem">Status lives in a chat thread</td>
+            <td class="reach"><a class="use-link" href="https://learn.microsoft.com/en-us/azure/devops/boards/get-started/what-is-azure-boards" target="_blank" rel="noopener noreferrer" title="What is Azure Boards"><b>Visible work</b></a></td>
+            <td class="example">Blocker named on the board item; standup does not replace a written wait</td>
+          </tr>
+          <tr>
+            <td class="problem">Need fast feedback on main, not a long-lived branch</td>
+            <td class="reach"><a class="use-link" href="https://trunkbaseddevelopment.com/" target="_blank" rel="noopener noreferrer" title="Trunk Based Development"><b>Small batches on trunk</b></a></td>
+            <td class="example">Incomplete UI stays behind a flag; main stays releasable — Fowler’s CD test, not a two-week merge</td>
+          </tr>
+          <tr>
+            <td class="problem">Don’t know if delivery is actually getting healthier</td>
+            <td class="reach"><a class="use-link" href="https://dora.dev/guides/dora-metrics-four-keys/" target="_blank" rel="noopener noreferrer" title="DORA: four keys"><b>Four keys</b></a></td>
+            <td class="example">Lead time and change-fail rate next to the Azure ops pack; velocity theatre stays off this path</td>
+          </tr>
+        </tbody>
+      </table>
+      <p class="note">Default order: name the intent and owner → calendars and dependencies → evidence pack → rollback + page path → small sequenced change (flag if you must reverse) → watch whether it held.</p>
+    </section>
+
+    <div class="tri">
+      <section>
+        <h2>Tool picker</h2>
+        <div class="picker">
+          <div class="pick"><strong><a href="https://trunkbaseddevelopment.com/" target="_blank" rel="noopener noreferrer">Trunk-based</a></strong><span>Small batches; main stays releasable</span></div>
+          <div class="pick"><strong><a href="https://docs.github.com/en/actions" target="_blank" rel="noopener noreferrer">GitHub Actions</a> / <a href="https://learn.microsoft.com/en-us/azure/devops/pipelines/get-started/what-is-azure-pipelines" target="_blank" rel="noopener noreferrer">Azure Pipelines</a></strong><span>Fast feedback on the change</span></div>
+          <div class="pick"><strong><a href="https://learn.microsoft.com/en-us/azure/azure-app-configuration/concept-feature-management" target="_blank" rel="noopener noreferrer">Feature flags</a></strong><span>Reversible cutover; deploy ≠ release</span></div>
+          <div class="pick"><strong><a href="https://learn.microsoft.com/en-us/azure/azure-resource-manager/bicep/overview" target="_blank" rel="noopener noreferrer">Bicep</a> / <a href="https://developer.hashicorp.com/terraform/intro" target="_blank" rel="noopener noreferrer">Terraform</a></strong><span>Repeatable infra, not a snowflake box</span></div>
+          <div class="pick"><strong><a href="https://learn.microsoft.com/en-us/azure/azure-monitor/overview" target="_blank" rel="noopener noreferrer">Azure Monitor</a></strong><span>Did the change hold after green?</span></div>
+          <div class="pick"><strong><a href="https://learn.microsoft.com/en-us/azure/devops/boards/get-started/what-is-azure-boards" target="_blank" rel="noopener noreferrer">Azure Boards</a></strong><span>Work and blockers visible across teams</span></div>
+          <div class="pick"><strong><a href="https://learn.microsoft.com/en-us/azure/devops/pipelines/process/approvals" target="_blank" rel="noopener noreferrer">Approvals / checks</a></strong><span>Human gate + business-hours window</span></div>
+        </div>
+      </section>
+
+      <section>
+        <h2>Ready vs green</h2>
+        <div class="gates">
+          <div class="gate">
+            <strong>Ready · specified</strong>
+            <span>Owner, window, blast radius, and rollback named. A ticket title is not an outcome.</span>
+          </div>
+          <div class="gate">
+            <strong>Green · held</strong>
+            <span>Pipeline pass is not ops done. Watch the service; keep the kill switch in reach.</span>
+          </div>
+          <div class="gate">
+            <strong>Memory check</strong>
+            <span>INTENT = outcome. WINDOW = whose clock. PROOF = evidence. CUTOVER = sequence + rollback.</span>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <h2>Ladder + gates</h2>
+        <ol class="ladder">
+          <li>Named intent + owner</li>
+          <li>Calendars + dependency map</li>
+          <li>Evidence pack (blast radius, metrics)</li>
+          <li>Rollback + page path written</li>
+          <li>Small sequenced change / flag</li>
+          <li>Watch whether it held</li>
+        </ol>
+        <div class="gate" style="margin-top:0.75rem">
+          <strong>Kill switch</strong>
+          <span>If you can’t name the owner, the window, and how to reverse, you don’t call it green.</span>
+        </div>
+      </section>
+    </div>
+
+    <section class="antis">
+      <h2>Anti-patterns</h2>
+      <ul class="anti-list">
+        <li>Ticket title as the outcome</li>
+        <li>Calling pipeline green with no rollback</li>
+        <li>Private AI speed as team capability</li>
+        <li>Shipping while calendars still collide</li>
+        <li>Chat-thread status with no named blocker</li>
+        <li>Automating priority or the “not yet” call</li>
+        <li>Long-lived branches instead of flags</li>
+        <li>Framework shopping (SAFe/Scrum) before sequence</li>
+      </ul>
+    </section>
+
+    <footer class="meta">
+      <div class="version-row">
+        <div class="version" id="version-stamp">v2026.33 · Reviewed 13 Aug 2026 · Next: week of 20 Aug</div>
+        <div class="credit">
+          <span>Alex Touvras</span>
+          <a href="https://alextouvras.com">alextouvras.com</a>
+          <span>Delivery · Data · AI automation</span>
+        </div>
+      </div>
+      <p class="changed"><b>Changed</b> Initial public card — INTENT/WINDOW/PROOF/CUTOVER stack, decision table, picker, ladder</p>
+    </footer>
+  </article>
+
+  <script>
+    (function () {
+      var btn = document.getElementById("copy-link");
+      if (!btn) return;
+      btn.addEventListener("click", async function () {
+        var url = window.location.href;
+        try {
+          await navigator.clipboard.writeText(url);
+          btn.textContent = "Copied";
+          setTimeout(function () { btn.textContent = "Copy link"; }, 1400);
+        } catch (e) {
+          window.prompt("Copy this URL:", url);
+        }
+      });
+    })();
+  </script>
+</body>
+</html>

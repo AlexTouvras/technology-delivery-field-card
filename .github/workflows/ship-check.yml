@@ -1,0 +1,26 @@
+name: Ship check
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  ship-check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Deploy-safe commit author (main pushes only)
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        run: node scripts/check-deploy-author.mjs
+
+      - name: Ship checks
+        run: npm run ship:check

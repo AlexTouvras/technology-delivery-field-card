@@ -1,0 +1,178 @@
+name: Weekly field card refresh
+
+# Discovery + link health only (GitHub token — no vendor LLM APIs).
+# Content judgment / HTML edits: Cursor Automation (see docs/weekly-refresh-prompt.md).
+
+on:
+  schedule:
+    # Friday 12:00 UTC ≈ 15:00 EEST — before Cursor Automation at 17:00 local
+    - cron: "0 12 * * 5"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  issues: write
+  pull-requests: write
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Check documentation links
+        id: links
+        continue-on-error: true
+        run: node scripts/check-links.mjs
+
+      - name: Discover frameworks and tools
+        id: discover
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: node scripts/discover.mjs
+
+      - name: Write proposal stub for Cursor Automation
+        run: |
+          node <<'NODE'
+          const fs = require('fs');
+          const d = JSON.parse(fs.readFileSync('data/discovery-report.json','utf8'));
+          const proposal = {
+            mode: 'cursor-automation',
+            generatedAt: new Date().toISOString(),
+            candidateCount: d.summary?.candidateCount ?? 0,
+            changelog: [
+              'Discovery complete — Cursor Automation applies picker/HTML judgment (no vendor LLM API in CI)',
+            ],
+            deferred: (d.candidates || []).slice(0, 12).map((c) => ({
+              name: c.name,
+              why: `${c.priority}: ${c.kind} — ${c.reason || ''}`.trim(),
+              docs: c.docs?.[0] || null,
+              repos: c.repos || [],
+            })),
+            rows: null,
+          };
+          fs.writeFileSync('data/proposed-updates.json', JSON.stringify(proposal, null, 2) + '\n');
+          const top = (d.candidates || []).slice(0, 8)
+            .map((c) => `- ${c.name} (${c.priority}) — ${c.kind}`)
+            .join('\n') || '- none';
+          fs.writeFileSync('/tmp/discovery-top.md', top);
+          const stats = [
+            `candidates=${d.summary.candidateCount}`,
+            `notOnCard=${d.summary.notOnCard}`,
+            `novel=${d.summary.novelSearchHits}`,
+            `fresh=${d.summary.freshReleases}`,
+          ].join(' ');
+          fs.appendFileSync(process.env.GITHUB_OUTPUT, `stats=${stats}\n`);
+          NODE
+        id: summary
+
+      - name: Bump version stamp
+        env:
+          CHANGED_NOTE: Weekly discovery ready for Cursor Automation
+        run: node scripts/bump-version.mjs
+
+      - name: Open refresh PR
+        id: pr
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          BRANCH="chore/weekly-refresh-$(date -u +%Y-W%V)"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          git checkout -B "$BRANCH"
+          git add index.html data/link-report.json data/discovery-report.json data/discovery-report.md data/proposed-updates.json data/watchlist.json || true
+          if git diff --staged --quiet; then
+            echo "Nothing to commit."
+            echo "opened=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          git commit -m "chore: weekly discovery for Cursor Automation"
+          git push -u origin "$BRANCH" --force
+
+          BODY_FILE=$(mktemp)
+          {
+            echo "## Weekly field card refresh"
+            echo
+            echo "CI (no vendor LLM APIs):"
+            echo "- Landscape discovery via GitHub search + watchlist"
+            echo "- Doc link check"
+            echo "- Version stamp"
+            echo "- Stats: \`${{ steps.summary.outputs.stats }}\`"
+            echo
+            if [ "${{ steps.links.outcome }}" = "success" ]; then
+              echo "**Link check:** all OK"
+            else
+              echo "**Link check:** failures — see \`data/link-report.json\`"
+            fi
+            echo
+            echo "### Identified candidates"
+            cat /tmp/discovery-top.md
+            echo
+            echo "Full report: \`data/discovery-report.md\`"
+            echo
+            echo "### Status: waiting for Cursor judgment"
+            echo "This PR is **discovery only** (candidates + link check + stamp)."
+            echo "Do **not** Slack-Approve yet. Friday Cursor Automation must:"
+            echo "1. Decide update vs no HTML change"
+            echo "2. Edit \`index.html\` only when earned"
+            echo "3. Write \`## Summary\` on this PR"
+            echo "4. Run \`Notify Slack approve\` → **#orbit** gets preview + Approve / Skip"
+            echo
+            echo "### Before merge"
+            echo "- [ ] Cursor Automation applied judgment (\`## Summary\` present)"
+            echo "- [ ] Slack **Open card preview** reviewed"
+            echo "- [ ] Slack Approve used (do not merge from the agent chat)"
+            echo "- [ ] Decision table unchanged unless a new *job* appeared"
+          } > "$BODY_FILE"
+
+          EXISTING=$(gh pr list --head "$BRANCH" --json number --jq '.[0].number // empty')
+          if [ -n "$EXISTING" ]; then
+            gh pr edit "$EXISTING" --title "chore: weekly field card discovery + refresh" --body-file "$BODY_FILE"
+            PR_NUMBER="$EXISTING"
+            echo "Updated PR #$EXISTING"
+          else
+            URL=$(gh pr create --title "chore: weekly field card discovery + refresh" --body-file "$BODY_FILE")
+            PR_NUMBER=$(echo "$URL" | grep -oE '[0-9]+$')
+            echo "Created PR #$PR_NUMBER ($URL)"
+          fi
+          echo "opened=true" >> "$GITHUB_OUTPUT"
+          echo "number=$PR_NUMBER" >> "$GITHUB_OUTPUT"
+
+      - name: Slack #orbit — discovery ready (awaiting judgment)
+        if: steps.pr.outputs.opened == 'true'
+        env:
+          PR_NUMBER: ${{ steps.pr.outputs.number }}
+          STATUS_MODE: discovery_ready
+          DISCOVERY_STATS: ${{ steps.summary.outputs.stats }}
+          GH_TOKEN: ${{ github.token }}
+          SLACK_ORBIT_WEBHOOK_URL: ${{ secrets.SLACK_ORBIT_WEBHOOK_URL }}
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+        run: node scripts/slack-status.mjs
+
+      - name: Open issue on broken links
+        if: steps.links.outcome != 'success'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          TITLE="Broken doc links on field card ($(date -u +%Y-%m-%d))"
+          OPEN=$(gh issue list --label field-card-links --state open --json title --jq 'length')
+          if [ "$OPEN" != "0" ]; then
+            echo "Open link issue already exists; skipping."
+            exit 0
+          fi
+          BODY=$(mktemp)
+          {
+            echo "Weekly link check failed. See \`data/link-report.json\`."
+            echo
+            echo '```'
+            node -e "const r=require('./data/link-report.json'); for (const x of r.results.filter(x=>!x.ok)) console.log(x.status, x.url, x.error||'')"
+            echo '```'
+          } > "$BODY"
+          gh issue create --title "$TITLE" --label "field-card-links" --body-file "$BODY" || \
+            gh issue create --title "$TITLE" --body-file "$BODY"

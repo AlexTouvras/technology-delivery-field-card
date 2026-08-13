@@ -1,0 +1,13 @@
+{
+  "name": "technology-delivery-field-card",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "check:links": "node scripts/check-links.mjs",
+    "bump:version": "node scripts/bump-version.mjs",
+    "discover": "node scripts/discover.mjs",
+    "notify:slack": "node scripts/notify-slack.mjs",
+    "refresh": "node scripts/check-links.mjs; node scripts/discover.mjs; node scripts/bump-version.mjs",
+    "ship:check": "node scripts/check-deploy-author.mjs && npm run check:links"
+  }
+}

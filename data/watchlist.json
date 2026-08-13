@@ -1,0 +1,150 @@
+{
+  "frameworks": [
+    {
+      "name": "Trunk-based development",
+      "aliases": ["Trunk Based Development", "TBD"],
+      "repos": [],
+      "docs": ["https://trunkbaseddevelopment.com/"],
+      "onCard": true,
+      "constraint": "batch-size"
+    },
+    {
+      "name": "GitHub Actions",
+      "repos": ["actions/runner"],
+      "docs": ["https://docs.github.com/en/actions"],
+      "onCard": true,
+      "constraint": "ci"
+    },
+    {
+      "name": "Azure Pipelines",
+      "aliases": ["Azure DevOps Pipelines"],
+      "repos": [],
+      "docs": ["https://learn.microsoft.com/en-us/azure/devops/pipelines/get-started/what-is-azure-pipelines"],
+      "onCard": true,
+      "constraint": "ci"
+    },
+    {
+      "name": "Feature flags",
+      "aliases": ["Azure App Configuration", "feature toggles", "LaunchDarkly"],
+      "repos": ["microsoft/FeatureManagement-Dotnet"],
+      "docs": ["https://learn.microsoft.com/en-us/azure/azure-app-configuration/concept-feature-management"],
+      "onCard": true,
+      "constraint": "reversible-cutover"
+    },
+    {
+      "name": "Bicep",
+      "repos": ["Azure/bicep"],
+      "docs": ["https://learn.microsoft.com/en-us/azure/azure-resource-manager/bicep/overview"],
+      "onCard": true,
+      "constraint": "iac"
+    },
+    {
+      "name": "Terraform",
+      "repos": ["hashicorp/terraform"],
+      "docs": ["https://developer.hashicorp.com/terraform/intro"],
+      "onCard": true,
+      "constraint": "iac"
+    },
+    {
+      "name": "Azure Monitor",
+      "aliases": ["Application Insights"],
+      "repos": [],
+      "docs": ["https://learn.microsoft.com/en-us/azure/azure-monitor/overview"],
+      "onCard": true,
+      "constraint": "observability"
+    },
+    {
+      "name": "Azure Boards",
+      "aliases": ["Azure DevOps Boards"],
+      "repos": [],
+      "docs": ["https://learn.microsoft.com/en-us/azure/devops/boards/get-started/what-is-azure-boards"],
+      "onCard": true,
+      "constraint": "visibility"
+    },
+    {
+      "name": "Approvals and checks",
+      "aliases": ["environment approvals", "business hours"],
+      "repos": [],
+      "docs": ["https://learn.microsoft.com/en-us/azure/devops/pipelines/process/approvals"],
+      "onCard": true,
+      "constraint": "human-gate"
+    },
+    {
+      "name": "LaunchDarkly",
+      "repos": ["launchdarkly/openfeature-js"],
+      "docs": ["https://docs.launchdarkly.com/"],
+      "onCard": false,
+      "constraint": "reversible-cutover"
+    },
+    {
+      "name": "OpenTelemetry",
+      "aliases": ["OTel"],
+      "repos": ["open-telemetry/opentelemetry-specification"],
+      "docs": ["https://opentelemetry.io/docs/"],
+      "onCard": false,
+      "constraint": "observability"
+    },
+    {
+      "name": "Argo CD",
+      "repos": ["argoproj/argo-cd"],
+      "docs": ["https://argo-cd.readthedocs.io/"],
+      "onCard": false,
+      "constraint": "gitops"
+    },
+    {
+      "name": "Flux",
+      "repos": ["fluxcd/flux2"],
+      "docs": ["https://fluxcd.io/flux/"],
+      "onCard": false,
+      "constraint": "gitops"
+    },
+    {
+      "name": "Jira",
+      "repos": [],
+      "docs": ["https://support.atlassian.com/jira-software-cloud/"],
+      "onCard": false,
+      "constraint": "visibility"
+    },
+    {
+      "name": "ServiceNow",
+      "aliases": ["ITSM", "change request"],
+      "repos": [],
+      "docs": ["https://www.servicenow.com/products/itsm.html"],
+      "onCard": false,
+      "constraint": "change-window"
+    }
+  ],
+  "protocols": [
+    {
+      "name": "DORA four keys",
+      "aliases": ["DORA", "DevOps Research"],
+      "repos": ["dora-team/fourkeys"],
+      "docs": ["https://dora.dev/guides/dora-metrics-four-keys/"],
+      "onCard": true
+    },
+    {
+      "name": "Continuous Delivery",
+      "aliases": ["CD", "Jez Humble"],
+      "repos": [],
+      "docs": ["https://martinfowler.com/bliki/ContinuousDelivery.html"],
+      "onCard": true
+    },
+    {
+      "name": "OpenFeature",
+      "repos": ["open-feature/spec"],
+      "docs": ["https://openfeature.dev/docs/reference/intro"],
+      "onCard": false
+    }
+  ],
+  "searchQueries": [
+    "feature flags management stars:>500",
+    "continuous delivery pipeline stars:>500",
+    "terraform iac stars:>2000",
+    "gitops kubernetes stars:>1000",
+    "dora metrics four keys stars:>200"
+  ],
+  "ignoreRepos": [
+    "kubernetes/kubernetes",
+    "hashicorp/vault"
+  ]
+}

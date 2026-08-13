@@ -1,0 +1,36 @@
+name: Notify Slack approve
+
+# Posts #orbit Approve/Skip for a field-card PR (Orbit webhook + signed links).
+# Called after Cursor finishes the HTML pass, or manually.
+
+on:
+  workflow_dispatch:
+    inputs:
+      pr_number:
+        description: Pull request number
+        required: true
+        type: string
+
+permissions:
+  contents: read
+  pull-requests: read
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Notify #orbit
+        env:
+          PR_NUMBER: ${{ inputs.pr_number }}
+          GH_TOKEN: ${{ github.token }}
+          SLACK_ORBIT_WEBHOOK_URL: ${{ secrets.SLACK_ORBIT_WEBHOOK_URL }}
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+          WEEKLY_WRITE_SECRET: ${{ secrets.WEEKLY_WRITE_SECRET }}
+          CRON_SECRET: ${{ secrets.CRON_SECRET }}
+          FIELD_CARD_ACTION_SECRET: ${{ secrets.FIELD_CARD_ACTION_SECRET }}
+          SITE_URL: ${{ vars.SITE_URL || 'https://alextouvras.com' }}
+        run: node scripts/notify-slack.mjs
