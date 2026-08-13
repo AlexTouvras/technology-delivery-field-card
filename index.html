@@ -145,6 +145,16 @@
 
     .lede strong { color: var(--ink); font-weight: 600; }
 
+    .verbs {
+      margin: 0 0 0.45rem;
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      letter-spacing: 0.02em;
+      color: var(--steel);
+      font-weight: 600;
+      max-width: 46ch;
+    }
+
     .stack {
       display: grid;
       gap: 0.45rem;
@@ -448,6 +458,35 @@
       background: linear-gradient(180deg, #fcfaf8, #f8f1eb);
     }
 
+    .foundation {
+      padding: 0.85rem 1.35rem 1rem;
+      border-bottom: 1px solid var(--line);
+      background: #f3f6f9;
+    }
+
+    .found-row {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 0.65rem 0.85rem;
+    }
+
+    .found strong {
+      display: block;
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--steel);
+      font-weight: 600;
+      margin-bottom: 0.2rem;
+    }
+
+    .found span {
+      font-size: 0.78rem;
+      color: var(--ink-soft);
+      line-height: 1.3;
+    }
+
     .anti-list {
       margin: 0;
       padding: 0;
@@ -549,6 +588,7 @@
       .tri > section:last-child { border-bottom: none; }
       .pick { grid-template-columns: 1fr; gap: 0.2rem; }
       h1 { max-width: none; }
+      .found-row { grid-template-columns: 1fr 1fr; }
       table.decisions td.problem,
       table.decisions td.reach,
       table.decisions td.example { width: auto; }
@@ -580,8 +620,9 @@
       header.hero { padding: 0.55rem 0 0.7rem; gap: 0.85rem; }
       section { padding: 0.55rem 0 0.65rem; }
       footer.meta { padding: 0.45rem 0 0; background: none; }
+      .foundation { padding: 0.45rem 0; background: none; }
       .layer { animation: none; print-color-adjust: exact; -webkit-print-color-adjust: exact; }
-      .panel, .antis { break-inside: avoid; }
+      .panel, .antis, .foundation { break-inside: avoid; }
       a { color: inherit; text-decoration: none; border-bottom: none !important; }
     }
   </style>
@@ -601,6 +642,7 @@
       <div>
         <div class="eyebrow">Evidence before the call</div>
         <h1>Delivery is a sequence, not a ticket</h1>
+        <p class="verbs">Name → calendar → prove → cut over</p>
         <p class="lede">
           Intent, window, proof, and cutover are <strong>layers</strong>.
           Methods are lanes. Pipeline green is not the same as held in production — name rollback before anyone calls the change done.
@@ -748,6 +790,17 @@
       </ul>
     </section>
 
+    <section class="foundation" aria-label="Always-on foundation">
+      <h2>Always on</h2>
+      <div class="found-row">
+        <div class="found"><strong>Security</strong><span>Freeze, access, and who can flip the flag</span></div>
+        <div class="found"><strong>Governance</strong><span>Whose clock, whose change, whose rollback</span></div>
+        <div class="found"><strong>Observability</strong><span>Watch the service after green</span></div>
+        <div class="found"><strong>Evals</strong><span>Held metrics — lead time, fail rate — not velocity theatre</span></div>
+        <div class="found"><strong>Human Approve</strong><span>Rollback named before anyone calls it done</span></div>
+      </div>
+    </section>
+
     <footer class="meta">
       <div class="version-row">
         <div class="version" id="version-stamp">v2026.33 · Reviewed 13 Aug 2026 · Next: week of 20 Aug</div>
@@ -757,7 +810,7 @@
           <span>Delivery · Data · AI automation</span>
         </div>
       </div>
-      <p class="changed"><b>Changed</b> Initial public card — INTENT/WINDOW/PROOF/CUTOVER stack, decision table, picker, ladder</p>
+      <p class="changed"><b>Changed</b> Verb lede, always-on foundation strip</p>
     </footer>
   </article>
 

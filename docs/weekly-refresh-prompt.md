@@ -20,6 +20,8 @@ Discovery alone is not enough. Every run must end with an explicit **update** or
 This is **not** a Scrum / SAFe / Azure DevOps product card. The stable spine is:
 
 - **INTENT → WINDOW → PROOF → CUTOVER** stack
+- Verb line under the H1 (`Name → calendar → prove → cut over`) — do not drop
+- **Always on** foundation strip (Security, Governance, Observability, Evals, Human Approve) — not picker items
 - Problem → use → example jobs (calendars, dependencies, flags, rollback, priority, observability…)
 - Tool picker by **constraint** (batch size, CI, reversible cutover, IaC, watch, visibility, human gate)
 - Ladder + anti-patterns + kill switch

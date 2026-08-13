@@ -18,6 +18,7 @@ Standalone Technology Delivery Field Card one-pager (`index.html`). Public artif
 ## Design patterns
 
 - Decision stack, not a Scrum/SAFe/Azure brochure — tool picker ≤ 7 rows by **constraint**
+- Verb line under H1 + Always-on foundation strip (not picker items)
 - Fail-closed weekly refresh: PR `## Summary` required before Slack Approve
 - Orbit sync: `public/delivery-field-card/index.html` via shared field-card registry
 
