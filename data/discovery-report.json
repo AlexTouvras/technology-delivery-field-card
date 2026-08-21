@@ -1,5 +1,5 @@
 {
-  "discoveredAt": "2026-08-21T12:38:57.406Z",
+  "discoveredAt": "2026-08-21T14:02:34.753Z",
   "summary": {
     "watchlistItems": 18,
     "notOnCard": 7,
@@ -148,7 +148,7 @@
       "kind": "github-search-novel",
       "name": "homelab",
       "reason": "Fully automated homelab from empty disk to running services with a single command.",
-      "stars": 9527,
+      "stars": 9528,
       "docs": [
         "https://homelab.khuedoan.com"
       ],
@@ -162,7 +162,7 @@
       "kind": "github-search-novel",
       "name": "sealed-secrets",
       "reason": "A Kubernetes controller and tool for one-way encrypted Secrets",
-      "stars": 9253,
+      "stars": 9254,
       "docs": [],
       "repos": [
         "bitnami/sealed-secrets"
@@ -188,7 +188,7 @@
       "kind": "github-search-novel",
       "name": "devtron",
       "reason": "The only Kubernetes dashboard you need",
-      "stars": 5584,
+      "stars": 5585,
       "docs": [
         "https://devtron.ai"
       ],
@@ -354,13 +354,13 @@
             "publishedAt": "2026-07-20T17:45:55Z",
             "url": "https://github.com/actions/runner/releases/tag/v2.336.0"
           },
-          "daysSincePush": 3,
+          "daysSincePush": 4,
           "daysSinceRelease": 31
         }
       ],
       "signal": {
         "stars": 6205,
-        "daysSincePush": 3,
+        "daysSincePush": 4,
         "daysSinceRelease": 31,
         "latestRelease": {
           "tag": "v2.336.0",
@@ -471,9 +471,9 @@
       "repos": [
         {
           "fullName": "hashicorp/terraform",
-          "stars": 49503,
+          "stars": 49505,
           "forks": 10610,
-          "pushedAt": "2026-08-21T12:24:22Z",
+          "pushedAt": "2026-08-21T13:10:25Z",
           "description": "Terraform enables you to safely and predictably create, change, and improve infrastructure. It is a source-available tool that codifies APIs into declarative configuration files that can be shared amongst team members, treated as code, edited, reviewed, and versioned.",
           "homepage": "http://developer.hashicorp.com/terraform",
           "topics": [
@@ -494,7 +494,7 @@
         }
       ],
       "signal": {
-        "stars": 49503,
+        "stars": 49505,
         "daysSincePush": 0,
         "daysSinceRelease": 1,
         "latestRelease": {
@@ -606,7 +606,7 @@
           "fullName": "argoproj/argo-cd",
           "stars": 23965,
           "forks": 7764,
-          "pushedAt": "2026-08-21T10:11:11Z",
+          "pushedAt": "2026-08-21T13:22:39Z",
           "description": "Declarative Continuous Deployment for Kubernetes",
           "homepage": "https://argo-cd.readthedocs.io",
           "topics": [
@@ -887,7 +887,7 @@
         },
         {
           "fullName": "meshery/meshery",
-          "stars": 11541
+          "stars": 11542
         },
         {
           "fullName": "iam-veeramalla/Jenkins-Zero-To-Hero",

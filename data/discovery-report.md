@@ -1,6 +1,6 @@
 # Discovery report
 
-Generated: 2026-08-21T12:38:57.406Z
+Generated: 2026-08-21T14:02:34.753Z
 
 - Candidates: **19**
 - Watchlist items not on card: **7**
@@ -37,15 +37,15 @@ Generated: 2026-08-21T12:38:57.406Z
 - **Jenkins-Zero-To-Hero** (high) — github-search-novel; stars=9993; Install Jenkins, configure Docker as slave, set up cicd, deploy applications to k8s using Argo CD in GitOps way.
   - docs: https://www.youtube.com/@AbhishekVeeramalla
   - repo: https://github.com/iam-veeramalla/Jenkins-Zero-To-Hero
-- **homelab** (high) — github-search-novel; stars=9527; Fully automated homelab from empty disk to running services with a single command.
+- **homelab** (high) — github-search-novel; stars=9528; Fully automated homelab from empty disk to running services with a single command.
   - docs: https://homelab.khuedoan.com
   - repo: https://github.com/khuedoan/homelab
-- **sealed-secrets** (high) — github-search-novel; stars=9253; A Kubernetes controller and tool for one-way encrypted Secrets
+- **sealed-secrets** (high) — github-search-novel; stars=9254; A Kubernetes controller and tool for one-way encrypted Secrets
   - repo: https://github.com/bitnami/sealed-secrets
 - **flux** (high) — github-search-novel; stars=6855; Successor: https://github.com/fluxcd/flux2
   - docs: https://fluxcd.io
   - repo: https://github.com/fluxcd/flux
-- **devtron** (high) — github-search-novel; stars=5584; The only Kubernetes dashboard you need
+- **devtron** (high) — github-search-novel; stars=5585; The only Kubernetes dashboard you need
   - docs: https://devtron.ai
   - repo: https://github.com/devtron-labs/devtron
 - **gaia** (high) — github-search-novel; stars=5217; Build powerful pipelines in any programming language.
