@@ -1,1 +1,103 @@
-{"mode":"cursor-automation","generatedAt":null,"candidateCount":0,"changelog":[],"deferred":[],"rows":null}
+{
+  "mode": "cursor-automation",
+  "generatedAt": "2026-08-21T12:38:57.458Z",
+  "candidateCount": 19,
+  "changelog": [
+    "Discovery complete — Cursor Automation applies picker/HTML judgment (no vendor LLM API in CI)"
+  ],
+  "deferred": [
+    {
+      "name": "LaunchDarkly",
+      "why": "low: watchlist-not-on-card — Tracked in watchlist but not present on the public card",
+      "docs": "https://docs.launchdarkly.com/",
+      "repos": [
+        "launchdarkly/openfeature-js"
+      ]
+    },
+    {
+      "name": "OpenTelemetry",
+      "why": "medium: watchlist-not-on-card — Tracked in watchlist but not present on the public card",
+      "docs": "https://opentelemetry.io/docs/",
+      "repos": [
+        "open-telemetry/opentelemetry-specification"
+      ]
+    },
+    {
+      "name": "Argo CD",
+      "why": "high: watchlist-not-on-card — Tracked in watchlist but not present on the public card",
+      "docs": "https://argo-cd.readthedocs.io/",
+      "repos": [
+        "argoproj/argo-cd"
+      ]
+    },
+    {
+      "name": "Flux",
+      "why": "high: watchlist-not-on-card — Tracked in watchlist but not present on the public card",
+      "docs": "https://fluxcd.io/flux/",
+      "repos": [
+        "fluxcd/flux2"
+      ]
+    },
+    {
+      "name": "Jira",
+      "why": "low: watchlist-not-on-card — Tracked in watchlist but not present on the public card",
+      "docs": "https://support.atlassian.com/jira-software-cloud/",
+      "repos": []
+    },
+    {
+      "name": "ServiceNow",
+      "why": "low: watchlist-not-on-card — Tracked in watchlist but not present on the public card",
+      "docs": "https://www.servicenow.com/products/itsm.html",
+      "repos": []
+    },
+    {
+      "name": "OpenFeature",
+      "why": "medium: watchlist-not-on-card — Tracked in watchlist but not present on the public card",
+      "docs": "https://openfeature.dev/docs/reference/intro",
+      "repos": [
+        "open-feature/spec"
+      ]
+    },
+    {
+      "name": "90DaysOfDevOps",
+      "why": "high: github-search-novel — This repository started out as a learning in public project for myself and has now become a structured learning map for many in the community. We have 3 years under our belt covering all things DevOps, including Principles, Processes, Tooling and Use Cases surrounding this vast topic.",
+      "docs": "https://www.90daysofdevops.com/",
+      "repos": [
+        "MichaelCade/90DaysOfDevOps"
+      ]
+    },
+    {
+      "name": "argo-workflows",
+      "why": "high: github-search-novel — Workflow Engine for Kubernetes",
+      "docs": "https://argo-workflows.readthedocs.io/",
+      "repos": [
+        "argoproj/argo-workflows"
+      ]
+    },
+    {
+      "name": "Jenkins-Zero-To-Hero",
+      "why": "high: github-search-novel — Install Jenkins, configure Docker as slave, set up cicd, deploy applications to k8s using Argo CD in GitOps way.",
+      "docs": "https://www.youtube.com/@AbhishekVeeramalla",
+      "repos": [
+        "iam-veeramalla/Jenkins-Zero-To-Hero"
+      ]
+    },
+    {
+      "name": "homelab",
+      "why": "high: github-search-novel — Fully automated homelab from empty disk to running services with a single command.",
+      "docs": "https://homelab.khuedoan.com",
+      "repos": [
+        "khuedoan/homelab"
+      ]
+    },
+    {
+      "name": "sealed-secrets",
+      "why": "high: github-search-novel — A Kubernetes controller and tool for one-way encrypted Secrets",
+      "docs": null,
+      "repos": [
+        "bitnami/sealed-secrets"
+      ]
+    }
+  ],
+  "rows": null
+}
