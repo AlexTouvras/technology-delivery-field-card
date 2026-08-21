@@ -1,1 +1,55 @@
-{"mode":"cursor-automation","generatedAt":null,"candidateCount":0,"changelog":[],"deferred":[],"rows":null}
+{
+  "mode": "cursor-automation",
+  "generatedAt": "2026-08-21T14:02:34.753Z",
+  "candidateCount": 19,
+  "changelog": [
+    "Decision: no-change — INTENT → WINDOW → PROOF → CUTOVER, decision table, and 7-row picker unchanged",
+    "Picker already maps batch-size, ci, reversible-cutover, iac, observability, visibility, human-gate; no earned swap",
+    "Footer stamp hygiene: Changed line is weekly review, not CI discovery placeholder"
+  ],
+  "deferred": [
+    {
+      "name": "Argo CD",
+      "why": "GitOps brand for the same infra-replay job already covered by Bicep/Terraform; not a new layer",
+      "docs": "https://argo-cd.readthedocs.io/",
+      "repos": ["argoproj/argo-cd"]
+    },
+    {
+      "name": "Flux",
+      "why": "Same gitops constraint as Argo CD; picker full with IaC incumbents",
+      "docs": "https://fluxcd.io/flux/",
+      "repos": ["fluxcd/flux2"]
+    },
+    {
+      "name": "OpenTelemetry",
+      "why": "Observability constraint already held by Azure Monitor (did the change hold after green)",
+      "docs": "https://opentelemetry.io/docs/",
+      "repos": ["open-telemetry/opentelemetry-specification"]
+    },
+    {
+      "name": "OpenFeature",
+      "why": "Reversible-cutover already held by Azure App Configuration feature flags",
+      "docs": "https://openfeature.dev/docs/reference/intro",
+      "repos": ["open-feature/spec"]
+    },
+    {
+      "name": "LaunchDarkly",
+      "why": "Same reversible-cutover constraint; Azure feature flags remain the on-card example",
+      "docs": "https://docs.launchdarkly.com/",
+      "repos": ["launchdarkly/openfeature-js"]
+    },
+    {
+      "name": "Jira",
+      "why": "Visibility constraint already held by Azure Boards",
+      "docs": "https://support.atlassian.com/jira-software-cloud/",
+      "repos": []
+    },
+    {
+      "name": "ServiceNow",
+      "why": "Change-window job already on the card via approvals/checks; not a new job",
+      "docs": "https://www.servicenow.com/products/itsm.html",
+      "repos": []
+    }
+  ],
+  "rows": null
+}

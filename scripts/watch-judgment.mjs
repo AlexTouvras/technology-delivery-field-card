@@ -52,6 +52,20 @@ function hasJudgmentSummary(body) {
   return bullets.length > 0;
 }
 
+async function fetchJudgmentFile(pr) {
+  const sha = pr.head?.sha;
+  if (!sha) return "";
+  const headers = ghHeaders();
+  const res = await fetch(
+    `https://api.github.com/repos/${repo}/contents/data/judgment.md?ref=${encodeURIComponent(sha)}`,
+    { headers },
+  );
+  if (!res.ok) return "";
+  const data = await res.json();
+  if (data.encoding !== "base64" || typeof data.content !== "string") return "";
+  return Buffer.from(data.content.replace(/\n/g, ""), "base64").toString("utf8");
+}
+
 async function listOpenWeeklyPrs() {
   const headers = ghHeaders();
   const res = await fetch(
@@ -64,7 +78,13 @@ async function listOpenWeeklyPrs() {
 }
 
 const open = await listOpenWeeklyPrs();
-const missed = open.filter((p) => !hasJudgmentSummary(p.body));
+const missed = [];
+for (const p of open) {
+  if (hasJudgmentSummary(p.body)) continue;
+  const file = await fetchJudgmentFile(p);
+  if (hasJudgmentSummary(file)) continue;
+  missed.push(p);
+}
 
 if (missed.length === 0) {
   console.log(

@@ -10,7 +10,7 @@
 
 ## Next
 
-- [ ] First Friday discovery + judgment cycle after remote exists
+- [x] First Friday discovery + judgment cycle after remote exists (2026-W34)
 
 ## Later
 
