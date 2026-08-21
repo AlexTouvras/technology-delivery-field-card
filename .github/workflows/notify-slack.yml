@@ -17,6 +17,7 @@ on:
       - "chore/weekly-refresh-*"
     paths:
       - "data/judgment.md"
+      - ".github/workflows/notify-slack.yml"
 
 permissions:
   contents: read
