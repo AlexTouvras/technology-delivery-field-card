@@ -14,12 +14,13 @@ Standalone Technology Delivery Field Card one-pager (`index.html`). Public artif
 | Discovery | `data/discovery-report.json` | CI + `npm run discover` |
 | Watchlist | `data/watchlist.json` | `onCard` flags for ongoing tracking |
 | Proposals | `data/proposed-updates.json` | Stub for Cursor Automation |
+| Judgment | `data/judgment.md` | `## Summary` + `## Card preview` when the automation token cannot PATCH the PR body |
 
 ## Design patterns
 
 - Decision stack, not a Scrum/SAFe/Azure brochure — tool picker ≤ 7 rows by **constraint**
 - Verb line under H1 + Always-on foundation strip (not picker items)
-- Fail-closed weekly refresh: PR `## Summary` required before Slack Approve
+- Fail-closed weekly refresh: PR `## Summary` or `data/judgment.md` required before Slack Approve
 - Orbit sync: `public/delivery-field-card/index.html` via shared field-card registry
 
 ## Dependencies

@@ -12,6 +12,9 @@
  *   FORCE_NOTIFY=1 (optional; allow Approve links without ## Summary — recovery only)
  */
 import { createHmac } from "node:crypto";
+import fs from "node:fs";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
 
 const repo = process.env.FIELD_CARD_REPO || "AlexTouvras/technology-delivery-field-card";
 const site = (process.env.SITE_URL || process.env.NEXT_PUBLIC_SITE_URL || "https://alextouvras.com").replace(
@@ -138,11 +141,32 @@ function hasJudgmentSummary(body) {
   return Boolean(summary && bulletsFromLines(summary, 1).length > 0);
 }
 
+function localJudgmentMarkdown() {
+  const file = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..", "data", "judgment.md");
+  try {
+    return fs.readFileSync(file, "utf8");
+  } catch {
+    return "";
+  }
+}
+
+async function resolveJudgmentMarkdown(pr) {
+  if (hasJudgmentSummary(pr.body)) return pr.body;
+  const local = localJudgmentMarkdown();
+  if (hasJudgmentSummary(local)) return local;
+  if (pr.headSha) {
+    const remote = await fetchRepoFile("data/judgment.md", pr.headSha);
+    if (hasJudgmentSummary(remote)) return remote;
+  }
+  return pr.body;
+}
+
 async function buildChangeSummary(pr) {
   const lines = [];
   let fromJudgment = false;
+  const judgmentSource = await resolveJudgmentMarkdown(pr);
 
-  const explicit = summarySection(pr.body);
+  const explicit = summarySection(judgmentSource);
   if (explicit) {
     fromJudgment = true;
     for (const b of bulletsFromLines(explicit, 6)) lines.push(b);
@@ -207,7 +231,8 @@ const approve = actionUrl(prNumber, "approve");
 const skip = actionUrl(prNumber, "skip");
 const live = "https://alextouvras.github.io/technology-delivery-field-card/";
 const { text: summary, fromJudgment } = await buildChangeSummary(pr);
-const judgmentOk = fromJudgment || hasJudgmentSummary(pr.body);
+const judgmentMarkdown = await resolveJudgmentMarkdown(pr);
+const judgmentOk = fromJudgment || hasJudgmentSummary(pr.body) || hasJudgmentSummary(judgmentMarkdown);
 const forceNotify = process.env.FORCE_NOTIFY === "1";
 
 // Fail closed: Approve links must not land before Cursor writes ## Summary.

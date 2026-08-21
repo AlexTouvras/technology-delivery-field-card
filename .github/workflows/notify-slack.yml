@@ -2,6 +2,8 @@ name: Notify Slack approve
 
 # Posts #orbit Approve/Skip for a field-card PR (Orbit webhook + signed links).
 # Called after Cursor finishes the HTML pass, or manually.
+# Push on chore/weekly-refresh-* also notifies when data/judgment.md changes —
+# Cursor Automation can push that branch but cannot workflow_dispatch.
 
 on:
   workflow_dispatch:
@@ -10,6 +12,11 @@ on:
         description: Pull request number
         required: true
         type: string
+  push:
+    branches:
+      - "chore/weekly-refresh-*"
+    paths:
+      - "data/judgment.md"
 
 permissions:
   contents: read
@@ -23,9 +30,26 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: "22"
+      - name: Resolve PR number
+        id: pr
+        env:
+          GH_TOKEN: ${{ github.token }}
+          INPUT_PR: ${{ github.event.inputs.pr_number }}
+        run: |
+          set -euo pipefail
+          if [ -n "${INPUT_PR:-}" ]; then
+            echo "number=$INPUT_PR" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          NUM=$(gh pr list --repo "${{ github.repository }}" --head "${{ github.ref_name }}" --json number --jq '.[0].number // empty')
+          if [ -z "$NUM" ]; then
+            echo "No open PR for ${{ github.ref_name }}"
+            exit 1
+          fi
+          echo "number=$NUM" >> "$GITHUB_OUTPUT"
       - name: Notify #orbit
         env:
-          PR_NUMBER: ${{ inputs.pr_number }}
+          PR_NUMBER: ${{ steps.pr.outputs.number }}
           GH_TOKEN: ${{ github.token }}
           SLACK_ORBIT_WEBHOOK_URL: ${{ secrets.SLACK_ORBIT_WEBHOOK_URL }}
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
