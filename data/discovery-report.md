@@ -1,6 +1,6 @@
 # Discovery report
 
-Generated: 2026-08-28T14:05:53.553Z
+Generated: 2026-08-28T21:41:49.767Z
 
 - Candidates: **19**
 - Watchlist items not on card: **7**
@@ -12,13 +12,13 @@ Generated: 2026-08-28T14:05:53.553Z
 - **LaunchDarkly** (low) — watchlist-not-on-card; stars=?; Tracked in watchlist but not present on the public card
   - docs: https://docs.launchdarkly.com/
   - repo: https://github.com/launchdarkly/openfeature-js
-- **OpenTelemetry** (medium) — watchlist-not-on-card; stars=4329; Tracked in watchlist but not present on the public card
+- **OpenTelemetry** (medium) — watchlist-not-on-card; stars=4330; Tracked in watchlist but not present on the public card
   - docs: https://opentelemetry.io/docs/
   - repo: https://github.com/open-telemetry/opentelemetry-specification
-- **Argo CD** (high) — watchlist-not-on-card; stars=24022; Tracked in watchlist but not present on the public card
+- **Argo CD** (high) — watchlist-not-on-card; stars=24027; Tracked in watchlist but not present on the public card
   - docs: https://argo-cd.readthedocs.io/
   - repo: https://github.com/argoproj/argo-cd
-- **Flux** (high) — watchlist-not-on-card; stars=8373; Tracked in watchlist but not present on the public card
+- **Flux** (high) — watchlist-not-on-card; stars=8374; Tracked in watchlist but not present on the public card
   - docs: https://fluxcd.io/flux/
   - repo: https://github.com/fluxcd/flux2
 - **Jira** (low) — watchlist-not-on-card; stars=?; Tracked in watchlist but not present on the public card
@@ -31,18 +31,18 @@ Generated: 2026-08-28T14:05:53.553Z
 - **90DaysOfDevOps** (high) — github-search-novel; stars=29670; This repository started out as a learning in public project for myself and has now become a structured learning map for many in the community. We have 3 years under our belt covering all things DevOps, including Principles, Processes, Tooling and Use Cases surrounding this vast topic. 
   - docs: https://www.90daysofdevops.com/
   - repo: https://github.com/MichaelCade/90DaysOfDevOps
-- **argo-workflows** (high) — github-search-novel; stars=16944; Workflow Engine for Kubernetes
+- **argo-workflows** (high) — github-search-novel; stars=16945; Workflow Engine for Kubernetes
   - docs: https://argo-workflows.readthedocs.io/
   - repo: https://github.com/argoproj/argo-workflows
 - **Jenkins-Zero-To-Hero** (high) — github-search-novel; stars=10005; Install Jenkins, configure Docker as slave, set up cicd, deploy applications to k8s using Argo CD in GitOps way.
   - docs: https://www.youtube.com/@AbhishekVeeramalla
   - repo: https://github.com/iam-veeramalla/Jenkins-Zero-To-Hero
-- **homelab** (high) — github-search-novel; stars=9556; Fully automated homelab from empty disk to running services with a single command.
+- **homelab** (high) — github-search-novel; stars=9560; Fully automated homelab from empty disk to running services with a single command.
   - docs: https://homelab.khuedoan.com
   - repo: https://github.com/khuedoan/homelab
 - **sealed-secrets** (high) — github-search-novel; stars=9262; A Kubernetes controller and tool for one-way encrypted Secrets
   - repo: https://github.com/bitnami/sealed-secrets
-- **flux** (high) — github-search-novel; stars=6854; Successor: https://github.com/fluxcd/flux2
+- **flux** (high) — github-search-novel; stars=6855; Successor: https://github.com/fluxcd/flux2
   - docs: https://fluxcd.io
   - repo: https://github.com/fluxcd/flux
 - **devtron** (high) — github-search-novel; stars=5589; The only Kubernetes dashboard you need
@@ -53,7 +53,7 @@ Generated: 2026-08-28T14:05:53.553Z
 - **terrascan** (high) — github-search-novel; stars=5211; Detect compliance and security violations across Infrastructure as Code to mitigate risk before provisioning cloud native infrastructure.
   - docs: https://runterrascan.io
   - repo: https://github.com/tenable/terrascan
-- **digger** (high) — github-search-novel; stars=5033; Digger is an open source IaC orchestration tool. Digger allows you to run IaC in your existing CI pipeline ⚡️  
+- **digger** (high) — github-search-novel; stars=5032; Digger is an open source IaC orchestration tool. Digger allows you to run IaC in your existing CI pipeline ⚡️  
   - docs: https://digger.dev
   - repo: https://github.com/diggerhq/digger
 - **werf** (high) — github-search-novel; stars=4719; A solution for implementing efficient and consistent software delivery to Kubernetes facilitating best practices.
@@ -65,8 +65,8 @@ Generated: 2026-08-28T14:05:53.553Z
 
 ## Fresh releases
 
-- **GitHub Actions** v2.337.0 (1d ago)
+- **GitHub Actions** v2.337.0 (2d ago)
 - **Terraform** v1.16.0 (2d ago)
-- **OpenTelemetry** v1.60.0 (20d ago) — not on card
+- **OpenTelemetry** v1.60.0 (21d ago) — not on card
 - **Argo CD** v3.5.2 (1d ago) — not on card
-- **Flux** v2.9.4 (20d ago) — not on card
+- **Flux** v2.9.4 (21d ago) — not on card

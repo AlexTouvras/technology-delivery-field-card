@@ -1,5 +1,5 @@
 {
-  "discoveredAt": "2026-08-28T14:05:53.553Z",
+  "discoveredAt": "2026-08-28T21:41:49.767Z",
   "summary": {
     "watchlistItems": 18,
     "notOnCard": 7,
@@ -26,7 +26,7 @@
       "kind": "watchlist-not-on-card",
       "name": "OpenTelemetry",
       "reason": "Tracked in watchlist but not present on the public card",
-      "stars": 4329,
+      "stars": 4330,
       "docs": [
         "https://opentelemetry.io/docs/"
       ],
@@ -40,7 +40,7 @@
       "kind": "watchlist-not-on-card",
       "name": "Argo CD",
       "reason": "Tracked in watchlist but not present on the public card",
-      "stars": 24022,
+      "stars": 24027,
       "docs": [
         "https://argo-cd.readthedocs.io/"
       ],
@@ -54,7 +54,7 @@
       "kind": "watchlist-not-on-card",
       "name": "Flux",
       "reason": "Tracked in watchlist but not present on the public card",
-      "stars": 8373,
+      "stars": 8374,
       "docs": [
         "https://fluxcd.io/flux/"
       ],
@@ -120,7 +120,7 @@
       "kind": "github-search-novel",
       "name": "argo-workflows",
       "reason": "Workflow Engine for Kubernetes",
-      "stars": 16944,
+      "stars": 16945,
       "docs": [
         "https://argo-workflows.readthedocs.io/"
       ],
@@ -148,7 +148,7 @@
       "kind": "github-search-novel",
       "name": "homelab",
       "reason": "Fully automated homelab from empty disk to running services with a single command.",
-      "stars": 9556,
+      "stars": 9560,
       "docs": [
         "https://homelab.khuedoan.com"
       ],
@@ -174,7 +174,7 @@
       "kind": "github-search-novel",
       "name": "flux",
       "reason": "Successor: https://github.com/fluxcd/flux2",
-      "stars": 6854,
+      "stars": 6855,
       "docs": [
         "https://fluxcd.io"
       ],
@@ -228,7 +228,7 @@
       "kind": "github-search-novel",
       "name": "digger",
       "reason": "Digger is an open source IaC orchestration tool. Digger allows you to run IaC in your existing CI pipeline ⚡️  ",
-      "stars": 5033,
+      "stars": 5032,
       "docs": [
         "https://digger.dev"
       ],
@@ -276,7 +276,7 @@
         "publishedAt": "2026-08-26T14:33:29Z",
         "url": "https://github.com/actions/runner/releases/tag/v2.337.0"
       },
-      "daysSinceRelease": 1
+      "daysSinceRelease": 2
     },
     {
       "name": "Terraform",
@@ -296,7 +296,7 @@
         "publishedAt": "2026-08-07T15:52:31Z",
         "url": "https://github.com/open-telemetry/opentelemetry-specification/releases/tag/v1.60.0"
       },
-      "daysSinceRelease": 20
+      "daysSinceRelease": 21
     },
     {
       "name": "Argo CD",
@@ -316,7 +316,7 @@
         "publishedAt": "2026-08-07T14:31:04Z",
         "url": "https://github.com/fluxcd/flux2/releases/tag/v2.9.4"
       },
-      "daysSinceRelease": 20
+      "daysSinceRelease": 21
     }
   ],
   "watchlistStatus": [
@@ -355,13 +355,13 @@
             "url": "https://github.com/actions/runner/releases/tag/v2.337.0"
           },
           "daysSincePush": 0,
-          "daysSinceRelease": 1
+          "daysSinceRelease": 2
         }
       ],
       "signal": {
         "stars": 6218,
         "daysSincePush": 0,
-        "daysSinceRelease": 1,
+        "daysSinceRelease": 2,
         "latestRelease": {
           "tag": "v2.337.0",
           "publishedAt": "2026-08-26T14:33:29Z",
@@ -431,7 +431,7 @@
           "fullName": "Azure/bicep",
           "stars": 3635,
           "forks": 824,
-          "pushedAt": "2026-08-28T13:50:52Z",
+          "pushedAt": "2026-08-28T21:34:18Z",
           "description": "Bicep is a declarative language for describing and deploying Azure resources",
           "homepage": "",
           "topics": [
@@ -471,9 +471,9 @@
       "repos": [
         {
           "fullName": "hashicorp/terraform",
-          "stars": 49559,
-          "forks": 10619,
-          "pushedAt": "2026-08-28T13:00:20Z",
+          "stars": 49563,
+          "forks": 10614,
+          "pushedAt": "2026-08-28T19:20:29Z",
           "description": "Terraform enables you to safely and predictably create, change, and improve infrastructure. It is a source-available tool that codifies APIs into declarative configuration files that can be shared amongst team members, treated as code, edited, reviewed, and versioned.",
           "homepage": "http://developer.hashicorp.com/terraform",
           "topics": [
@@ -494,7 +494,7 @@
         }
       ],
       "signal": {
-        "stars": 49559,
+        "stars": 49563,
         "daysSincePush": 0,
         "daysSinceRelease": 2,
         "latestRelease": {
@@ -564,7 +564,7 @@
       "repos": [
         {
           "fullName": "open-telemetry/opentelemetry-specification",
-          "stars": 4329,
+          "stars": 4330,
           "forks": 998,
           "pushedAt": "2026-08-27T20:34:54Z",
           "description": "Specifications for OpenTelemetry",
@@ -578,14 +578,14 @@
             "publishedAt": "2026-08-07T15:52:31Z",
             "url": "https://github.com/open-telemetry/opentelemetry-specification/releases/tag/v1.60.0"
           },
-          "daysSincePush": 0,
-          "daysSinceRelease": 20
+          "daysSincePush": 1,
+          "daysSinceRelease": 21
         }
       ],
       "signal": {
-        "stars": 4329,
-        "daysSincePush": 0,
-        "daysSinceRelease": 20,
+        "stars": 4330,
+        "daysSincePush": 1,
+        "daysSinceRelease": 21,
         "latestRelease": {
           "tag": "v1.60.0",
           "publishedAt": "2026-08-07T15:52:31Z",
@@ -604,8 +604,8 @@
       "repos": [
         {
           "fullName": "argoproj/argo-cd",
-          "stars": 24022,
-          "forks": 7798,
+          "stars": 24027,
+          "forks": 7800,
           "pushedAt": "2026-08-28T13:15:09Z",
           "description": "Declarative Continuous Deployment for Kubernetes",
           "homepage": "https://argo-cd.readthedocs.io",
@@ -638,7 +638,7 @@
         }
       ],
       "signal": {
-        "stars": 24022,
+        "stars": 24027,
         "daysSincePush": 0,
         "daysSinceRelease": 1,
         "latestRelease": {
@@ -659,7 +659,7 @@
       "repos": [
         {
           "fullName": "fluxcd/flux2",
-          "stars": 8373,
+          "stars": 8374,
           "forks": 778,
           "pushedAt": "2026-08-25T16:22:30Z",
           "description": "Open and extensible continuous delivery solution for Kubernetes. Powered by GitOps Toolkit.",
@@ -678,14 +678,14 @@
             "publishedAt": "2026-08-07T14:31:04Z",
             "url": "https://github.com/fluxcd/flux2/releases/tag/v2.9.4"
           },
-          "daysSincePush": 2,
-          "daysSinceRelease": 20
+          "daysSincePush": 3,
+          "daysSinceRelease": 21
         }
       ],
       "signal": {
-        "stars": 8373,
-        "daysSincePush": 2,
-        "daysSinceRelease": 20,
+        "stars": 8374,
+        "daysSincePush": 3,
+        "daysSinceRelease": 21,
         "latestRelease": {
           "tag": "v2.9.4",
           "publishedAt": "2026-08-07T14:31:04Z",
@@ -741,13 +741,13 @@
             "publishedAt": "2023-05-04T00:46:35Z",
             "url": "https://github.com/dora-team/fourkeys/releases/tag/v1.0.2"
           },
-          "daysSincePush": 947,
+          "daysSincePush": 948,
           "daysSinceRelease": 1212
         }
       ],
       "signal": {
         "stars": 2236,
-        "daysSincePush": 947,
+        "daysSincePush": 948,
         "daysSinceRelease": 1212,
         "latestRelease": {
           "tag": "v1.0.2",
@@ -795,13 +795,13 @@
             "url": "https://github.com/open-feature/spec/releases/tag/v0.9.0"
           },
           "daysSincePush": 0,
-          "daysSinceRelease": 29
+          "daysSinceRelease": 30
         }
       ],
       "signal": {
         "stars": 1248,
         "daysSincePush": 0,
-        "daysSinceRelease": 29,
+        "daysSinceRelease": 30,
         "latestRelease": {
           "tag": "v0.9.0",
           "publishedAt": "2026-07-29T17:35:02Z",
@@ -857,11 +857,11 @@
         },
         {
           "fullName": "diggerhq/digger",
-          "stars": 5033
+          "stars": 5032
         },
         {
           "fullName": "gofireflyio/aiac",
-          "stars": 3786
+          "stars": 3787
         },
         {
           "fullName": "terramate-io/terramate",
@@ -879,15 +879,15 @@
         },
         {
           "fullName": "argoproj/argo-cd",
-          "stars": 24022
+          "stars": 24027
         },
         {
           "fullName": "argoproj/argo-workflows",
-          "stars": 16944
+          "stars": 16945
         },
         {
           "fullName": "meshery/meshery",
-          "stars": 11596
+          "stars": 11599
         },
         {
           "fullName": "iam-veeramalla/Jenkins-Zero-To-Hero",
