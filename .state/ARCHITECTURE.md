@@ -21,6 +21,7 @@ Standalone Technology Delivery Field Card one-pager (`index.html`). Public artif
 - Decision stack, not a Scrum/SAFe/Azure brochure — tool picker ≤ 7 rows by **constraint**
 - Verb line under H1 + Always-on foundation strip (not picker items)
 - Fail-closed weekly refresh: PR `## Summary` or `data/judgment.md` required before Slack Approve
+- Notify Slack approve opens `chore/weekly-refresh-*` if discovery CI missed (Cursor Automation cannot create PRs)
 - Orbit sync: `public/delivery-field-card/index.html` via shared field-card registry
 
 ## Dependencies
