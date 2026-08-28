@@ -1,11 +1,11 @@
 {
   "mode": "cursor-automation",
-  "generatedAt": "2026-08-21T14:02:34.753Z",
+  "generatedAt": "2026-08-28T14:05:53.553Z",
   "candidateCount": 19,
   "changelog": [
     "Decision: no-change — INTENT → WINDOW → PROOF → CUTOVER, decision table, and 7-row picker unchanged",
     "Picker already maps batch-size, ci, reversible-cutover, iac, observability, visibility, human-gate; no earned swap",
-    "Footer stamp hygiene: Changed line is weekly review, not CI discovery placeholder"
+    "Footer stamp hygiene: v2026.35 Reviewed 28 Aug; Changed line is weekly review, not CI discovery placeholder"
   ],
   "deferred": [
     {

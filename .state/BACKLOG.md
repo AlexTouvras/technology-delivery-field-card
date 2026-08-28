@@ -11,6 +11,7 @@
 ## Next
 
 - [x] First Friday discovery + judgment cycle after remote exists (2026-W34)
+- [x] 2026-W35 weekly judgment (no picker/job change; discovery CI did not open a PR)
 
 ## Later
 
