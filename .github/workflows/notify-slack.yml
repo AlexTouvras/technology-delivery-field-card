@@ -21,7 +21,7 @@ on:
 
 permissions:
   contents: read
-  pull-requests: read
+  pull-requests: write
 
 jobs:
   notify:
@@ -44,8 +44,26 @@ jobs:
           fi
           NUM=$(gh pr list --repo "${{ github.repository }}" --head "${{ github.ref_name }}" --json number --jq '.[0].number // empty')
           if [ -z "$NUM" ]; then
-            echo "No open PR for ${{ github.ref_name }}"
-            exit 1
+            echo "No open PR for ${{ github.ref_name }}; opening from data/judgment.md"
+            test -f data/judgment.md
+            BODY=$(mktemp)
+            {
+              cat data/judgment.md
+              echo
+              echo "### Before merge"
+              echo "- [x] Cursor Automation applied judgment (\`## Summary\` present)"
+              echo "- [ ] Slack **Open card preview** reviewed"
+              echo "- [ ] Slack Approve used (do not merge from the agent chat)"
+              echo "- [x] Decision table unchanged unless a new *job* appeared"
+            } > "$BODY"
+            URL=$(gh pr create --repo "${{ github.repository }}" --base main --head "${{ github.ref_name }}" \
+              --title "chore: weekly field card discovery + refresh" --body-file "$BODY")
+            NUM=$(echo "$URL" | grep -oE '[0-9]+$')
+            if [ -z "$NUM" ]; then
+              echo "Failed to create weekly PR"
+              exit 1
+            fi
+            echo "Created PR #$NUM ($URL)"
           fi
           echo "number=$NUM" >> "$GITHUB_OUTPUT"
       - name: Notify #orbit
