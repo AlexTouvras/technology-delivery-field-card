@@ -34,6 +34,10 @@ jobs:
           GH_TOKEN: ${{ github.token }}
           SLACK_ORBIT_WEBHOOK_URL: ${{ secrets.SLACK_ORBIT_WEBHOOK_URL }}
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+          WEEKLY_WRITE_SECRET: ${{ secrets.WEEKLY_WRITE_SECRET }}
+          CRON_SECRET: ${{ secrets.CRON_SECRET }}
+          FIELD_CARD_ACTION_SECRET: ${{ secrets.FIELD_CARD_ACTION_SECRET }}
+          SITE_URL: ${{ vars.SITE_URL || 'https://alextouvras.com' }}
           MANUAL_FAIL: ${{ inputs.fail_on_missed }}
         run: |
           set -euo pipefail

@@ -29,15 +29,16 @@ Same fail-closed pattern as the Agentic AI and Data Analytics field cards:
 
 | Piece | What it does |
 |---|---|
-| **Friday GitHub Action (12:00 UTC)** | Discovers tools, checks doc links, bumps stamp, opens a **discovery PR**, Slack *discovery ready* (no Approve) |
-| **Friday Cursor Automation (17:00 local)** | Judges update vs no-change, edits `index.html` when earned, writes `## Summary`, triggers Slack Approve notify |
-| **Slack #orbit Approve** | Preview of proposed HTML + signed Approve/Skip (Orbit confirm page). Approve squash-merges; Skip closes |
-| **Judgment watchdog (Sat + Mon 06:00 UTC)** | If the weekly PR still lacks `## Summary`, pings #orbit (*judgment missed*); Monday fails the Actions run |
+| **Friday GitHub Action (12:00 UTC)** | Discovers tools, checks links, opens a weekly PR. No Slack ping. |
+| **Friday Cursor Automation (17:00 local)** | Edits the card when earned; leaves the PR open |
+| **Friday review agent (18:00 local)** | Publishes or keeps the previous card |
+| **Slack #orbit** | One laconic FYI per card after review (Review / Considered / Changed / Online + Check card). Open / Approve / Decline only if the review agent missed |
+| **Sat / Mon watchdog** | If review links never posted, posts the same Open / Approve / Decline message |
 | **Broken-link issue** | Opens a labeled issue when Use/tool URLs fail |
 
-CI uses only `GITHUB_TOKEN` for discovery. Judgment runs in Cursor Cloud Automation. Approve is **not** auto-merge from the agent — you confirm in Slack.
+CI uses only `GITHUB_TOKEN` for discovery. A review agent publishes or keeps the previous card. You do not need to commit for a weekly refresh.
 
-`Notify Slack approve` exits non-zero if `## Summary` is missing (`FORCE_NOTIFY=1` override only for recovery).
+`Apply review` is the publish/keep-previous switch. Slack Approve links are backup if that agent misses.
 
 ### Secrets (this repo)
 

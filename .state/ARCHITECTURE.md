@@ -30,6 +30,7 @@ Standalone Technology Delivery Field Card one-pager (`index.html`). Public artif
 |------------|----------------|------|
 | Orbit field-card registry | Shared Slack Approve + preview | 2026-08-13 |
 | GitHub Actions weekly-refresh.yml | Discovery without vendor LLM in CI | 2026-08-13 |
+| Repo Actions workflow perms | `write` + allow GITHUB_TOKEN to create PRs (AI card already had this; default blocked W33) | 2026-08-14 |
 
 ## Canonical paths
 

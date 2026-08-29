@@ -17,6 +17,7 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 
 const repo = process.env.FIELD_CARD_REPO || "AlexTouvras/technology-delivery-field-card";
+const cardLabel = "Technology Delivery Field Card";
 const site = (process.env.SITE_URL || process.env.NEXT_PUBLIC_SITE_URL || "https://alextouvras.com").replace(
   /\/$/,
   ""
@@ -215,6 +216,16 @@ async function buildChangeSummary(pr) {
   };
 }
 
+function firstChangeLine(summaryText, judgmentOk) {
+  if (!judgmentOk) return "";
+  const line = String(summaryText || "")
+    .split(/\r?\n/)
+    .map((l) => l.replace(/^[•*\-]\s*/, "").trim())
+    .find((l) => l && !l.startsWith("_") && !/^No structured/i.test(l));
+  if (!line) return "";
+  return line.length > 160 ? `${line.slice(0, 157)}…` : line;
+}
+
 const prNumber = process.env.PR_NUMBER;
 if (!prNumber) {
   console.error("PR_NUMBER is required");
@@ -228,55 +239,36 @@ if (!webhook) {
 const pr = await resolvePr(prNumber);
 const preview = actionUrl(prNumber, "preview");
 const approve = actionUrl(prNumber, "approve");
-const skip = actionUrl(prNumber, "skip");
-const live = "https://alextouvras.github.io/technology-delivery-field-card/";
+const decline = actionUrl(prNumber, "skip");
 const { text: summary, fromJudgment } = await buildChangeSummary(pr);
 const judgmentMarkdown = await resolveJudgmentMarkdown(pr);
-const judgmentOk = fromJudgment || hasJudgmentSummary(pr.body) || hasJudgmentSummary(judgmentMarkdown);
-const forceNotify = process.env.FORCE_NOTIFY === "1";
+const judgmentOk =
+  fromJudgment || hasJudgmentSummary(pr.body) || hasJudgmentSummary(judgmentMarkdown);
+const changeLine = firstChangeLine(summary, judgmentOk);
 
-// Fail closed: Approve links must not land before Cursor writes ## Summary.
-if (!judgmentOk && !forceNotify) {
-  console.error(
-    JSON.stringify({
-      ok: false,
-      error: "judgment_summary_missing",
-      pr: Number(prNumber),
-      hint: "Write ## Summary on the PR (update or no-change), then re-run. Override with FORCE_NOTIFY=1 only for recovery.",
-    })
-  );
-  process.exit(1);
-}
-
-const caution = judgmentOk
-  ? ""
-  : "\n\n_FORCE_NOTIFY — Cursor judgment Summary missing. Review carefully before Approve._";
-
-const text = `Field card ready for Approve: ${pr.title}`;
+const text = `This week's ${cardLabel} is ready to review`;
 const blocks = [
   {
     type: "header",
-    text: { type: "plain_text", text: "Orbit — field card weekly refresh", emoji: true },
+    text: { type: "plain_text", text: cardLabel, emoji: true },
   },
   {
     type: "section",
     text: {
       type: "mrkdwn",
-      text: `*${pr.title}*\n\n*<${preview}|Open card preview>*  ·  *<${pr.url}|Open pull request>*  ·  *<${live}|Live Pages card>*${caution}`,
+      text: [
+        `This week's *${cardLabel}* is ready to review.`,
+        "",
+        `*<${preview}|Open the new card>*`,
+        changeLine ? `\n${changeLine}` : "",
+      ].join("\n"),
     },
   },
   {
     type: "section",
     text: {
       type: "mrkdwn",
-      text: `*What changed*\n${summary}`,
-    },
-  },
-  {
-    type: "section",
-    text: {
-      type: "mrkdwn",
-      text: `*<${approve}|Approve & merge>*  ·  *<${skip}|Skip (close PR)>*`,
+      text: `*<${approve}|Approve>*     *<${decline}|Decline>*`,
     },
   },
   {
@@ -284,7 +276,7 @@ const blocks = [
     elements: [
       {
         type: "mrkdwn",
-        text: "Preview shows the proposed HTML from the PR (not live). Approve opens a confirm page first — Slack link unfurls will not merge.",
+        text: "Add a short note on the next page if you want.",
       },
     ],
   },

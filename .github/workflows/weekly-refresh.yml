@@ -144,17 +144,6 @@ jobs:
           echo "opened=true" >> "$GITHUB_OUTPUT"
           echo "number=$PR_NUMBER" >> "$GITHUB_OUTPUT"
 
-      - name: Slack #orbit — discovery ready (awaiting judgment)
-        if: steps.pr.outputs.opened == 'true'
-        env:
-          PR_NUMBER: ${{ steps.pr.outputs.number }}
-          STATUS_MODE: discovery_ready
-          DISCOVERY_STATS: ${{ steps.summary.outputs.stats }}
-          GH_TOKEN: ${{ github.token }}
-          SLACK_ORBIT_WEBHOOK_URL: ${{ secrets.SLACK_ORBIT_WEBHOOK_URL }}
-          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
-        run: node scripts/slack-status.mjs
-
       - name: Open issue on broken links
         if: steps.links.outcome != 'success'
         env:

@@ -67,34 +67,18 @@ let body;
 let context;
 
 if (mode === "discovery_ready") {
-  text = `Field card discovery ready (awaiting Cursor judgment): ${pr.title}`;
-  header = "Orbit — field card discovery ready";
-  body = [
-    `*${pr.title}*`,
-    "",
-    "CI finished landscape discovery + link check. *Do not Approve yet.*",
-    "Friday Cursor Automation (~17:00 local) must judge update vs no-change, write `## Summary`, then run *Notify Slack approve*.",
-    "",
-    `*<${pr.url}|Open pull request>*`,
-    stats ? `\n_Stats:_ \`${stats}\`` : "",
-  ].join("\n");
-  context =
-    "If you get no Approve message tonight, the judgment watchdog will ping again Sat/Mon.";
+  text = `Preparing this week's field card`;
+  header = "Field card";
+  body = "This week's card is still being prepared. You'll get *Open the new card*, *Approve*, and *Decline* when it's ready.";
+  context = "No action needed yet.";
 } else {
-  text = `Field card judgment missed: ${pr.title}`;
-  header = "Orbit — field card judgment missed";
+  text = `This week's field card is waiting for review links`;
+  header = "Field card";
   body = [
-    `*${pr.title}*`,
-    "",
-    "Discovery PR is still open *without* a Cursor `## Summary` / Approve notify.",
-    "The public card will stay stale until judgment runs and you Approve in Slack.",
-    "",
-    `*<${pr.url}|Open pull request>*`,
-    "",
-    "*Unstick:* run Cursor Automation with `docs/weekly-refresh-prompt.md`, then:",
-    `\`gh workflow run "Notify Slack approve" --repo ${repo} -f pr_number=${prNumber}\``,
+    "This week's card is waiting on review links.",
+    "You'll get *Open the new card*, *Approve*, and *Decline* in this channel when they're ready.",
   ].join("\n");
-  context = "Watchdog only alerts — it never merges and never posts Approve links.";
+  context = "No commands to run.";
 }
 
 const blocks = [

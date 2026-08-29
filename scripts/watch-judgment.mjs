@@ -113,19 +113,30 @@ const alerted = [];
 for (const pr of missed) {
   const env = {
     ...process.env,
-    STATUS_MODE: "judgment_missed",
     PR_NUMBER: String(pr.number),
     PR_URL: pr.html_url,
+    FORCE_NOTIFY: "1",
     SLACK_ORBIT_WEBHOOK_URL: webhook,
   };
-  const result = spawnSync(process.execPath, [path.join(scriptDir, "slack-status.mjs")], {
+  let result = spawnSync(process.execPath, [path.join(scriptDir, "notify-slack.mjs")], {
     env,
     encoding: "utf8",
   });
   if (result.status !== 0) {
     console.error(result.stdout);
     console.error(result.stderr);
-    throw new Error(`slack-status failed for PR #${pr.number}`);
+    result = spawnSync(process.execPath, [path.join(scriptDir, "slack-status.mjs")], {
+      env: {
+        ...env,
+        STATUS_MODE: "judgment_missed",
+      },
+      encoding: "utf8",
+    });
+    if (result.status !== 0) {
+      console.error(result.stdout);
+      console.error(result.stderr);
+      throw new Error(`notify/status failed for PR #${pr.number}`);
+    }
   }
   alerted.push(pr.number);
   console.log(result.stdout.trim());

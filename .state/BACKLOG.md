@@ -5,8 +5,9 @@
 ## Now
 
 - [x] Initial INTENT → WINDOW → PROOF → CUTOVER card
-- [ ] Owner AUTH: `gh repo create AlexTouvras/technology-delivery-field-card` + Pages + secrets
-- [ ] Owner AUTH: activate Friday Cursor Automation
+- [x] Owner AUTH: `gh repo create AlexTouvras/technology-delivery-field-card` + Pages
+- [x] Copy WEEKLY_WRITE_SECRET / CRON_SECRET / SLACK_ORBIT_WEBHOOK_URL / SLACK_WEBHOOK_URL from Orbit `.env.local`
+- [x] Owner AUTH: activate Friday Cursor Automation (`c85fb72e-970e-11f1-ba66-0e7d0216e441`, Fri 17:00)
 
 ## Next
 
