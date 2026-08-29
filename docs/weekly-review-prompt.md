@@ -19,7 +19,7 @@ Do not `gh pr merge`. Orbit's action does merge + site copy.
 
 ## Slack (#orbit) — one post per card
 
-Orbit posts the FYI after Apply review. Post yourself only if Apply failed.
+Orbit posts the FYI after Apply review (Block Kit **Check card** button). Post yourself only if Apply failed.
 
 Same shape for Agentic AI / Analytics / Delivery — never a multi-card dump:
 
@@ -29,5 +29,7 @@ Review: published | kept previous | blocked
 Considered: <short list or “none earned entry”>
 Changed: <one line>
 Online: yes · <detail>   OR   no · previous still live
-[Check card]   ← button to live URL (Open PR only when blocked)
+[Check card]   ← Block Kit button
 ```
+
+Backup (review missed): same laconic body + buttons **Open the new card** · **Approve** · **Decline**.

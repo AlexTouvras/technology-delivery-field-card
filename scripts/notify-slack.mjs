@@ -249,34 +249,48 @@ const changeLine = firstChangeLine(summary, judgmentOk);
 const text = `This week's ${cardLabel} is ready to review`;
 const blocks = [
   {
-    type: "header",
-    text: { type: "plain_text", text: cardLabel, emoji: true },
-  },
-  {
     type: "section",
     text: {
       type: "mrkdwn",
       text: [
-        `This week's *${cardLabel}* is ready to review.`,
-        "",
-        `*<${preview}|Open the new card>*`,
-        changeLine ? `\n${changeLine}` : "",
+        `*${cardLabel}*`,
+        "Review: ready",
+        `Changed: ${changeLine || "open preview before Approve"}`,
+        "Online: no · preview only",
       ].join("\n"),
     },
   },
   {
-    type: "section",
-    text: {
-      type: "mrkdwn",
-      text: `*<${approve}|Approve>*     *<${decline}|Decline>*`,
-    },
+    type: "actions",
+    block_id: "field_card_backup_actions",
+    elements: [
+      {
+        type: "button",
+        text: { type: "plain_text", text: "Open the new card", emoji: true },
+        url: preview,
+        action_id: "field_card_open_preview",
+      },
+      {
+        type: "button",
+        text: { type: "plain_text", text: "Approve", emoji: true },
+        style: "primary",
+        url: approve,
+        action_id: "field_card_approve",
+      },
+      {
+        type: "button",
+        text: { type: "plain_text", text: "Decline", emoji: true },
+        url: decline,
+        action_id: "field_card_decline",
+      },
+    ],
   },
   {
     type: "context",
     elements: [
       {
         type: "mrkdwn",
-        text: "Add a short note on the next page if you want.",
+        text: "Backup gate if the review agent missed. Approve opens a confirm page first.",
       },
     ],
   },
