@@ -1,5 +1,5 @@
 {
-  "discoveredAt": "2026-09-04T14:02:41.519Z",
+  "discoveredAt": "2026-09-04T15:41:56.616Z",
   "summary": {
     "watchlistItems": 18,
     "notOnCard": 7,
@@ -40,7 +40,7 @@
       "kind": "watchlist-not-on-card",
       "name": "Argo CD",
       "reason": "Tracked in watchlist but not present on the public card",
-      "stars": 24077,
+      "stars": 24078,
       "docs": [
         "https://argo-cd.readthedocs.io/"
       ],
@@ -54,7 +54,7 @@
       "kind": "watchlist-not-on-card",
       "name": "Flux",
       "reason": "Tracked in watchlist but not present on the public card",
-      "stars": 8383,
+      "stars": 8382,
       "docs": [
         "https://fluxcd.io/flux/"
       ],
@@ -276,7 +276,7 @@
         "publishedAt": "2026-08-26T14:33:29Z",
         "url": "https://github.com/actions/runner/releases/tag/v2.337.0"
       },
-      "daysSinceRelease": 8
+      "daysSinceRelease": 9
     },
     {
       "name": "Feature flags",
@@ -296,7 +296,7 @@
         "publishedAt": "2026-09-02T14:49:32Z",
         "url": "https://github.com/hashicorp/terraform/releases/tag/v1.16.1"
       },
-      "daysSinceRelease": 1
+      "daysSinceRelease": 2
     },
     {
       "name": "Argo CD",
@@ -342,7 +342,7 @@
       "repos": [
         {
           "fullName": "actions/runner",
-          "stars": 6236,
+          "stars": 6237,
           "forks": 1414,
           "pushedAt": "2026-09-04T04:53:07Z",
           "description": "The Runner for GitHub Actions :rocket:",
@@ -355,13 +355,13 @@
             "url": "https://github.com/actions/runner/releases/tag/v2.337.0"
           },
           "daysSincePush": 0,
-          "daysSinceRelease": 8
+          "daysSinceRelease": 9
         }
       ],
       "signal": {
-        "stars": 6236,
+        "stars": 6237,
         "daysSincePush": 0,
-        "daysSinceRelease": 8,
+        "daysSinceRelease": 9,
         "latestRelease": {
           "tag": "v2.337.0",
           "publishedAt": "2026-08-26T14:33:29Z",
@@ -471,9 +471,9 @@
       "repos": [
         {
           "fullName": "hashicorp/terraform",
-          "stars": 49612,
+          "stars": 49613,
           "forks": 10624,
-          "pushedAt": "2026-09-04T13:40:49Z",
+          "pushedAt": "2026-09-04T15:00:57Z",
           "description": "Terraform enables you to safely and predictably create, change, and improve infrastructure. It is a source-available tool that codifies APIs into declarative configuration files that can be shared amongst team members, treated as code, edited, reviewed, and versioned.",
           "homepage": "http://developer.hashicorp.com/terraform",
           "topics": [
@@ -490,13 +490,13 @@
             "url": "https://github.com/hashicorp/terraform/releases/tag/v1.16.1"
           },
           "daysSincePush": 0,
-          "daysSinceRelease": 1
+          "daysSinceRelease": 2
         }
       ],
       "signal": {
-        "stars": 49612,
+        "stars": 49613,
         "daysSincePush": 0,
-        "daysSinceRelease": 1,
+        "daysSinceRelease": 2,
         "latestRelease": {
           "tag": "v1.16.1",
           "publishedAt": "2026-09-02T14:49:32Z",
@@ -604,9 +604,9 @@
       "repos": [
         {
           "fullName": "argoproj/argo-cd",
-          "stars": 24077,
-          "forks": 7822,
-          "pushedAt": "2026-09-04T13:09:41Z",
+          "stars": 24078,
+          "forks": 7825,
+          "pushedAt": "2026-09-04T15:09:42Z",
           "description": "Declarative Continuous Deployment for Kubernetes",
           "homepage": "https://argo-cd.readthedocs.io",
           "topics": [
@@ -638,7 +638,7 @@
         }
       ],
       "signal": {
-        "stars": 24077,
+        "stars": 24078,
         "daysSincePush": 0,
         "daysSinceRelease": 8,
         "latestRelease": {
@@ -659,7 +659,7 @@
       "repos": [
         {
           "fullName": "fluxcd/flux2",
-          "stars": 8383,
+          "stars": 8382,
           "forks": 778,
           "pushedAt": "2026-09-03T11:16:42Z",
           "description": "Open and extensible continuous delivery solution for Kubernetes. Powered by GitOps Toolkit.",
@@ -683,7 +683,7 @@
         }
       ],
       "signal": {
-        "stars": 8383,
+        "stars": 8382,
         "daysSincePush": 1,
         "daysSinceRelease": 3,
         "latestRelease": {
@@ -879,7 +879,7 @@
         },
         {
           "fullName": "argoproj/argo-cd",
-          "stars": 24077
+          "stars": 24078
         },
         {
           "fullName": "argoproj/argo-workflows",
@@ -887,7 +887,7 @@
         },
         {
           "fullName": "meshery/meshery",
-          "stars": 11677
+          "stars": 11680
         },
         {
           "fullName": "iam-veeramalla/Jenkins-Zero-To-Hero",

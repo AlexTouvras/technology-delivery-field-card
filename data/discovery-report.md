@@ -1,6 +1,6 @@
 # Discovery report
 
-Generated: 2026-09-04T14:02:41.519Z
+Generated: 2026-09-04T15:41:56.616Z
 
 - Candidates: **19**
 - Watchlist items not on card: **7**
@@ -15,10 +15,10 @@ Generated: 2026-09-04T14:02:41.519Z
 - **OpenTelemetry** (medium) — watchlist-not-on-card; stars=4336; Tracked in watchlist but not present on the public card
   - docs: https://opentelemetry.io/docs/
   - repo: https://github.com/open-telemetry/opentelemetry-specification
-- **Argo CD** (high) — watchlist-not-on-card; stars=24077; Tracked in watchlist but not present on the public card
+- **Argo CD** (high) — watchlist-not-on-card; stars=24078; Tracked in watchlist but not present on the public card
   - docs: https://argo-cd.readthedocs.io/
   - repo: https://github.com/argoproj/argo-cd
-- **Flux** (high) — watchlist-not-on-card; stars=8383; Tracked in watchlist but not present on the public card
+- **Flux** (high) — watchlist-not-on-card; stars=8382; Tracked in watchlist but not present on the public card
   - docs: https://fluxcd.io/flux/
   - repo: https://github.com/fluxcd/flux2
 - **Jira** (low) — watchlist-not-on-card; stars=?; Tracked in watchlist but not present on the public card
@@ -65,8 +65,8 @@ Generated: 2026-09-04T14:02:41.519Z
 
 ## Fresh releases
 
-- **GitHub Actions** v2.337.0 (8d ago)
+- **GitHub Actions** v2.337.0 (9d ago)
 - **Feature flags** 4.7.0 (3d ago)
-- **Terraform** v1.16.1 (1d ago)
+- **Terraform** v1.16.1 (2d ago)
 - **Argo CD** v3.5.2 (8d ago) — not on card
 - **Flux** v2.9.5 (3d ago) — not on card
