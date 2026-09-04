@@ -1,11 +1,12 @@
 {
   "mode": "cursor-automation",
-  "generatedAt": "2026-08-28T14:05:53.553Z",
+  "generatedAt": "2026-09-04T14:02:41.519Z",
   "candidateCount": 19,
   "changelog": [
     "Decision: no-change — INTENT → WINDOW → PROOF → CUTOVER, decision table, and 7-row picker unchanged",
     "Picker already maps batch-size, ci, reversible-cutover, iac, observability, visibility, human-gate; no earned swap",
-    "Footer stamp hygiene: v2026.35 Reviewed 28 Aug; Changed line is weekly review, not CI discovery placeholder"
+    "Incumbent releases only: Terraform v1.16.1, Actions runner v2.337.0, FeatureManagement-Dotnet 4.7.0",
+    "Footer stamp hygiene: v2026.36 Reviewed 4 Sep 2026; Changed line is weekly review, not CI discovery placeholder"
   ],
   "deferred": [
     {
