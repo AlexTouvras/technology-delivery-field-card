@@ -1,13 +1,12 @@
 name: Judgment watchdog
 
 # Fail-closed visibility when Friday Cursor Automation misses judgment / Slack Approve.
-# Sat: warn in #orbit. Mon: warn again and fail the job so Actions stays red.
+# Monday: warn in #orbit and fail the job so Actions stays red.
+# Saturday is not scheduled — Friday already ran; a same-weekend check is redundant.
 
 on:
   schedule:
-    # Saturday 06:00 UTC ≈ 09:00 EEST — after Friday 17:00 judgment window
-    - cron: "0 6 * * 6"
-    # Monday 06:00 UTC ≈ 09:00 EEST — escalate before the week starts stale
+    # Monday 06:00 UTC ≈ 09:00 EEST — escalate if Friday review did not apply
     - cron: "0 6 * * 1"
   workflow_dispatch:
     inputs:
@@ -41,11 +40,10 @@ jobs:
           MANUAL_FAIL: ${{ inputs.fail_on_missed }}
         run: |
           set -euo pipefail
-          DOW=$(date -u +%u) # 1=Monday … 6=Saturday
-          if [ "${MANUAL_FAIL:-}" = "true" ] || { [ "${{ github.event_name }}" = "schedule" ] && [ "$DOW" = "1" ]; }; then
+          if [ "${MANUAL_FAIL:-}" = "true" ] || [ "${{ github.event_name }}" = "schedule" ]; then
             export WATCH_FAIL_ON_MISSED=1
           else
             export WATCH_FAIL_ON_MISSED=0
           fi
-          echo "WATCH_FAIL_ON_MISSED=$WATCH_FAIL_ON_MISSED (dow=$DOW event=${{ github.event_name }})"
+          echo "WATCH_FAIL_ON_MISSED=$WATCH_FAIL_ON_MISSED (event=${{ github.event_name }})"
           node scripts/watch-judgment.mjs

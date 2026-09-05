@@ -33,7 +33,7 @@ Same fail-closed pattern as the Agentic AI and Data Analytics field cards:
 | **Friday Cursor Automation (17:00 local)** | Edits the card when earned; leaves the PR open |
 | **Friday review agent (18:00 local)** | Publishes or keeps the previous card |
 | **Slack #orbit** | One laconic FYI per card after review (Review / Considered / Changed / Online + Check card). Open / Approve / Decline only if the review agent missed |
-| **Sat / Mon watchdog** | If review links never posted, posts the same Open / Approve / Decline message |
+| **Mon watchdog** | If Friday review never applied, posts Open / Approve / Decline (no Saturday run) |
 | **Broken-link issue** | Opens a labeled issue when Use/tool URLs fail |
 
 CI uses only `GITHUB_TOKEN` for discovery. A review agent publishes or keeps the previous card. You do not need to commit for a weekly refresh.

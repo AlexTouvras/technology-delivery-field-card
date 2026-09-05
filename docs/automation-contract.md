@@ -14,7 +14,7 @@
 |------|---------|--------|------------|
 | Weekly discovery | GHA `weekly-refresh.yml` Fri 12:00 UTC | opens PR | none (discovery only) |
 | Weekly judgment | Cursor `.cursor/automations/weekly-content-pass.json` | `#orbit` Approve | Human Approve in Slack |
-| Judgment watchdog | GHA `judgment-watchdog.yml` Sat/Mon | `#orbit` warn/fail | human runs judgment |
+| Judgment watchdog | GHA `judgment-watchdog.yml` Mon | `#orbit` warn/fail | human runs judgment |
 | Notify Slack approve | GHA `notify-slack.yml` | preview link | Human Approve |
 
 ## Required secrets
