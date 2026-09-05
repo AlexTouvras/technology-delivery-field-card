@@ -5,8 +5,8 @@ name: Weekly field card refresh
 
 on:
   schedule:
-    # Friday 12:00 UTC ≈ 15:00 EEST — before Cursor Automation at 17:00 local
-    - cron: "0 12 * * 5"
+    # Thursday 12:00 UTC ≈ 15:00 EEST — before Friday 17:00 judgment even if GHA is hours late
+    - cron: "0 12 * * 4"
   workflow_dispatch:
 
 permissions:
@@ -24,18 +24,27 @@ jobs:
         with:
           node-version: "22"
 
+      - name: Skip if this ISO week already shipped or judged
+        id: gate
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: node scripts/weekly-pr-gate.mjs
+
       - name: Check documentation links
+        if: steps.gate.outputs.skip == 'none'
         id: links
         continue-on-error: true
         run: node scripts/check-links.mjs
 
       - name: Discover frameworks and tools
+        if: steps.gate.outputs.skip == 'none'
         id: discover
         env:
           GITHUB_TOKEN: ${{ github.token }}
         run: node scripts/discover.mjs
 
       - name: Write proposal stub for Cursor Automation
+        if: steps.gate.outputs.skip == 'none'
         run: |
           node <<'NODE'
           const fs = require('fs');
@@ -71,11 +80,13 @@ jobs:
         id: summary
 
       - name: Bump version stamp
+        if: steps.gate.outputs.skip == 'none'
         env:
           CHANGED_NOTE: Weekly discovery ready for Cursor Automation
         run: node scripts/bump-version.mjs
 
       - name: Open refresh PR
+        if: steps.gate.outputs.skip == 'none'
         id: pr
         env:
           GH_TOKEN: ${{ github.token }}
@@ -141,11 +152,12 @@ jobs:
             PR_NUMBER=$(echo "$URL" | grep -oE '[0-9]+$')
             echo "Created PR #$PR_NUMBER ($URL)"
           fi
+          gh pr ready "$PR_NUMBER" || true
           echo "opened=true" >> "$GITHUB_OUTPUT"
           echo "number=$PR_NUMBER" >> "$GITHUB_OUTPUT"
 
       - name: Open issue on broken links
-        if: steps.links.outcome != 'success'
+        if: steps.gate.outputs.skip == 'none' && steps.links.outcome != 'success'
         env:
           GH_TOKEN: ${{ github.token }}
         run: |

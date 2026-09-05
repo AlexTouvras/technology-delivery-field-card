@@ -29,7 +29,7 @@ Same fail-closed pattern as the Agentic AI and Data Analytics field cards:
 
 | Piece | What it does |
 |---|---|
-| **Friday GitHub Action (12:00 UTC)** | Discovers tools, checks links, opens a weekly PR. No Slack ping. |
+| **Thursday GitHub Action (12:00 UTC)** | Discovers tools, checks links, opens a weekly PR. Skips if this week already shipped. No Slack ping. |
 | **Friday Cursor Automation (17:00 local)** | Edits the card when earned; leaves the PR open |
 | **Friday review agent (18:00 local)** | Publishes or keeps the previous card |
 | **Slack #orbit** | One laconic FYI per card after review (Review / Considered / Changed / Online + Check card). Open / Approve / Decline only if the review agent missed |
