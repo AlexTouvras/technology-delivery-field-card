@@ -3,10 +3,8 @@ name: Weekly field card refresh
 # Discovery + link health only (GitHub token — no vendor LLM APIs).
 # Content judgment / HTML edits: Cursor Automation (see docs/weekly-refresh-prompt.md).
 
+# Manual / backup only. Friday 17:00 Cursor agent runs discover + judgment.
 on:
-  schedule:
-    # Thursday 12:00 UTC ≈ 15:00 EEST — before Friday 17:00 judgment even if GHA is hours late
-    - cron: "0 12 * * 4"
   workflow_dispatch:
 
 permissions:

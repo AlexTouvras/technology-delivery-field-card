@@ -29,14 +29,13 @@ Same fail-closed pattern as the Agentic AI and Data Analytics field cards:
 
 | Piece | What it does |
 |---|---|
-| **Thursday GitHub Action (12:00 UTC)** | Discovers tools, checks links, opens a weekly PR. Skips if this week already shipped. No Slack ping. |
-| **Friday Cursor Automation (17:00 local)** | Edits the card when earned; leaves the PR open |
+| **Friday Cursor Automation (17:00 local)** | Discovers tools, edits the card when earned, leaves the PR open |
 | **Friday review agent (18:00 local)** | Publishes or keeps the previous card |
 | **Slack #orbit** | One laconic FYI per card after review (Review / Considered / Changed / Online + Check card). Open / Approve / Decline only if the review agent missed |
 | **Mon watchdog** | If Friday review never applied, posts Open / Approve / Decline (no Saturday run) |
 | **Broken-link issue** | Opens a labeled issue when Use/tool URLs fail |
 
-CI uses only `GITHUB_TOKEN` for discovery. A review agent publishes or keeps the previous card. You do not need to commit for a weekly refresh.
+The Friday content agent runs `npm run discover`. `weekly-refresh.yml` is manual backup only (`workflow_dispatch`). A review agent publishes or keeps the previous card.
 
 `Apply review` is the publish/keep-previous switch. Slack Approve links are backup if that agent misses.
 
