@@ -1,6 +1,8 @@
 name: Judgment watchdog
 
-# Fail-closed visibility when Friday Cursor Automation misses judgment / Slack Approve.
+# Fail-closed visibility when Friday review did not apply.
+# Monday: FYI in #orbit and fail the job. Finish by re-running the review agent.
+# Slack is not the gate. Saturday is not scheduled.
 # Monday: warn in #orbit and fail the job so Actions stays red.
 # Saturday is not scheduled — Friday already ran; a same-weekend check is redundant.
 
@@ -28,7 +30,7 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: "22"
-      - name: Check open weekly PRs for missing judgment
+      - name: Check open weekly PRs (review not applied)
         env:
           GH_TOKEN: ${{ github.token }}
           SLACK_ORBIT_WEBHOOK_URL: ${{ secrets.SLACK_ORBIT_WEBHOOK_URL }}

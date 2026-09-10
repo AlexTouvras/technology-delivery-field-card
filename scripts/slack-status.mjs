@@ -4,7 +4,7 @@
  *
  * Modes (STATUS_MODE):
  *   discovery_ready — CI opened/updated the weekly discovery PR
- *   judgment_missed — watchdog: Cursor judgment / Approve notify never finished
+ *   judgment_missed — watchdog: Friday review did not apply (FYI; not Slack Approve)
  *
  * Env:
  *   SLACK_ORBIT_WEBHOOK_URL or SLACK_WEBHOOK_URL
@@ -69,16 +69,21 @@ let context;
 if (mode === "discovery_ready") {
   text = `Preparing this week's field card`;
   header = "Field card";
-  body = "This week's card is still being prepared. You'll get *Open the new card*, *Approve*, and *Decline* when it's ready.";
-  context = "No action needed yet.";
+  body = [
+    "This week's card is still being prepared.",
+    "Friday 17:00 judges. Friday 18:00 review publishes.",
+    `<${pr.url}|Open PR>`,
+  ].join("\n");
+  context = "Slack is FYI. The review agent is the gate.";
 } else {
-  text = `This week's field card is waiting for review links`;
+  text = `Friday review did not apply`;
   header = "Field card";
   body = [
-    "This week's card is waiting on review links.",
-    "You'll get *Open the new card*, *Approve*, and *Decline* in this channel when they're ready.",
+    "An open weekly PR is still waiting.",
+    "Re-run the Friday 18:00 review agent, or `gh workflow run \"Apply review\"`.",
+    `<${pr.url}|Open PR>`,
   ].join("\n");
-  context = "No commands to run.";
+  context = "Slack is not the gate. Do not Approve / Decline here.";
 }
 
 const blocks = [

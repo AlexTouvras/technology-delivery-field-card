@@ -34,4 +34,4 @@ Online: yes · <detail>   OR   no · previous still live
 [Check card]   ← Block Kit button
 ```
 
-Backup (review missed): same laconic body + buttons **Open the new card** · **Approve** · **Decline**.
+If this agent misses, Monday watchdog posts a FYI. Finish by re-running this review (or Apply review). Slack is not the gate.

@@ -1,6 +1,6 @@
 {
   "name": "Weekly delivery field card content pass",
-  "description": "Friday judgment for technology-delivery-field-card: update vs no-change, PR Summary, Slack Approve notify. Discovery CI already ran at 12:00 UTC.",
+  "description": "Friday 17:00 judgment for technology-delivery-field-card: discover, update vs no-change, PR Summary. 18:00 review publishes.",
   "workflow": {
     "triggers": [{ "cron": { "cron": "0 14 * * 5" } }],
     "actions": [],

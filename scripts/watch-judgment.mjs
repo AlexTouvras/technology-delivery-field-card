@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 /**
- * Fail-closed check: open weekly discovery PRs must gain a ## Summary judgment
- * (and ideally Slack Approve notify). Alerts #orbit when stuck.
+ * Fail-closed check: any open weekly PR means Friday review did not apply.
+ * Alerts #orbit (FYI only). The review agent is the gate — not Slack Approve.
  *
  * Env:
  *   SLACK_ORBIT_WEBHOOK_URL or SLACK_WEBHOOK_URL
@@ -24,47 +24,10 @@ const ghHeaders = () => {
   if (!token) throw new Error("GH_TOKEN or GITHUB_TOKEN is required");
   return {
     Accept: "application/vnd.github+json",
-    "User-Agent": "technology-delivery-field-card-watch",
+    "User-Agent": "field-card-watch",
     Authorization: `Bearer ${token}`,
   };
 };
-
-function extractSection(body, headingRe) {
-  if (!body) return "";
-  const match = body.match(headingRe);
-  if (!match) return "";
-  const start = match.index + match[0].length;
-  const rest = body.slice(start);
-  const next = rest.search(/\n#{1,3}\s+/);
-  return (next === -1 ? rest : rest.slice(0, next)).trim();
-}
-
-function hasJudgmentSummary(body) {
-  const raw = String(body || "").replace(/^\uFEFF/, "");
-  const summary =
-    extractSection(raw, /(?:^|\n)##\s+Summary\b[^\n]*\n/i) ||
-    extractSection(raw, /(?:^|\n)###\s+Summary\b[^\n]*\n/i);
-  if (!summary) return false;
-  const bullets = summary
-    .split(/\r?\n/)
-    .map((l) => l.replace(/^\s*[-*•]\s+/, "").replace(/^\s*\d+\.\s+/, "").trim())
-    .filter(Boolean);
-  return bullets.length > 0;
-}
-
-async function fetchJudgmentFile(pr) {
-  const sha = pr.head?.sha;
-  if (!sha) return "";
-  const headers = ghHeaders();
-  const res = await fetch(
-    `https://api.github.com/repos/${repo}/contents/data/judgment.md?ref=${encodeURIComponent(sha)}`,
-    { headers },
-  );
-  if (!res.ok) return "";
-  const data = await res.json();
-  if (data.encoding !== "base64" || typeof data.content !== "string") return "";
-  return Buffer.from(data.content.replace(/\n/g, ""), "base64").toString("utf8");
-}
 
 async function listOpenWeeklyPrs() {
   const headers = ghHeaders();
@@ -77,22 +40,15 @@ async function listOpenWeeklyPrs() {
   return pulls.filter((p) => /^chore\/weekly-refresh-/i.test(p.head?.ref || ""));
 }
 
-const open = await listOpenWeeklyPrs();
-const missed = [];
-for (const p of open) {
-  if (hasJudgmentSummary(p.body)) continue;
-  const file = await fetchJudgmentFile(p);
-  if (hasJudgmentSummary(file)) continue;
-  missed.push(p);
-}
+const missed = await listOpenWeeklyPrs();
 
 if (missed.length === 0) {
   console.log(
     JSON.stringify({
       ok: true,
-      openWeekly: open.length,
+      openWeekly: 0,
       missed: 0,
-      message: "No stuck discovery PRs",
+      message: "No open weekly PRs — review applied or no draft this week",
     })
   );
   process.exit(0);
@@ -111,32 +67,21 @@ if (!webhook) {
 
 const alerted = [];
 for (const pr of missed) {
-  const env = {
-    ...process.env,
-    PR_NUMBER: String(pr.number),
-    PR_URL: pr.html_url,
-    FORCE_NOTIFY: "1",
-    SLACK_ORBIT_WEBHOOK_URL: webhook,
-  };
-  let result = spawnSync(process.execPath, [path.join(scriptDir, "notify-slack.mjs")], {
-    env,
+  const result = spawnSync(process.execPath, [path.join(scriptDir, "slack-status.mjs")], {
+    env: {
+      ...process.env,
+      PR_NUMBER: String(pr.number),
+      PR_URL: pr.html_url,
+      STATUS_MODE: "judgment_missed",
+      SLACK_ORBIT_WEBHOOK_URL: webhook,
+      FIELD_CARD_REPO: repo,
+    },
     encoding: "utf8",
   });
   if (result.status !== 0) {
     console.error(result.stdout);
     console.error(result.stderr);
-    result = spawnSync(process.execPath, [path.join(scriptDir, "slack-status.mjs")], {
-      env: {
-        ...env,
-        STATUS_MODE: "judgment_missed",
-      },
-      encoding: "utf8",
-    });
-    if (result.status !== 0) {
-      console.error(result.stdout);
-      console.error(result.stderr);
-      throw new Error(`notify/status failed for PR #${pr.number}`);
-    }
+    throw new Error(`status failed for PR #${pr.number}`);
   }
   alerted.push(pr.number);
   console.log(result.stdout.trim());
@@ -145,7 +90,7 @@ for (const pr of missed) {
 console.log(
   JSON.stringify({
     ok: !failOnMissed,
-    openWeekly: open.length,
+    openWeekly: missed.length,
     missed: alerted,
     failOnMissed,
   })

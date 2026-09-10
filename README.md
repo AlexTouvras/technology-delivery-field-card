@@ -30,14 +30,12 @@ Same fail-closed pattern as the Agentic AI and Data Analytics field cards:
 | Piece | What it does |
 |---|---|
 | **Friday Cursor Automation (17:00 local)** | Discovers tools, edits the card when earned, leaves the PR open |
-| **Friday review agent (18:00 local)** | Publishes or keeps the previous card |
-| **Slack #orbit** | One laconic FYI per card after review (Review / Considered / Changed / Online + Check card). Open / Approve / Decline only if the review agent missed |
-| **Mon watchdog** | If Friday review never applied, posts Open / Approve / Decline (no Saturday run) |
+| **Friday review agent (18:00 local)** | The publish gate: publishes or keeps the previous card |
+| **Slack #orbit** | Laconic FYI after review (Review / Considered / Changed / Online + Check card). Not the gate |
+| **Mon watchdog** | If Friday review never applied, warn in #orbit to re-run the review agent |
 | **Broken-link issue** | Opens a labeled issue when Use/tool URLs fail |
 
-The Friday content agent runs `npm run discover`. `weekly-refresh.yml` is manual backup only (`workflow_dispatch`). A review agent publishes or keeps the previous card.
-
-`Apply review` is the publish/keep-previous switch. Slack Approve links are backup if that agent misses.
+The Friday content agent runs `npm run discover`. `weekly-refresh.yml` is manual backup only (`workflow_dispatch`). The Friday 18:00 review agent is the publish gate (`Apply review`).
 
 ### Secrets (this repo)
 
@@ -46,20 +44,14 @@ Copy from Orbit / Vercel / the other field-card repos:
 | Secret | Purpose |
 |---|---|
 | `SLACK_ORBIT_WEBHOOK_URL` (or `SLACK_WEBHOOK_URL`) | Incoming webhook for #orbit |
-| `WEEKLY_WRITE_SECRET` or `CRON_SECRET` or `FIELD_CARD_ACTION_SECRET` | HMAC for Approve/Skip tokens (must match Orbit) |
+| `WEEKLY_WRITE_SECRET` or `CRON_SECRET` or `FIELD_CARD_ACTION_SECRET` | HMAC for Apply review tokens (must match Orbit) |
 
 ### Secrets (Orbit / Vercel)
 
 | Secret | Purpose |
 |---|---|
 | `GITHUB_TOKEN` or `FIELD_CARD_GITHUB_TOKEN` | Must be able to merge/close PRs on `AlexTouvras/technology-delivery-field-card` |
-| Same signing secret as above | Verify Approve/Skip tokens |
-
-Manual Slack notify:
-
-```bash
-gh workflow run "Notify Slack approve" -f pr_number=1
-```
+| Same signing secret as above | Verify Apply review tokens |
 
 ## What stays vs what churns
 
@@ -86,7 +78,7 @@ New protocols earn a **new layer** only if they solve a new job (outcome / calen
 
 ## Weekly refresh checklist (human)
 
-1. Merge or amend the Friday PR after Slack Approve
+1. If Friday review missed, re-run the 18:00 review agent or `Apply review` — do not Slack-Approve
 2. Swap tool rows if the field moved
 3. Refresh example nouns if needed; keep the problem column intact
 4. Leave ladder and anti-patterns alone unless the pattern itself changed

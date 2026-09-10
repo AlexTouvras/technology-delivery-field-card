@@ -12,10 +12,10 @@
 
 | Name | Trigger | Output | Human gate |
 |------|---------|--------|------------|
-| Weekly discovery | GHA `weekly-refresh.yml` Fri 12:00 UTC | opens PR | none (discovery only) |
-| Weekly judgment | Cursor `.cursor/automations/weekly-content-pass.json` | `#orbit` Approve | Human Approve in Slack |
-| Judgment watchdog | GHA `judgment-watchdog.yml` Mon | `#orbit` warn/fail | human runs judgment |
-| Notify Slack approve | GHA `notify-slack.yml` | preview link | Human Approve |
+| Weekly discovery | GHA `weekly-refresh.yml` (manual) | opens PR | none |
+| Weekly judgment | Cursor Fri 17:00 | PR `## Summary` | none — stop for review |
+| Weekly review | Orbit Cursor Fri 18:00 | Apply review + #orbit FYI | review agent is the gate |
+| Judgment watchdog | GHA `judgment-watchdog.yml` Mon | #orbit FYI if PR still open | re-run review agent |
 
 ## Required secrets
 
@@ -34,4 +34,4 @@ npm run ship:check
 
 - [ ] `npm run check:links` passes
 - [ ] PR has `## Summary` with `Decision: update|no-change`
-- [ ] Orbit static copy synced after Slack Approve
+- [ ] Orbit static copy synced after Apply review

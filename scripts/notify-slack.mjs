@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 /**
- * Post #orbit Slack Approve/Skip for the weekly field-card PR (Orbit-style).
+ * Leftover HMAC helper: #orbit Approve/Skip links.
+ * Not the weekly gate. Friday review uses Apply review.
  *
  * Env:
  *   SLACK_ORBIT_WEBHOOK_URL or SLACK_WEBHOOK_URL

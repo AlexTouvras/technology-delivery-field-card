@@ -1,7 +1,7 @@
 name: Apply review
 
 # Reviewer (Cursor Automation) publishes or keeps the previous card.
-# Hits Orbit /api/field-card/action — same merge + site sync as Slack Approve/Decline.
+# Hits Orbit /api/field-card/action — merge + site sync. Called by the Friday review agent.
 
 on:
   workflow_dispatch:

@@ -6,7 +6,7 @@ Discovery alone is not enough. Every run must end with an explicit **update** or
 
 ## Slack
 
-Do **not** post Approve links from this run. The review agent is the gate. If that agent misses, the watchdog may still post Open / Approve / Decline as backup.
+Do **not** post Approve links from this run. The review agent is the gate. If that agent misses, Monday watchdog posts a FYI in #orbit — finish by re-running the 18:00 review (or `Apply review`), not Slack Approve.
 
 ## Scope (keep this card honest)
 
