@@ -1,7 +1,8 @@
 #!/usr/bin/env node
 /**
- * Skip weekly discovery CI when this ISO week already shipped or is already judged.
- * Writes GitHub Actions outputs: skip=none|shipped|judged, branch=chore/weekly-refresh-YYYY-Www
+ * Skip weekly discovery CI when this ISO week already shipped, judged, or has an open PR.
+ * An open weekly PR means Cursor may already be on the branch — never clobber it.
+ * Writes GitHub Actions outputs: skip=none|shipped|judged|open, branch=chore/weekly-refresh-YYYY-Www
  */
 import { appendFileSync } from "node:fs";
 
@@ -53,6 +54,7 @@ const open = same.find((p) => p.state === "open");
 let skip = "none";
 if (merged) skip = "shipped";
 else if (open && hasSummary(open.body)) skip = "judged";
+else if (open) skip = "open";
 
 if (outFile) appendFileSync(outFile, `skip=${skip}\nbranch=${branch}\n`);
 console.log(JSON.stringify({ skip, branch, merged: merged?.number ?? null, open: open?.number ?? null }));

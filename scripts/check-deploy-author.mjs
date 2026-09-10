@@ -4,6 +4,7 @@ import { execSync } from "node:child_process";
 const DEFAULT_ALLOWED = [
   "92086651+AlexTouvras@users.noreply.github.com",
   "41898282+github-actions[bot]@users.noreply.github.com",
+  "206951365+cursor[bot]@users.noreply.github.com",
 ];
 
 const email = execSync('git log -1 --format="%ae"', { encoding: "utf8" })

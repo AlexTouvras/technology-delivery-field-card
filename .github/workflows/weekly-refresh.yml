@@ -24,7 +24,7 @@ jobs:
         with:
           node-version: "22"
 
-      - name: Skip if this ISO week already shipped or judged
+      - name: Skip if this ISO week already shipped, judged, or has an open PR
         id: gate
         env:
           GH_TOKEN: ${{ github.token }}
@@ -96,7 +96,12 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
-          git checkout -B "$BRANCH"
+          git fetch origin "$BRANCH" || true
+          if git rev-parse --verify "origin/$BRANCH" >/dev/null 2>&1; then
+            git checkout -B "$BRANCH" "origin/$BRANCH"
+          else
+            git checkout -B "$BRANCH"
+          fi
           git add index.html data/link-report.json data/discovery-report.json data/discovery-report.md data/proposed-updates.json data/watchlist.json || true
           if git diff --staged --quiet; then
             echo "Nothing to commit."
@@ -104,7 +109,7 @@ jobs:
             exit 0
           fi
           git commit -m "chore: weekly discovery for Cursor Automation"
-          git push -u origin "$BRANCH" --force
+          git push -u origin "$BRANCH"
 
           BODY_FILE=$(mktemp)
           {
@@ -127,18 +132,17 @@ jobs:
             echo
             echo "Full report: \`data/discovery-report.md\`"
             echo
-            echo "### Status: waiting for Cursor judgment"
+            echo "### Status: waiting for Friday Cursor judgment"
             echo "This PR is **discovery only** (candidates + link check + stamp)."
-            echo "Do **not** Slack-Approve yet. Friday Cursor Automation must:"
+            echo "Friday 17:00 Cursor Automation must:"
             echo "1. Decide update vs no HTML change"
             echo "2. Edit \`index.html\` only when earned"
             echo "3. Write \`## Summary\` on this PR"
-            echo "4. Run \`Notify Slack approve\` → **#orbit** gets preview + Approve / Skip"
+            echo "Friday 18:00 review agent publishes (including stamp-only). Do not Slack-Approve from CI."
             echo
             echo "### Before merge"
             echo "- [ ] Cursor Automation applied judgment (\`## Summary\` present)"
-            echo "- [ ] Slack **Open card preview** reviewed"
-            echo "- [ ] Slack Approve used (do not merge from the agent chat)"
+            echo "- [ ] Friday review agent ran Apply review"
             echo "- [ ] Decision table unchanged unless a new *job* appeared"
           } > "$BODY_FILE"
 
