@@ -1,11 +1,11 @@
 ## Summary
 
-- **Decision: no-change** — INTENT → WINDOW → PROOF → CUTOVER, verb line, always-on foundation, decision table, and 7-row picker stay as shipped. No new delivery *job*.
-- Picker is already full by constraint (batch-size, ci, reversible-cutover, iac, observability, visibility, human-gate). Argo CD / Flux are GitOps brands for the same infra-replay job covered by Bicep/Terraform; LaunchDarkly / OpenFeature collide with feature flags; OpenTelemetry does not beat Azure Monitor for “did the change hold”; Jira / ServiceNow collide with Boards and approvals.
-- Docs URLs unchanged and not invented. Terraform v1.16.1, GitHub Actions runner v2.337.0, and FeatureManagement-Dotnet 4.7.0 are incumbent releases — not a picker swap. Argo CD v3.5.2 / Flux v2.9.5 / OTel remain off-card.
-- Deferred: GitOps (Argo CD, Flux), OpenTelemetry, OpenFeature / LaunchDarkly, Jira, ServiceNow, and GitHub-search noise (90DaysOfDevOps, Jenkins tutorials, homelab, sealed-secrets, flux v1, dashboards, Digger, werf, Jenkins X).
-- Discovery CI did not open a W36 PR; this run pushed `chore/weekly-refresh-2026-W36` from main. Footer stamp `v2026.36 · Reviewed 4 Sep 2026`. **Changed** stays “Weekly review — picker and jobs unchanged”. Notify Slack approve opens the PR if still missing (agent cannot `gh pr create`).
-- Watchlist `onCard` flags unchanged.
+- **Decision: no HTML change** to the stack, verb line, always-on strip, decision table, or 7-row picker. No new delivery job. Stamp-only footer so the public card is monthly.
+- Picker stays full by constraint: batch-size (Trunk-based), ci (Actions / Pipelines), reversible-cutover (feature flags), iac (Bicep / Terraform), observability (Azure Monitor), visibility (Azure Boards), human-gate (Approvals / checks).
+- Incumbent releases are not a swap: FeatureManagement-Dotnet 4.8.0, Terraform v1.16.4, Bicep v0.47.16, Actions runner v2.337.0. Argo CD v3.5.3, Flux v2.9.6, and OpenTelemetry v1.61.0 stay off-card — GitOps and telemetry brands for jobs already covered.
+- Deferred: LaunchDarkly, OpenFeature, Jira, ServiceNow, and GitHub-search noise (90DaysOfDevOps, Jenkins tutorials, homelab, sealed-secrets, flux v1, dashboards, Digger, werf, Jenkins X, argo-workflows, terrascan, gaia).
+- Footer is `v2026.40 · Reviewed 1 Oct 2026 · Next: November` (not “week of”). **Changed** is “Monthly review — picker and jobs unchanged”. Docs URLs untouched. Watchlist `onCard` unchanged.
+- Discovery ran 2026-10-01: 19 candidates / 7 not-on-card / 5 fresh. CI did not open a monthly PR; branch is `chore/monthly-refresh-2026-10`.
 
 ## Card preview
 
