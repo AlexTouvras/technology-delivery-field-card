@@ -10,7 +10,7 @@ Standalone Technology Delivery Field Card one-pager (`index.html`). Public artif
 
 | Name | Shape / location | Notes |
 |------|------------------|-------|
-| Card HTML | `index.html` | INTENT → WINDOW → PROOF → CUTOVER stack |
+| Card HTML | `index.html` | Chain INTENT → WINDOW → PROOF → CUTOVER → OBSERVE. Signal stays open until the outcome is checked. |
 | Discovery | `data/discovery-report.json` | CI + `npm run discover` |
 | Watchlist | `data/watchlist.json` | `onCard` flags for ongoing tracking |
 | Proposals | `data/proposed-updates.json` | Stub for Cursor Automation |
@@ -18,10 +18,13 @@ Standalone Technology Delivery Field Card one-pager (`index.html`). Public artif
 
 ## Design patterns
 
-- Decision stack, not a Scrum/SAFe/Azure brochure — tool picker ≤ 7 rows by **constraint**
+- Decision chain, not a Scrum/SAFe/Azure brochure — tool picker ≤ 7 rows by **constraint**
 - Verb line under H1 + Always-on foundation strip (not picker items)
+- OBSERVE is production evidence (a separate job from PROOF). Hero status is Outcome open / Blocked / Held — never “system ready”
+- Four situations drive a blocked gate; other jobs stay in the reference table. Measures are named and unnumbered
+- Screen language matches the Orbit field-card control room (dark, mono labels, one signal). Print remaps to ink on paper
 - Fail-closed weekly refresh: PR `## Summary` or `data/judgment.md` required; Friday 18:00 review agent publishes
-- From 2026-10 the public footer stamp is monthly: `Next: <month>` (example `Next: November`). Version id stays ISO week (`v2026.40`) so the stamp stays newer than `v2026.36`. Branch: `chore/monthly-refresh-YYYY-MM`
+- From 2026-10 the public footer stamp is monthly: `Next: <month>` (example `Next: November`). Version id stays ISO week. The 13 Oct 2026 chain upgrade is `v2026.42`. Do not run `bump:version` as-is: it still writes `Next: week of …`.
 - Orbit sync: `public/delivery-field-card/index.html` via shared field-card registry
 
 ## Dependencies

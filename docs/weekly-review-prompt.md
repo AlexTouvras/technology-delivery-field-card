@@ -8,7 +8,7 @@ Follow the shared rules in Orbit `docs/architecture/field-card-review.md` if you
 
 ## Spine (Technology Delivery)
 
-INTENT → WINDOW → PROOF → CUTOVER. Picker ≤7 by constraint. Not a Scrum / SAFe / Azure DevOps brochure.
+INTENT → WINDOW → PROOF → CUTOVER → OBSERVE. The chain stays open until the outcome is checked. Picker ≤7 by constraint. No invented figures. Not a Scrum / SAFe / Azure DevOps brochure.
 
 ## Apply
 

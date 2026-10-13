@@ -57,12 +57,12 @@ Copy from Orbit / Vercel / the other field-card repos:
 
 | Stable (edit rarely) | Churn zone (weekly OK) |
 |---|---|
-| 4-layer stack (INTENT / WINDOW / PROOF / CUTOVER) | Tool picker rows |
-| Problem → use logic | Concrete product names in examples |
-| Ready vs green | Version stamp + Changed line + doc URLs |
-| Ladder, anti-patterns, kill switch | — |
+| Chain: INTENT / WINDOW / PROOF / CUTOVER / OBSERVE | Tool picker rows |
+| Verb line, four situations, reference jobs | Concrete product names in examples |
+| Outcome stays open until observe | Version stamp + Changed line + doc URLs |
+| Ladder, anti-patterns, kill switch, named measures (no invented figures) | — |
 
-New protocols earn a **new layer** only if they solve a new job (outcome / calendar / evidence / sequence). A renamed Azure DevOps feature is a picker-row swap, not a redesign.
+OBSERVE is its own stage because its job is production evidence after the call. PROOF stays the evidence before the call. A renamed vendor feature is a picker-row swap, not a new stage.
 
 ## Tool picker guidance
 

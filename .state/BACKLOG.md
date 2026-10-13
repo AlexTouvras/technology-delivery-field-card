@@ -11,6 +11,7 @@
 
 ## Next
 
+- [x] Next-level card: chain through OBSERVE, four situations, gates, named measures (2026-10-13)
 - [x] First Friday discovery + judgment cycle after remote exists (2026-W34)
 - [x] 2026-W35 weekly judgment (no picker/job change; discovery CI did not open a PR)
 - [x] 2026-W36 weekly judgment (no picker/job change; discovery CI did not open a PR)
