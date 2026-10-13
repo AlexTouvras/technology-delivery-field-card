@@ -22,7 +22,7 @@ Standalone Technology Delivery Field Card one-pager (`index.html`). Public artif
 - Verb line under H1 + Always-on foundation strip (not picker items)
 - OBSERVE is production evidence (a separate job from PROOF). Hero status is Outcome open / Blocked / Held — never “system ready”
 - Four situations drive a blocked gate; other jobs stay in the reference table. Measures are named and unnumbered
-- Screen language matches the Orbit field-card control room (dark, mono labels, one signal). Print remaps to ink on paper
+- Screen language is the control-room layout: star trail, lit chain capsules, scenario cards, cutover checklist, stacked layers, illustrative trace with no invented figures. Status stays Outcome open / Blocked / Held. Print remaps to ink on paper
 - Fail-closed weekly refresh: PR `## Summary` or `data/judgment.md` required; Friday 18:00 review agent publishes
 - From 2026-10 the public footer stamp is monthly: `Next: <month>` (example `Next: November`). Version id stays ISO week. The 13 Oct 2026 chain upgrade is `v2026.42`. Do not run `bump:version` as-is: it still writes `Next: week of …`.
 - Orbit sync: `public/delivery-field-card/index.html` via shared field-card registry
