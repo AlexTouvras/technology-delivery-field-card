@@ -11,7 +11,7 @@ Standalone Technology Delivery Field Card one-pager (`index.html`). Public artif
 | Name | Shape / location | Notes |
 |------|------------------|-------|
 | Card HTML | `index.html` | Chain INTENT → WINDOW → PROOF → CUTOVER → OBSERVE. Signal stays open until the outcome is checked. |
-| Illustrations | `assets/ridge-dusk.jpg`, `assets/layer-stack.jpg` | Close photograph and the four-layer render. Icons stay inline SVG. Orbit’s static copy must include `assets/` with `index.html`. |
+| Illustrations | Inlined in `index.html`; source files in `assets/` | Ridge and layer stack are data URIs so a single-file Orbit copy still shows them. Icons stay inline SVG. |
 | Discovery | `data/discovery-report.json` | CI + `npm run discover` |
 | Watchlist | `data/watchlist.json` | `onCard` flags for ongoing tracking |
 | Proposals | `data/proposed-updates.json` | Stub for Cursor Automation |
