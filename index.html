@@ -533,18 +533,69 @@
       .sc-grid, .split, .measure-grid, .close-copy, .split-ref { grid-template-columns: 1fr; }
       .found-row { grid-template-columns: 1fr 1fr; }
       h1 { max-width: none; }
+      .close {
+        min-height: 0;
+        display: flex;
+        flex-direction: column;
+        background: #071018;
+      }
+      .close::before {
+        content: "";
+        display: block;
+        height: 230px;
+        background:
+          linear-gradient(180deg, rgba(2, 8, 16, 0.05) 55%, #071018),
+          url("assets/ridge-dusk.jpg") center 38% / cover no-repeat;
+      }
+      .close-copy { min-height: 0; padding: 0.15rem 1rem 1.1rem; margin-top: -0.4rem; }
+      .principle { max-width: 22em; font-size: 1.45rem; }
     }
     @media (max-width: 720px) {
-      .sheet { padding: 0.9rem 0.75rem 1rem; }
-      .chain { grid-template-columns: 1fr; }
+      .sheet {
+        width: min(1180px, calc(100% - 0.7rem));
+        margin: 0.35rem auto 1rem;
+        padding: 0.85rem 0.75rem 1rem;
+        border-radius: 16px;
+      }
+      .trail { display: none; }
+      .topbar { flex-direction: column; align-items: flex-start; gap: 0.55rem; }
+      .kicker-title { font-size: 1.15rem; }
+      .channels { width: 100%; }
+      h1 { font-size: 2.15rem; margin-top: 0.85rem; line-height: 1.02; }
+      .hook { font-size: 0.98rem; }
+      .chain { grid-template-columns: 1fr; gap: 0.4rem; }
       .beam { display: none; }
-      .stage { flex-direction: row; text-align: left; gap: 0.65rem; }
-      .stage .node { width: 7.2rem; flex: none; }
+      .stage { flex-direction: row; text-align: left; gap: 0.75rem; align-items: center; }
+      .stage .node { width: 7.6rem; height: 2.55rem; flex: none; }
       .stage em { max-width: none; }
-      .sc-grid, .anti-list, .found-row, .gate-body, .layers { grid-template-columns: 1fr; }
+      .block-head { align-items: flex-start; flex-direction: column; gap: 0.25rem; }
+      .sc-grid, .anti-list, .gate-body, .layers { grid-template-columns: 1fr; }
+      .found-row { grid-template-columns: 1fr 1fr; }
       .sc-select em { min-height: 0; }
+      .sc-facts div { grid-template-columns: 4.6rem 1fr; }
+      .layer-shot { margin: 0 auto; max-width: 210px; }
       .pick { grid-template-columns: 1fr; }
-      .principle { max-width: none; }
+      .close::before { height: 200px; }
+      .principle { font-size: 1.28rem; max-width: none; }
+      .more p { max-width: none; }
+      table, thead, tbody, tr, th, td { display: block; }
+      thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0,0,0,0); }
+      tr { padding: 0.7rem 0; border-bottom: 1px solid rgba(120, 170, 210, 0.16); }
+      td { width: auto; border: 0; padding: 0.12rem 0; }
+      td.problem { font-weight: 600; padding-top: 0.15rem; }
+      td.reach { margin: 0.2rem 0 0.1rem; }
+      td.problem::before, td.reach::before, td.example::before {
+        display: block;
+        font-family: var(--mono);
+        font-size: 0.58rem;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--muted);
+        margin-bottom: 0.1rem;
+      }
+      td.problem::before { content: "Problem"; }
+      td.reach::before { content: "Use"; }
+      td.example::before { content: "Example"; }
     }
     @media (prefers-reduced-motion: reduce) {
       html { scroll-behavior: auto; }
@@ -561,6 +612,11 @@
       .gate-copy[hidden] { display: block !important; }
       .panel, .sc-card, .chain-wrap, .close { background: #fff; box-shadow: none; }
       .principle { text-shadow: none; }
+      table, thead, tbody, tr, th, td { display: revert; }
+      thead { position: static; width: auto; height: auto; overflow: visible; clip: auto; }
+      tr { display: table-row; padding: 0; border: 0; }
+      th, td { display: table-cell; }
+      td.problem::before, td.reach::before, td.example::before { content: none; }
     }
   </style>
 </head>
@@ -1073,6 +1129,12 @@
           heldBtn.textContent = state.mode === "held" ? "Reopen — outcome not verified" : "Mark the outcome checked";
         }
         if (booted && live) live.textContent = (labels[state.mode] || "") + ". Gate: " + state.stage + ".";
+        var selected = stageButtons[idx];
+        var rail = document.querySelector(".chain");
+        if (selected && rail && rail.scrollWidth > rail.clientWidth + 8) {
+          var left = selected.offsetLeft - (rail.clientWidth - selected.offsetWidth) / 2;
+          rail.scrollTo({ left: Math.max(0, left), behavior: booted ? "smooth" : "auto" });
+        }
       }
 
       function selectStage(stage) {
