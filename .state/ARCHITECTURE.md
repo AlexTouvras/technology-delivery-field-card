@@ -11,6 +11,7 @@ Standalone Technology Delivery Field Card one-pager (`index.html`). Public artif
 | Name | Shape / location | Notes |
 |------|------------------|-------|
 | Card HTML | `index.html` | Chain INTENT → WINDOW → PROOF → CUTOVER → OBSERVE. Signal stays open until the outcome is checked. |
+| Illustrations | `assets/ridge-dusk.jpg`, `assets/layer-stack.jpg` | Close photograph and the four-layer render. Icons stay inline SVG. Orbit’s static copy must include `assets/` with `index.html`. |
 | Discovery | `data/discovery-report.json` | CI + `npm run discover` |
 | Watchlist | `data/watchlist.json` | `onCard` flags for ongoing tracking |
 | Proposals | `data/proposed-updates.json` | Stub for Cursor Automation |
@@ -25,7 +26,7 @@ Standalone Technology Delivery Field Card one-pager (`index.html`). Public artif
 - Screen language is the control-room layout: star trail, lit chain capsules, scenario cards, cutover checklist, stacked layers, illustrative trace with no invented figures. Status stays Outcome open / Blocked / Held. Print remaps to ink on paper
 - Fail-closed weekly refresh: PR `## Summary` or `data/judgment.md` required; Friday 18:00 review agent publishes
 - From 2026-10 the public footer stamp is monthly: `Next: <month>` (example `Next: November`). Version id stays ISO week. The 13 Oct 2026 chain upgrade is `v2026.42`. Do not run `bump:version` as-is: it still writes `Next: week of …`.
-- Orbit sync: `public/delivery-field-card/index.html` via shared field-card registry
+- Orbit sync: `public/delivery-field-card/index.html` plus `assets/ridge-dusk.jpg` and `assets/layer-stack.jpg` via the shared field-card registry
 
 ## Dependencies
 

@@ -77,25 +77,15 @@
     }
     .trail {
       position: absolute;
-      left: 0; right: 0; top: 36px;
+      left: 0; right: 0;       top: 0;
       width: 100%;
-      height: 220px;
+      height: 190px;
       pointer-events: none;
     }
     .trail path { fill: none; stroke-linecap: round; }
-    .trail .glow {
-      stroke: url(#trail);
-      stroke-width: 8;
-      opacity: 0.35;
-      filter: blur(2px);
-    }
-    .trail .core {
-      stroke: url(#trail);
-      stroke-width: 1.6;
-      stroke-dasharray: 8 14;
-      animation: march 2.8s linear infinite;
-    }
-    @keyframes march { to { stroke-dashoffset: -180; } }
+    .trail .glow { stroke: url(#trail); stroke-width: 18; opacity: 0.85; }
+    .trail .mid { stroke: url(#trail); stroke-width: 5; opacity: 0.55; }
+    .trail .core { stroke: #f7fbff; stroke-width: 1.4; opacity: 0.9; }
 
     .topbar, .hero, .panel, .band, .close, footer.meta { position: relative; z-index: 1; }
     .topbar {
@@ -263,7 +253,7 @@
       gap: 0.4rem;
       color: var(--cyan);
     }
-    .stage .node svg { width: 1.05rem; height: 1.05rem; fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
+    .stage .node svg { width: 1.2rem; height: 1.2rem; overflow: visible; }
     .stage .num { font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.06em; }
     .stage b { display: block; margin-top: 0.45rem; font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.08em; }
     .stage em { display: block; margin-top: 0.15rem; font-style: normal; color: var(--muted); font-size: 0.72rem; max-width: 14ch; line-height: 1.3; }
@@ -333,7 +323,7 @@
       padding: 0;
     }
     .sc-ico { display: flex; align-items: center; gap: 0.4rem; color: var(--cyan); margin-bottom: 0.4rem; }
-    .sc-ico svg { width: 1rem; height: 1rem; fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
+    .sc-ico svg { width: 1.05rem; height: 1.05rem; }
     .sc-ico small { font-family: var(--mono); font-size: 0.66rem; letter-spacing: 0.08em; }
     .sc-select strong { display: block; font-size: 0.98rem; letter-spacing: -0.02em; line-height: 1.25; }
     .sc-select em { display: block; margin-top: 0.25rem; font-style: normal; color: var(--muted); font-size: 0.78rem; line-height: 1.35; min-height: 2.6em; }
@@ -368,7 +358,7 @@
       align-items: center;
       gap: 0.3rem;
     }
-    .gate-tab svg { width: 0.85rem; height: 0.85rem; fill: none; stroke: currentColor; stroke-width: 1.7; }
+    .gate-tab svg { width: 0.9rem; height: 0.9rem; }
     .gate-tab.is-selected {
       color: #04221c;
       background: var(--mint);
@@ -384,7 +374,7 @@
       box-shadow: 0 0 24px rgba(40, 200, 180, 0.2), inset 0 0 18px rgba(40, 180, 160, 0.12);
       background: radial-gradient(circle at 50% 40%, rgba(40, 160, 180, 0.25), rgba(4, 16, 28, 0.2));
     }
-    .mark-ico svg { width: 1.6rem; height: 1.6rem; fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+    .mark-ico svg { width: 2rem; height: 2rem; filter: drop-shadow(0 0 6px currentColor); }
     .mark b { display: block; font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.08em; }
     .mark em { display: block; margin-top: 0.15rem; font-style: normal; color: var(--muted); font-size: 0.72rem; }
     .checks { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.45rem; }
@@ -408,21 +398,14 @@
     .sheet[data-stage="observe"] .mark-held { display: inline-block; }
     .sheet[data-mode="blocked"] .mark-held { display: none; }
 
-    .layers { display: grid; grid-template-columns: 9rem 1fr; gap: 0.6rem; align-items: center; }
-    .stack3d { height: 150px; display: grid; align-content: center; justify-items: center; }
-    .stack3d i {
+    .layers { display: grid; grid-template-columns: minmax(9rem, 13rem) 1fr; gap: 0.75rem; align-items: center; }
+    .layer-shot {
+      width: 100%;
+      max-width: 230px;
       display: block;
-      width: 7.2rem;
-      height: 1.7rem;
-      margin-top: -0.45rem;
-      border-radius: 4px;
-      transform: skewX(-18deg);
-      border: 1px solid rgba(255, 255, 255, 0.18);
+      border-radius: 14px;
+      background: #061018;
     }
-    .stack3d i:nth-child(1) { background: linear-gradient(180deg, #8ef6ff, #2a8cff); box-shadow: 0 0 16px rgba(80, 200, 255, 0.45); margin-top: 0; }
-    .stack3d i:nth-child(2) { background: linear-gradient(180deg, #5dffe0, #149a88); box-shadow: 0 0 14px rgba(60, 220, 180, 0.35); }
-    .stack3d i:nth-child(3) { background: linear-gradient(180deg, #b6ff7a, #3c9a28); box-shadow: 0 0 14px rgba(140, 220, 60, 0.28); }
-    .stack3d i:nth-child(4) { background: linear-gradient(180deg, #ffe08a, #e0a020); box-shadow: 0 0 14px rgba(255, 190, 60, 0.35); }
     .legend { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.55rem; }
     .legend li { display: grid; grid-template-columns: 0.7rem 1fr; gap: 0.45rem; align-items: start; }
     .legend i { width: 0.55rem; height: 0.55rem; border-radius: 50%; margin-top: 0.28rem; box-shadow: 0 0 8px currentColor; }
@@ -443,7 +426,7 @@
       color: var(--cyan);
     }
     .measure-col article { display: grid; grid-template-columns: 1.6rem 1fr; gap: 0.45rem; margin-bottom: 0.65rem; }
-    .measure-col svg { width: 1.3rem; height: 1.3rem; fill: none; stroke: var(--cyan); stroke-width: 1.6; margin-top: 0.1rem; }
+    .measure-col svg { width: 1.35rem; height: 1.35rem; margin-top: 0.1rem; color: var(--cyan); }
     .measure-col b { display: block; font-size: 0.92rem; }
     .measure-col span { display: block; color: var(--muted); font-size: 0.78rem; }
     .trace-head { display: flex; justify-content: space-between; gap: 0.4rem; align-items: center; margin-bottom: 0.35rem; }
@@ -465,36 +448,37 @@
 
     .close {
       margin-top: 0.95rem;
-      min-height: 250px;
+      min-height: 380px;
       border-radius: 16px;
       overflow: hidden;
       border: 1px solid rgba(90, 160, 210, 0.25);
       position: relative;
-      background: #071018;
+      background:
+        linear-gradient(90deg, rgba(2, 8, 16, 0.78) 0%, rgba(2, 8, 16, 0.18) 38%, rgba(2, 8, 16, 0.05) 52%, rgba(2, 8, 16, 0.62) 100%),
+        url("assets/ridge-dusk.jpg") center 62% / cover no-repeat;
     }
-    .scene { position: absolute; inset: 0; width: 100%; height: 100%; }
     .close-copy {
       position: relative;
       z-index: 1;
       display: grid;
-      grid-template-columns: 1.2fr 0.8fr;
+      grid-template-columns: 1.15fr 0.85fr;
       gap: 1rem;
-      padding: 1.2rem 1.15rem 1rem;
-      min-height: 250px;
-      align-items: end;
+      padding: 1.4rem 1.2rem;
+      min-height: 380px;
+      align-items: center;
     }
     .principle {
       margin: 0.35rem 0 0;
-      max-width: 22ch;
+      max-width: 20ch;
       font-size: clamp(1.35rem, 2.4vw, 1.85rem);
       line-height: 1.2;
       letter-spacing: -0.03em;
       font-weight: 600;
       color: var(--mint);
-      text-shadow: 0 8px 24px rgba(0, 0, 0, 0.45);
+      text-shadow: 0 2px 18px rgba(0, 0, 0, 0.75);
     }
-    .more b { display: block; font-family: var(--mono); font-size: 0.66rem; letter-spacing: 0.12em; text-transform: uppercase; color: #d5e4f4; margin-bottom: 0.35rem; }
-    .more p { margin: 0; max-width: 32ch; color: #d5e4f4; font-size: 0.92rem; }
+    .more b { display: block; font-family: var(--mono); font-size: 0.66rem; letter-spacing: 0.12em; text-transform: uppercase; color: #d5e4f4; margin-bottom: 0.35rem; text-shadow: 0 2px 12px rgba(0,0,0,0.7); }
+    .more p { margin: 0; max-width: 32ch; color: #d5e4f4; font-size: 0.92rem; text-shadow: 0 2px 12px rgba(0,0,0,0.7); }
     .chips { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 0.7rem; }
     .chips span {
       font-family: var(--mono);
@@ -570,7 +554,8 @@
       @page { size: A4 landscape; margin: 8mm; }
       body { background: #fff; color: #18212b; }
       .sheet { width: 100%; margin: 0; padding: 0; background: #fff; border: none; box-shadow: none; }
-      .sheet::before, .trail, .scene, .channels button, .channels a.btn, .mark-held, .next-gate { display: none !important; }
+      .sheet::before, .trail, .channels button, .channels a.btn, .mark-held, .next-gate { display: none !important; }
+      .close { background: #fff !important; }
       h1 em { background: none; color: #0f5f6b; -webkit-text-fill-color: #0f5f6b; }
       .hook, .verbs, .caption, .principle, .more p, .version, .pick span, .checks span { color: #18212b; }
       .gate-copy[hidden] { display: block !important; }
@@ -582,17 +567,83 @@
 <body>
   <article class="sheet" id="field-card" data-stage="cutover" data-mode="open" data-scenario="">
     <p id="live" class="sr-only" aria-live="polite"></p>
-    <svg class="trail" viewBox="0 0 1200 220" preserveAspectRatio="none" aria-hidden="true">
+    <svg class="sprite" aria-hidden="true" width="0" height="0" style="position:absolute">
+      <defs>
+        <symbol id="i-target" viewBox="0 0 24 24">
+          <circle cx="12" cy="12" r="7.2" fill="none" stroke="currentColor" stroke-width="1.6"/>
+          <circle cx="12" cy="12" r="3.1" fill="none" stroke="currentColor" stroke-width="1.6"/>
+          <circle cx="12" cy="12" r="1" fill="currentColor"/>
+          <path d="M12 2.1v2.2M12 19.7v2.2M2.1 12h2.2M19.7 12h2.2" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+        </symbol>
+        <symbol id="i-cal" viewBox="0 0 24 24">
+          <rect x="3.8" y="5.2" width="16.4" height="14.6" rx="2" fill="none" stroke="currentColor" stroke-width="1.6"/>
+          <path d="M8 3.2v3.4M16 3.2v3.4M3.8 9.6h16.4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+          <circle cx="8.2" cy="13.6" r="0.8" fill="currentColor"/>
+          <circle cx="12" cy="13.6" r="0.8" fill="currentColor"/>
+          <circle cx="15.8" cy="13.6" r="0.8" fill="currentColor"/>
+        </symbol>
+        <symbol id="i-shield" viewBox="0 0 24 24">
+          <path d="M12 2.8l6.6 2.4v5.3c0 3.8-2.6 6.7-6.6 8-4-1.3-6.6-4.2-6.6-8V5.2L12 2.8z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+          <path d="M9 11.3l1.9 1.9 4-4.1" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+        </symbol>
+        <symbol id="i-rocket" viewBox="0 0 24 24">
+          <path d="M12 2.2c2.3 2.5 3.5 5.2 3.5 8.1v2.4l2.2 1.6v2.1h-3.2L13.1 21h-2.2l-1.4-4.6H6.3v-2.1l2.2-1.6V10.3c0-2.9 1.2-5.6 3.5-8.1z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+          <circle cx="12" cy="10" r="1.15" fill="currentColor"/>
+          <path d="M8.8 16.4c-.9 1.4-1.6 2.4-1.6 2.4M15.2 16.4c.9 1.4 1.6 2.4 1.6 2.4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+        </symbol>
+        <symbol id="i-pulse" viewBox="0 0 24 24">
+          <path d="M2.2 12h3.4l2-4.6 3.6 9.2 2.3-4.6h8.3" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+          <circle cx="21.2" cy="12" r="1" fill="currentColor"/>
+        </symbol>
+        <symbol id="i-person" viewBox="0 0 24 24">
+          <circle cx="12" cy="8" r="2.5" fill="none" stroke="currentColor" stroke-width="1.6"/>
+          <path d="M6.6 19.2v-1.1c0-2.4 2.2-4 5.4-4s5.4 1.6 5.4 4v1.1" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+        </symbol>
+        <symbol id="i-cloud" viewBox="0 0 24 24">
+          <path d="M7.4 17.4h8.8a3.4 3.4 0 0 0 .5-6.8 4.7 4.7 0 0 0-9-1.1 3.3 3.3 0 0 0-.3 7.9z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+        </symbol>
+        <symbol id="i-chart" viewBox="0 0 24 24">
+          <path d="M3.8 16.6l4.2-4.3 2.8 2.6 4.3-5.6 5.1 3.4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M15.2 9.2h5v4.6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+        </symbol>
+        <symbol id="i-clock" viewBox="0 0 24 24">
+          <circle cx="12" cy="12" r="7.4" fill="none" stroke="currentColor" stroke-width="1.6"/>
+          <path d="M12 8v4.6l2.8 1.6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+        </symbol>
+        <symbol id="i-arrow" viewBox="0 0 24 24">
+          <path d="M4.5 12h14M13 7.2l5.8 4.8L13 16.8" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+        </symbol>
+        <symbol id="i-back" viewBox="0 0 24 24">
+          <path d="M8.2 8H4.4V4.2" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M5.2 8.4a7.2 7.2 0 1 1-1.1 4.4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+        </symbol>
+      </defs>
+    </svg>
+    <svg class="trail" viewBox="0 0 1200 260" aria-hidden="true">
       <defs>
         <linearGradient id="trail" x1="0" y1="0" x2="1" y2="0">
           <stop offset="0" stop-color="#1a6cff" stop-opacity="0"/>
-          <stop offset="0.35" stop-color="#5cefff"/>
-          <stop offset="0.72" stop-color="#7dffe1"/>
+          <stop offset="0.22" stop-color="#3ec6ff"/>
+          <stop offset="0.5" stop-color="#7dffe1"/>
+          <stop offset="0.78" stop-color="#fff4c8"/>
           <stop offset="1" stop-color="#ffd36a"/>
         </linearGradient>
+        <filter id="trailBlur" x="-8%" y="-60%" width="116%" height="220%">
+          <feGaussianBlur stdDeviation="8"/>
+        </filter>
       </defs>
-      <path class="glow" d="M-10 150 C 180 150, 260 40, 480 78 S 820 20, 1210 64"/>
-      <path class="core" d="M-10 150 C 180 150, 260 40, 480 78 S 820 20, 1210 64"/>
+      <g fill="#fff">
+        <circle cx="70" cy="36" r="1.1"/><circle cx="160" cy="78" r="0.8" opacity="0.7"/>
+        <circle cx="250" cy="28" r="1.2"/><circle cx="390" cy="64" r="0.7" opacity="0.6"/>
+        <circle cx="520" cy="22" r="1"/><circle cx="680" cy="48" r="0.8" opacity="0.7"/>
+        <circle cx="860" cy="18" r="1.2"/><circle cx="980" cy="40" r="0.8"/>
+        <circle cx="1100" cy="24" r="1"/>
+      </g>
+      <path class="glow" filter="url(#trailBlur)" d="M-40 78 C 180 96, 280 18, 520 34 S 860 6, 1160 30"/>
+      <path class="mid" d="M-40 78 C 180 96, 280 18, 520 34 S 860 6, 1160 30"/>
+      <path class="core" d="M-40 78 C 180 96, 280 18, 520 34 S 860 6, 1160 30"/>
+      <circle cx="1160" cy="30" r="11" fill="#ffd36a" opacity="0.35"/>
+      <circle cx="1160" cy="30" r="3.5" fill="#fff"/>
     </svg>
 
     <div class="topbar">
@@ -619,23 +670,23 @@
       <div class="chain" role="tablist" aria-label="Delivery chain">
         <div class="beam" aria-hidden="true"><i></i></div>
         <button type="button" class="stage" id="tab-intent" data-stage="intent" role="tab" aria-selected="false" aria-controls="gate-intent" tabindex="-1">
-          <span class="node"><span class="num">01</span><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="7"/><circle cx="12" cy="12" r="2"/><path d="M12 3v2M12 19v2M3 12H5M19 12h2"/></svg></span>
+          <span class="node"><span class="num">01</span><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-target"/></svg></span>
           <span><b>INTENT</b><em>Outcome + owner</em></span>
         </button>
         <button type="button" class="stage" id="tab-window" data-stage="window" role="tab" aria-selected="false" aria-controls="gate-window" tabindex="-1">
-          <span class="node"><span class="num">02</span><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="5" width="16" height="15" rx="2"/><path d="M8 3v4M16 3v4M4 10h16"/></svg></span>
+          <span class="node"><span class="num">02</span><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-cal"/></svg></span>
           <span><b>WINDOW</b><em>Dependencies + timing</em></span>
         </button>
         <button type="button" class="stage" id="tab-proof" data-stage="proof" role="tab" aria-selected="false" aria-controls="gate-proof" tabindex="-1">
-          <span class="node"><span class="num">03</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l7 3v6c0 4.2-2.8 7.2-7 8-4.2-.8-7-3.8-7-8V6z"/></svg></span>
+          <span class="node"><span class="num">03</span><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-shield"/></svg></span>
           <span><b>PROOF</b><em>Risk + readiness</em></span>
         </button>
         <button type="button" class="stage is-selected" id="tab-cutover" data-stage="cutover" role="tab" aria-selected="true" aria-controls="gate-cutover" tabindex="0">
-          <span class="node"><span class="num">04</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V8"/><path d="M8 11l4-6 4 6"/><path d="M7 19h10"/></svg></span>
+          <span class="node"><span class="num">04</span><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-rocket"/></svg></span>
           <span><b>CUTOVER</b><em>Release + rollback</em></span>
         </button>
         <button type="button" class="stage" id="tab-observe" data-stage="observe" role="tab" aria-selected="false" aria-controls="gate-observe" tabindex="-1">
-          <span class="node"><span class="num">05</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12h4l2-5 4 10 2-5h6"/></svg></span>
+          <span class="node"><span class="num">05</span><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-pulse"/></svg></span>
           <span><b>OBSERVE</b><em>Production evidence</em></span>
         </button>
       </div>
@@ -651,7 +702,7 @@
       <div class="sc-grid">
         <article class="sc-card" data-scenario="windows" data-stage="window">
           <button type="button" class="sc-select" aria-pressed="false">
-            <span class="sc-ico"><small>01</small><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="5" width="16" height="15" rx="2"/><path d="M8 3v4M16 3v4M4 10h16"/></svg></span>
+            <span class="sc-ico"><small>01</small><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-cal"/></svg></span>
             <strong>Competing change windows</strong>
             <em>Platform, security, and business clocks disagree.</em>
           </button>
@@ -663,7 +714,7 @@
         </article>
         <article class="sc-card" data-scenario="owner" data-stage="proof">
           <button type="button" class="sc-select" aria-pressed="false">
-            <span class="sc-ico"><small>02</small><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="3"/><path d="M6 19c.8-2.6 2.8-4 6-4s5.2 1.4 6 4"/></svg></span>
+            <span class="sc-ico"><small>02</small><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-person"/></svg></span>
             <strong>Dependency has no owner</strong>
             <em>A dependency is in the path, and nobody owns it.</em>
           </button>
@@ -675,7 +726,7 @@
         </article>
         <article class="sc-card" data-scenario="green" data-stage="cutover">
           <button type="button" class="sc-select" aria-pressed="false">
-            <span class="sc-ico"><small>03</small><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 16l4-8 3 5 2-3 3 6"/></svg></span>
+            <span class="sc-ico"><small>03</small><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-cloud"/></svg></span>
             <strong>Deployment passes, ops not ready</strong>
             <em>The change is out. Rollback is not written.</em>
           </button>
@@ -687,7 +738,7 @@
         </article>
         <article class="sc-card" data-scenario="metrics" data-stage="observe">
           <button type="button" class="sc-select" aria-pressed="false">
-            <span class="sc-ico"><small>04</small><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 16l4-5 3 3 4-7 5 9"/></svg></span>
+            <span class="sc-ico"><small>04</small><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-chart"/></svg></span>
             <strong>Metrics move after cutover</strong>
             <em>Error rate or queue depth shifts in the watch window.</em>
           </button>
@@ -706,15 +757,15 @@
           <h2>Delivery gates</h2>
           <p class="subhead">Each stage has a rule. Pipeline green is not proof.</p>
           <div class="gate-tabs" role="group" aria-label="Gate">
-            <button type="button" class="gate-tab" data-stage="intent"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="7"/></svg>Intent</button>
-            <button type="button" class="gate-tab" data-stage="window"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="5" width="16" height="15" rx="2"/></svg>Window</button>
-            <button type="button" class="gate-tab" data-stage="proof"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l7 3v6c0 4-3 7-7 8-4-1-7-4-7-8V6z"/></svg>Proof</button>
-            <button type="button" class="gate-tab is-selected" data-stage="cutover"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V8M8 11l4-6 4 6"/></svg>Cutover</button>
-            <button type="button" class="gate-tab" data-stage="observe"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12h4l2-5 4 10 2-5h6"/></svg>Observe</button>
+            <button type="button" class="gate-tab" data-stage="intent"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-target"/></svg>Intent</button>
+            <button type="button" class="gate-tab" data-stage="window"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-cal"/></svg>Window</button>
+            <button type="button" class="gate-tab" data-stage="proof"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-shield"/></svg>Proof</button>
+            <button type="button" class="gate-tab is-selected" data-stage="cutover"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-rocket"/></svg>Cutover</button>
+            <button type="button" class="gate-tab" data-stage="observe"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-pulse"/></svg>Observe</button>
           </div>
           <div class="gate-copy" id="gate-intent" data-gate="intent" hidden>
             <div class="gate-body">
-              <div class="mark"><div class="mark-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="7"/><circle cx="12" cy="12" r="2"/></svg></div><b>INTENT</b><em>Outcome + owner</em></div>
+              <div class="mark"><div class="mark-ico"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-target"/></svg></div><b>INTENT</b><em>Outcome + owner</em></div>
               <ul class="checks">
                 <li><b>Named outcome</b><span>What is this change for?</span></li>
                 <li><b>Owner</b><span>Which person owns it?</span></li>
@@ -724,7 +775,7 @@
           </div>
           <div class="gate-copy" id="gate-window" data-gate="window" hidden>
             <div class="gate-body">
-              <div class="mark"><div class="mark-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="5" width="16" height="15" rx="2"/><path d="M4 10h16"/></svg></div><b>WINDOW</b><em>Dependencies + timing</em></div>
+              <div class="mark"><div class="mark-ico"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-cal"/></svg></div><b>WINDOW</b><em>Dependencies + timing</em></div>
               <ul class="checks">
                 <li><b>Clocks</b><span>Platform, security, and the business freeze.</span></li>
                 <li><b>One window</b><span>A date and a check, not a chat slot.</span></li>
@@ -734,7 +785,7 @@
           </div>
           <div class="gate-copy" id="gate-proof" data-gate="proof" hidden>
             <div class="gate-body">
-              <div class="mark"><div class="mark-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l7 3v6c0 4.2-2.8 7.2-7 8-4.2-.8-7-3.8-7-8V6z"/></svg></div><b>PROOF</b><em>Risk + readiness</em></div>
+              <div class="mark"><div class="mark-ico"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-shield"/></svg></div><b>PROOF</b><em>Risk + readiness</em></div>
               <ul class="checks">
                 <li><b>Dependency owner</b><span>Who owns the wait, the blocker, and the date.</span></li>
                 <li><b>Blast radius</b><span>What the change can touch.</span></li>
@@ -744,7 +795,7 @@
           </div>
           <div class="gate-copy" id="gate-cutover" data-gate="cutover">
             <div class="gate-body">
-              <div class="mark"><div class="mark-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V8"/><path d="M8 11l4-6 4 6"/><path d="M7 19h10"/></svg></div><b>CUTOVER</b><em>Release + rollback</em></div>
+              <div class="mark"><div class="mark-ico"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-rocket"/></svg></div><b>CUTOVER</b><em>Release + rollback</em></div>
               <ul class="checks">
                 <li><b>Named owner</b><span>Who is accountable for the change?</span></li>
                 <li><b>Rollback plan</b><span>How do we get back if needed?</span></li>
@@ -755,7 +806,7 @@
           </div>
           <div class="gate-copy" id="gate-observe" data-gate="observe" hidden>
             <div class="gate-body">
-              <div class="mark"><div class="mark-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12h4l2-5 4 10 2-5h6"/></svg></div><b>OBSERVE</b><em>Production evidence</em></div>
+              <div class="mark"><div class="mark-ico"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-pulse"/></svg></div><b>OBSERVE</b><em>Production evidence</em></div>
               <ul class="checks">
                 <li><b>Watch window</b><span>Thirty minutes after cutover is the working example.</span></li>
                 <li><b>Signals</b><span>Error rate and queue depth.</span></li>
@@ -774,7 +825,7 @@
           <h2>The four layers</h2>
           <p class="subhead">From business outcome to operational evidence.</p>
           <div class="layers">
-            <div class="stack3d" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+            <img class="layer-shot" src="assets/layer-stack.jpg" alt="Four glass layers, from cyan to gold" width="220" height="220">
             <ol class="legend">
               <li><i class="c1"></i><div><b>Business outcome</b><span>Why the change matters.</span></div></li>
               <li><i class="c2"></i><div><b>Delivery system</b><span>People, dependencies, calendars.</span></div></li>
@@ -794,13 +845,13 @@
       <div class="measure-grid">
         <div class="measure-col">
           <h3>Delivery flow</h3>
-          <article><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8"/><path d="M12 8v5l3 2"/></svg><div><b>Lead time</b><span>From named intent to the change in production.</span></div></article>
-          <article><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><div><b>Change-failure rate</b><span>How often a change is reversed or patched.</span></div></article>
+          <article><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-clock"/></svg><div><b>Lead time</b><span>From named intent to the change in production.</span></div></article>
+          <article><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-arrow"/></svg><div><b>Change-failure rate</b><span>How often a change is reversed or patched.</span></div></article>
         </div>
         <div class="measure-col">
           <h3>Operational outcomes</h3>
-          <article><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12a8 8 0 1 0 2-5"/><path d="M4 4v5h5"/></svg><div><b>Recovery time</b><span>How fast the written rollback returns the service.</span></div></article>
-          <article><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 14l4-4 3 3 5-7 4 6"/></svg><div><b>Service health</b><span>Whether the watched signals held after green.</span></div></article>
+          <article><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-back"/></svg><div><b>Recovery time</b><span>How fast the written rollback returns the service.</span></div></article>
+          <article><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-pulse"/></svg><div><b>Service health</b><span>Whether the watched signals held after green.</span></div></article>
         </div>
         <div class="panel" style="padding:0.7rem 0.75rem">
           <div class="trace-head">
@@ -808,8 +859,23 @@
             <div><b>Error rate</b><strong>—</strong></div>
             <span class="badge" id="trace-badge">Open</span>
           </div>
-          <svg class="trace" viewBox="0 0 280 86" aria-hidden="true">
-            <path d="M0 58 C 30 58, 40 30, 70 34 S 120 70, 150 48 200 20, 240 36 270 50, 280 42" fill="none" stroke="#5cefff" stroke-width="2"/>
+          <svg class="trace" viewBox="0 0 280 90" aria-hidden="true">
+            <defs>
+              <linearGradient id="cFill" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0" stop-color="#5cefff" stop-opacity="0.35"/>
+                <stop offset="1" stop-color="#5cefff" stop-opacity="0"/>
+              </linearGradient>
+              <linearGradient id="gFill" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0" stop-color="#ffd36a" stop-opacity="0.3"/>
+                <stop offset="1" stop-color="#ffd36a" stop-opacity="0"/>
+              </linearGradient>
+            </defs>
+            <g stroke="rgba(150,190,220,0.16)" stroke-width="1">
+              <path d="M0 22h280M0 44h280M0 66h280"/>
+            </g>
+            <path d="M0 58 C 30 58, 40 30, 70 34 S 120 70, 150 48 200 22, 240 36 270 50, 280 42 V 90 H 0 Z" fill="url(#cFill)"/>
+            <path d="M0 64 C 40 64, 60 50, 100 54 S 160 72, 200 46 250 30, 280 38 V 90 H 0 Z" fill="url(#gFill)"/>
+            <path d="M0 58 C 30 58, 40 30, 70 34 S 120 70, 150 48 200 22, 240 36 270 50, 280 42" fill="none" stroke="#5cefff" stroke-width="2"/>
             <path d="M0 64 C 40 64, 60 50, 100 54 S 160 72, 200 46 250 30, 280 38" fill="none" stroke="#ffd36a" stroke-width="2"/>
           </svg>
           <p class="note" style="margin:0.25rem 0 0">Illustrative trace. Name the figure when this portfolio has measured it.</p>
@@ -819,35 +885,6 @@
     </section>
 
     <section class="close" aria-labelledby="principle-label">
-      <svg class="scene" viewBox="0 0 1200 320" preserveAspectRatio="xMidYMax slice" aria-hidden="true">
-        <defs>
-          <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0" stop-color="#071425"/>
-            <stop offset="0.45" stop-color="#12304a"/>
-            <stop offset="0.72" stop-color="#c46a3a"/>
-            <stop offset="1" stop-color="#f0b27a"/>
-          </linearGradient>
-          <linearGradient id="water" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0" stop-color="#e7a56a"/>
-            <stop offset="1" stop-color="#1a3048"/>
-          </linearGradient>
-        </defs>
-        <rect width="1200" height="320" fill="url(#sky)"/>
-        <g fill="#fff" opacity="0.7">
-          <circle cx="80" cy="36" r="1"/><circle cx="180" cy="22" r="1"/><circle cx="260" cy="48" r="1.2"/>
-          <circle cx="420" cy="28" r="1"/><circle cx="640" cy="18" r="1.1"/><circle cx="900" cy="34" r="1"/>
-          <circle cx="1040" cy="20" r="1.2"/>
-        </g>
-        <path fill="#1c3a52" d="M0 120 L150 40 L270 110 L430 18 L560 130 L720 36 L900 128 L1060 52 L1200 120 L1200 230 L0 230 Z"/>
-        <path fill="#12283c" d="M0 168 L190 100 L340 160 L520 90 L700 170 L900 110 L1200 168 L1200 236 L0 236 Z"/>
-        <rect y="228" width="1200" height="92" fill="url(#water)"/>
-        <g fill="#140e0b" transform="translate(548 128)">
-          <circle cx="16" cy="8" r="8"/>
-          <path d="M8 16 L2 48 L10 46 L14 78 L22 78 L26 46 L34 48 L24 16 Z"/>
-          <path d="M10 40 L-6 68 L2 72 L16 48 Z"/>
-          <path d="M24 40 L42 70 L34 74 L18 48 Z"/>
-        </g>
-      </svg>
       <div class="close-copy">
         <div>
           <h2 id="principle-label">The leadership principle</h2>
@@ -978,7 +1015,7 @@
           <span>Delivery · Data · AI automation</span>
         </div>
       </div>
-      <p class="changed"><b>Changed</b> Control-room layout: lit chain, scenario cards, cutover checklist, layers, measures. No invented figures. Picker unchanged.</p>
+      <p class="changed"><b>Changed</b> Ridge photograph and glass layer stack replace the drawn figures. No invented metrics. Picker unchanged.</p>
     </footer>
   </article>
   <script>
