@@ -16,6 +16,8 @@
 | Weekly judgment | Cursor Fri 17:00 | PR `## Summary` | none — stop for review |
 | Weekly review | Orbit Cursor Fri 18:00 | Apply review + #orbit FYI | review agent is the gate |
 | Sync site | GHA `sync-site.yml` on push to `main` | copies `index.html` and `assets/` onto Orbit | merge is the trigger |
+
+Orbit must accept the `sync` token before the pictures travel with that copy. The change is `docs/ops/orbit-sync-assets.patch` (this environment cannot push `AlexTouvras/Orbit`). Until that patch is deployed, Sync site falls back to approve and copies `index.html` only.
 | Judgment watchdog | GHA `judgment-watchdog.yml` Mon | #orbit FYI if PR still open | re-run review agent |
 
 ## Required secrets
