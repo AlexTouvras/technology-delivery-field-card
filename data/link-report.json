@@ -1,10 +1,15 @@
 {
-  "checkedAt": "2026-10-01T14:04:03.740Z",
-  "total": 14,
+  "checkedAt": "2026-10-13T11:52:17.093Z",
+  "total": 15,
   "failed": 0,
   "results": [
     {
       "url": "https://alextouvras.com",
+      "ok": true,
+      "status": 200
+    },
+    {
+      "url": "https://alextouvras.com/delivery-field-card/",
       "ok": true,
       "status": 200
     },

@@ -1,0 +1,260 @@
+diff --git a/docs/architecture/field-card-approve.md b/docs/architecture/field-card-approve.md
+index 1d3e1aa..5f6ff9e 100644
+--- a/docs/architecture/field-card-approve.md
++++ b/docs/architecture/field-card-approve.md
+@@ -37,5 +37,7 @@ flowchart LR
+   Review --> Slack["#orbit FYI · one post per card"]
+ ```
+ 
++A merge to `main` on a source repo also copies that card. The repo's Sync site job posts a `sync` token. Orbit copies `index.html` and `assets/` onto the Orbit path and does not post Slack for that copy. Apply review still merges and copies the same files.
++
+ Signing secret must match across content repos + Orbit (`WEEKLY_WRITE_SECRET` / `CRON_SECRET` / `FIELD_CARD_ACTION_SECRET`).
+ GitHub token on Orbit must be allowed to read + merge PRs on **all registered** field-card repos (`FIELD_CARD_GITHUB_TOKEN` if the default token is Orbit-only).
+diff --git a/src/app/api/field-card/action/route.ts b/src/app/api/field-card/action/route.ts
+index edf9b32..ff68196 100644
+--- a/src/app/api/field-card/action/route.ts
++++ b/src/app/api/field-card/action/route.ts
+@@ -2,7 +2,9 @@ import { NextResponse, type NextRequest } from "next/server";
+ import {
+   closeFieldCardPullRequest,
+   getPullRequest,
++  getRepoFileBase64,
+   getRepoFileText,
++  listRepoFiles,
+   mergeFieldCardPullRequest,
+ } from "@/lib/field-card/github";
+ import {
+@@ -15,7 +17,7 @@ import {
+   laconicChangeFromPrBody,
+   notifyFieldCardUpdateFyi,
+ } from "@/lib/field-card/slack";
+-import { hasGithubStorage, writeRepoFile } from "@/lib/github-storage";
++import { hasGithubStorage, writeRepoFile, writeRepoFileBase64 } from "@/lib/github-storage";
+ import { getSiteUrl } from "@/lib/site";
+ 
+ export const runtime = "nodejs";
+@@ -96,7 +98,7 @@ function confirmPage(
+     <p>Repo <code>${escapeHtml(payload.repo)}</code> · PR <a href="${escapeHtml(prUrl)}">#${payload.pr}</a></p>
+     <p>${
+       approve
+-        ? `This will squash-merge the monthly field card PR into <code>main</code>, then sync <code>${escapeHtml(card.orbitPath)}</code> on Orbit (Pages + alextouvras.com).`
++        ? `This will squash-merge the monthly field card PR into <code>main</code>, then sync <code>${escapeHtml(card.orbitPath)}</code> and <code>assets/</code> on Orbit (Pages + alextouvras.com).`
+         : "This will close the PR without merging. Next month can open a fresh refresh."
+     }</p>
+     <div class="actions">
+@@ -124,6 +126,26 @@ function resolveChangedLines(
+   };
+ }
+ 
++/** Copy index.html and assets/ from the source repo's main onto the Orbit path. */
++async function publishFieldCard(
++  card: ReturnType<typeof requireFieldCardConfig>,
++  message: string,
++): Promise<"committed" | "no_github_storage"> {
++  const html = ensureFieldCardRobot(
++    await getRepoFileText(card.repo, "index.html", "main"),
++    card.robotId,
++  );
++  if (!hasGithubStorage()) return "no_github_storage";
++  await writeRepoFile(card.orbitPath, html, message);
++  const root = card.orbitPath.slice(0, card.orbitPath.lastIndexOf("/"));
++  const files = await listRepoFiles(card.repo, "assets", "main");
++  for (const file of files) {
++    const bytes = await getRepoFileBase64(card.repo, file.path, "main");
++    await writeRepoFileBase64(`${root}/assets/${file.name}`, bytes, message);
++  }
++  return "committed";
++}
++
+ async function runAction(payload: FieldCardTokenPayload, note: string) {
+   if (payload.action === "preview") {
+     return htmlPage(
+@@ -135,6 +157,28 @@ async function runAction(payload: FieldCardTokenPayload, note: string) {
+ 
+   const card = requireFieldCardConfig(payload.repo);
+   const site = `${getSiteUrl()}${card.sitePath}`;
++
++  if (payload.action === "sync") {
++    let siteSync = "skipped";
++    try {
++      siteSync = await publishFieldCard(
++        card,
++        `chore: sync ${card.id} field card from main`,
++      );
++    } catch (err) {
++      console.error("[field-card/action] site sync failed", err);
++      siteSync = "failed";
++    }
++    const ok = siteSync === "committed";
++    return htmlPage(
++      ok ? `${card.label} synced` : `${card.label} sync failed`,
++      `<p>Site copy: <a href="${escapeHtml(site)}">${escapeHtml(site)}</a></p>
++       <p>${ok ? "Orbit commit queued. index.html and assets/ came from main." : escapeHtml(siteSync)}</p>`,
++      ok,
++      ok ? 200 : 500,
++    );
++  }
++
+   const prMeta = await getPullRequest(payload.repo, payload.pr);
+   const { changed, considered } = resolveChangedLines(note, prMeta.body);
+ 
+@@ -166,20 +210,10 @@ async function runAction(payload: FieldCardTokenPayload, note: string) {
+ 
+   let siteSync = "skipped";
+   try {
+-    const html = ensureFieldCardRobot(
+-      await getRepoFileText(payload.repo, "index.html", "main"),
+-      card.robotId,
++    siteSync = await publishFieldCard(
++      card,
++      `chore: sync ${card.id} field card after approve (#${payload.pr})`,
+     );
+-    if (hasGithubStorage()) {
+-      await writeRepoFile(
+-        card.orbitPath,
+-        html,
+-        `chore: sync ${card.id} field card after approve (#${payload.pr})`,
+-      );
+-      siteSync = "committed";
+-    } else {
+-      siteSync = "no_github_storage";
+-    }
+   } catch (err) {
+     console.error("[field-card/action] site sync failed", err);
+     siteSync = "failed";
+@@ -241,6 +275,14 @@ export async function GET(req: NextRequest) {
+     return htmlPage("Wrong link", `<p>Use Approve or Skip from Slack.</p>`, false);
+   }
+ 
++  if (verified.action === "sync") {
++    return htmlPage(
++      "Site sync",
++      `<p>This token copies the card from main. The sync job posts it.</p>`,
++      true,
++    );
++  }
++
+   try {
+     const pr = await getPullRequest(verified.repo, verified.pr);
+     return confirmPage(verified, pr.title, pr.html_url, token);
+diff --git a/src/lib/field-card/github.ts b/src/lib/field-card/github.ts
+index f620d30..2c3d0e0 100644
+--- a/src/lib/field-card/github.ts
++++ b/src/lib/field-card/github.ts
+@@ -138,6 +138,53 @@ export async function closeFieldCardPullRequest(repoSlug: string, pr: number) {
+   return { alreadyClosed: false as const, title: existing.title, url: existing.html_url };
+ }
+ 
++/** Files directly inside a directory. Missing directory is an empty list. */
++export async function listRepoFiles(
++  repoSlug: string,
++  dir: string,
++  ref: string,
++): Promise<Array<{ name: string; path: string }>> {
++  const token = githubToken();
++  if (!token) throw new Error("GITHUB_TOKEN (or FIELD_CARD_GITHUB_TOKEN) is required");
++  const { owner, repo } = parseRepo(repoSlug || DEFAULT_REPO);
++  const res = await fetch(
++    `https://api.github.com/repos/${owner}/${repo}/contents/${dir}?ref=${encodeURIComponent(ref)}`,
++    { headers: headers(token), cache: "no-store" },
++  );
++  if (res.status === 404) return [];
++  if (!res.ok) {
++    throw new Error(`GitHub contents fetch failed (${res.status}) for ${dir}@${ref}`);
++  }
++  const data = (await res.json()) as Array<{ type?: string; name?: string; path?: string }> | { type?: string };
++  if (!Array.isArray(data)) return [];
++  return data
++    .filter((entry) => entry.type === "file" && entry.name && entry.path)
++    .map((entry) => ({ name: entry.name as string, path: entry.path as string }));
++}
++
++/** Raw file bytes as base64, whitespace stripped. */
++export async function getRepoFileBase64(
++  repoSlug: string,
++  path: string,
++  ref: string,
++): Promise<string> {
++  const token = githubToken();
++  if (!token) throw new Error("GITHUB_TOKEN (or FIELD_CARD_GITHUB_TOKEN) is required");
++  const { owner, repo } = parseRepo(repoSlug || DEFAULT_REPO);
++  const res = await fetch(
++    `https://api.github.com/repos/${owner}/${repo}/contents/${path}?ref=${encodeURIComponent(ref)}`,
++    { headers: headers(token), cache: "no-store" },
++  );
++  if (!res.ok) {
++    throw new Error(`GitHub contents fetch failed (${res.status}) for ${path}@${ref}`);
++  }
++  const data = (await res.json()) as { encoding?: string; content?: string };
++  if (data.encoding !== "base64" || typeof data.content !== "string") {
++    throw new Error(`Unexpected contents payload for ${path}`);
++  }
++  return data.content.replace(/\s/g, "");
++}
++
+ /** @deprecated Prefer notifyFieldCardUpdateFyi for weekly update posts. */
+ export async function notifyFieldCardSlack(text: string, bodyMd: string) {
+   const url =
+diff --git a/src/lib/field-card/tokens.ts b/src/lib/field-card/tokens.ts
+index 4649e0d..a3c7441 100644
+--- a/src/lib/field-card/tokens.ts
++++ b/src/lib/field-card/tokens.ts
+@@ -1,6 +1,6 @@
+ import { createHmac, timingSafeEqual } from "node:crypto";
+ 
+-export type FieldCardAction = "approve" | "skip" | "preview";
++export type FieldCardAction = "approve" | "skip" | "preview" | "sync";
+ 
+ export interface FieldCardTokenPayload {
+   kind: "field-card";
+@@ -66,7 +66,10 @@ export function verifyFieldCardActionToken(
+       data.kind !== "field-card" ||
+       typeof data.pr !== "number" ||
+       !data.repo ||
+-      (data.action !== "approve" && data.action !== "skip" && data.action !== "preview")
++      (data.action !== "approve" &&
++        data.action !== "skip" &&
++        data.action !== "preview" &&
++        data.action !== "sync")
+     ) {
+       return { error: "invalid_payload" };
+     }
+diff --git a/src/lib/github-storage-core.ts b/src/lib/github-storage-core.ts
+index e6b264a..25d791a 100644
+--- a/src/lib/github-storage-core.ts
++++ b/src/lib/github-storage-core.ts
+@@ -62,6 +62,15 @@ export async function writeRepoFile(
+   filePath: string,
+   content: string,
+   message: string,
++): Promise<void> {
++  await writeRepoFileBase64(filePath, Buffer.from(content, "utf8").toString("base64"), message);
++}
++
++/** Commit bytes that are already base64 (images). Does not re-encode as text. */
++export async function writeRepoFileBase64(
++  filePath: string,
++  base64: string,
++  message: string,
+ ): Promise<void> {
+   const cfg = getRepoConfig();
+   if (!cfg) {
+@@ -85,7 +94,7 @@ export async function writeRepoFile(
+     },
+     body: JSON.stringify({
+       message,
+-      content: Buffer.from(content, "utf8").toString("base64"),
++      content: base64.replace(/\s/g, ""),
+       sha,
+     }),
+   });
+diff --git a/src/lib/github-storage.ts b/src/lib/github-storage.ts
+index bdb4156..423fc60 100644
+--- a/src/lib/github-storage.ts
++++ b/src/lib/github-storage.ts
+@@ -4,4 +4,5 @@ export {
+   hasGithubStorage,
+   readRepoFile,
+   writeRepoFile,
++  writeRepoFileBase64,
+ } from "@/lib/github-storage-core";

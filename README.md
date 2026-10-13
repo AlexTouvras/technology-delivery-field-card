@@ -30,12 +30,13 @@ Same fail-closed pattern as the Agentic AI and Data Analytics field cards:
 | Piece | What it does |
 |---|---|
 | **Friday Cursor Automation (17:00 local)** | Discovers tools, edits the card when earned, leaves the PR open |
+| **Merge to `main`** | Sync site copies `index.html` and `assets/` onto Orbit (`alextouvras.com/delivery-field-card/`). Pages deploys from the same push |
 | **Friday review agent (18:00 local)** | The publish gate: publishes or keeps the previous card |
 | **Slack #orbit** | Laconic FYI after review (Review / Considered / Changed / Online + Check card). Not the gate |
 | **Mon watchdog** | If Friday review never applied, warn in #orbit to re-run the review agent |
 | **Broken-link issue** | Opens a labeled issue when Use/tool URLs fail |
 
-The Friday content agent runs `npm run discover`. `weekly-refresh.yml` is manual backup only (`workflow_dispatch`). The Friday 18:00 review agent is the publish gate (`Apply review`).
+The Friday content agent runs `npm run discover`. `weekly-refresh.yml` is manual backup only (`workflow_dispatch`). The Friday 18:00 review agent is the publish gate (`Apply review`). A merge to `main` also runs Sync site, which asks Orbit to copy the card. Apply-review merges are skipped there so Slack is not posted twice.
 
 ### Secrets (this repo)
 
@@ -57,12 +58,12 @@ Copy from Orbit / Vercel / the other field-card repos:
 
 | Stable (edit rarely) | Churn zone (weekly OK) |
 |---|---|
-| 4-layer stack (INTENT / WINDOW / PROOF / CUTOVER) | Tool picker rows |
-| Problem → use logic | Concrete product names in examples |
-| Ready vs green | Version stamp + Changed line + doc URLs |
-| Ladder, anti-patterns, kill switch | — |
+| Chain: INTENT / WINDOW / PROOF / CUTOVER / OBSERVE | Tool picker rows |
+| Verb line, four situations, reference jobs | Concrete product names in examples |
+| Outcome stays open until observe | Version stamp + Changed line + doc URLs |
+| Ladder, anti-patterns, kill switch, named measures (no invented figures) | — |
 
-New protocols earn a **new layer** only if they solve a new job (outcome / calendar / evidence / sequence). A renamed Azure DevOps feature is a picker-row swap, not a redesign.
+OBSERVE is its own stage because its job is production evidence after the call. PROOF stays the evidence before the call. A renamed vendor feature is a picker-row swap, not a new stage.
 
 ## Tool picker guidance
 

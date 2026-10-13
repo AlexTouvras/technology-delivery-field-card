@@ -10,7 +10,8 @@ Standalone Technology Delivery Field Card one-pager (`index.html`). Public artif
 
 | Name | Shape / location | Notes |
 |------|------------------|-------|
-| Card HTML | `index.html` | INTENT → WINDOW → PROOF → CUTOVER stack |
+| Card HTML | `index.html` | Chain INTENT → WINDOW → PROOF → CUTOVER → OBSERVE. Signal stays open until the outcome is checked. |
+| Illustrations | `assets/ridge-dusk.jpg`, `assets/layer-stack.jpg` | Close photograph and the four-layer render. Icons stay inline SVG. Orbit’s static copy must include `assets/` with `index.html`. |
 | Discovery | `data/discovery-report.json` | CI + `npm run discover` |
 | Watchlist | `data/watchlist.json` | `onCard` flags for ongoing tracking |
 | Proposals | `data/proposed-updates.json` | Stub for Cursor Automation |
@@ -18,11 +19,14 @@ Standalone Technology Delivery Field Card one-pager (`index.html`). Public artif
 
 ## Design patterns
 
-- Decision stack, not a Scrum/SAFe/Azure brochure — tool picker ≤ 7 rows by **constraint**
+- Decision chain, not a Scrum/SAFe/Azure brochure — tool picker ≤ 7 rows by **constraint**
 - Verb line under H1 + Always-on foundation strip (not picker items)
+- OBSERVE is production evidence (a separate job from PROOF). Hero status is Outcome open / Blocked / Held — never “system ready”
+- Four situations drive a blocked gate; other jobs stay in the reference table. Measures are named and unnumbered
+- Screen language is the control-room layout: star trail, lit chain capsules, scenario cards, cutover checklist, stacked layers, illustrative trace with no invented figures. Status stays Outcome open / Blocked / Held. Print remaps to ink on paper
 - Fail-closed weekly refresh: PR `## Summary` or `data/judgment.md` required; Friday 18:00 review agent publishes
-- From 2026-10 the public footer stamp is monthly: `Next: <month>` (example `Next: November`). Version id stays ISO week (`v2026.40`) so the stamp stays newer than `v2026.36`. Branch: `chore/monthly-refresh-YYYY-MM`
-- Orbit sync: `public/delivery-field-card/index.html` via shared field-card registry
+- From 2026-10 the public footer stamp is monthly: `Next: <month>` (example `Next: November`). Version id stays ISO week. The 13 Oct 2026 chain upgrade is `v2026.42`. Do not run `bump:version` as-is: it still writes `Next: week of …`.
+- A merge to `main` runs `.github/workflows/sync-site.yml`. It posts a `sync` token to Orbit, which copies `index.html` and `assets/` to `public/delivery-field-card/`. Apply review still merges and copies the same files. Until Orbit accepts `sync`, the job falls back to approve and copies `index.html` only.
 
 ## Dependencies
 
@@ -38,7 +42,7 @@ Standalone Technology Delivery Field Card one-pager (`index.html`). Public artif
 |------|------|
 | Local workspace | `C:\Users\kater\.cursor\projects\technology-delivery-field-card` |
 | Automation draft | `C:\Users\kater\.cursor\projects\website\.cursor\automations\delivery-field-card-weekly-content-pass.json` |
-| Orbit static copy | `website/public/delivery-field-card/index.html` |
+| Orbit static copy | `website/public/delivery-field-card/` (`index.html` and `assets/`) |
 
 ## Verify
 

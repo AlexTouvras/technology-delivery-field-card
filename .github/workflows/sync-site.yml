@@ -1,0 +1,38 @@
+name: Sync site
+
+# A merge to main is the card Orbit shows. Pages deploys on this same push.
+# This job copies index.html and assets/ onto alextouvras.com. Apply-review
+# merges already did that copy, so those commits are skipped inside the script.
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - index.html
+      - assets/**
+      - scripts/sync-site.mjs
+      - .github/workflows/sync-site.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pull-requests: read
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Copy the card onto alextouvras.com
+        env:
+          WEEKLY_WRITE_SECRET: ${{ secrets.WEEKLY_WRITE_SECRET }}
+          CRON_SECRET: ${{ secrets.CRON_SECRET }}
+          FIELD_CARD_ACTION_SECRET: ${{ secrets.FIELD_CARD_ACTION_SECRET }}
+          SITE_URL: ${{ vars.SITE_URL || 'https://alextouvras.com' }}
+          GITHUB_TOKEN: ${{ github.token }}
+        run: |
+          export SYNC_SUBJECT="$(git log -1 --format=%s)"
+          node scripts/sync-site.mjs

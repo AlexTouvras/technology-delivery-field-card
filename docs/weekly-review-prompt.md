@@ -8,7 +8,7 @@ Follow the shared rules in Orbit `docs/architecture/field-card-review.md` if you
 
 ## Spine (Technology Delivery)
 
-INTENT → WINDOW → PROOF → CUTOVER. Picker ≤7 by constraint. Not a Scrum / SAFe / Azure DevOps brochure.
+INTENT → WINDOW → PROOF → CUTOVER → OBSERVE. The chain stays open until the outcome is checked. Picker ≤7 by constraint. No invented figures. Not a Scrum / SAFe / Azure DevOps brochure.
 
 ## Apply
 
@@ -17,7 +17,7 @@ gh workflow run "Apply review" --repo AlexTouvras/technology-delivery-field-card
 # or decision=decline
 ```
 
-Do not `gh pr merge`. Orbit's action does merge + site copy.
+Do not `gh pr merge` during review. Apply review merges and copies the card. If a pull request is already on `main`, Sync site copies `index.html` and `assets/` onto Orbit.
 
 ## Slack (#orbit) — one post per card
 

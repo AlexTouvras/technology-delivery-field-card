@@ -12,12 +12,13 @@ Do **not** post Approve links from this run. The review agent is the gate. If th
 
 This is **not** a Scrum / SAFe / Azure DevOps product card. The stable spine is:
 
-- **INTENT → WINDOW → PROOF → CUTOVER** stack
+- Chain: **INTENT → WINDOW → PROOF → CUTOVER → OBSERVE**. OBSERVE is production evidence. The chain stays open until the outcome is checked. Do not fold OBSERVE back into cutover, and do not label the hero ready.
 - Verb line under the H1 (`Name → calendar → prove → cut over`) — do not drop
+- Four situations (competing windows, no owner, green but ops not ready, signals after cutover) plus the compact reference jobs
+- Measures are named (lead time, change-failure rate, recovery time, service health) with **no invented figures**
 - **Always on** foundation strip (Security, Governance, Observability, Evals, Human Approve) — not picker items
-- Problem → use → example jobs (calendars, dependencies, flags, rollback, priority, observability…)
 - Tool picker by **constraint** (batch size, CI, reversible cutover, IaC, watch, visibility, human gate)
-- Ladder + anti-patterns + kill switch
+- Ladder + anti-patterns + kill switch + the leadership close
 
 Churn zone: tool picker rows, concrete product nouns in examples, doc URLs, version stamp. Do **not** redesign the stack for a renamed vendor feature.
 

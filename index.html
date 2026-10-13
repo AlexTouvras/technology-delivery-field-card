@@ -3,635 +3,656 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Technology Delivery Field Card — Evidence before the call · Alex Touvras</title>
-  <meta name="description" content="A one-page decision card for sequenced delivery: intent, window, proof, and cutover. Methods are lanes — not the map." />
+  <title>Technology Delivery Field Card — A sequence, not a ticket · Alex Touvras</title>
+  <meta name="description" content="Intent, window, proof, cutover, then production evidence. The chain stays open until the outcome is checked. Pipeline green is not held." />
   <meta name="author" content="Alex Touvras" />
-  <meta property="og:title" content="Technology Delivery Field Card — Evidence before the call" />
-  <meta property="og:description" content="Intent → window → proof → cutover. Pipeline green is not the same as held in production." />
+  <link rel="canonical" href="https://alextouvras.com/delivery-field-card/" />
+  <meta property="og:title" content="Technology Delivery Field Card — A sequence, not a ticket" />
+  <meta property="og:description" content="From business intent to a change that holds in production. The chain stays open until the outcome is checked." />
   <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://alextouvras.com/delivery-field-card/" />
+  <meta property="og:image" content="https://alextouvras.com/opengraph-image" />
   <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="https://alextouvras.com/opengraph-image" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Outfit:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,500;8..60,600;8..60,700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <style>
     :root {
-      --ink: #18212b;
-      --ink-soft: #3a4654;
-      --muted: #6b7785;
-      --line: #c9d2dc;
-      --paper: #eef2f6;
-      --card: #f8fafc;
-      --steel: #53478a;
-      --steel-deep: #3d3468;
-      --signal: #0f766e;
-      --signal-soft: #d7ebe8;
-      --warn: #9a3412;
-      --warn-soft: #f3e0d6;
-      --layer-rag: #43367a;
-      --layer-agent: #53478a;
-      --layer-mcp: #0f766e;
-      --layer-a2a: #5b4d8a;
-      --shadow: 0 1px 0 rgba(24, 33, 43, 0.06), 0 12px 32px rgba(24, 33, 43, 0.06);
-      --radius: 10px;
-      --font-display: "Source Serif 4", Georgia, serif;
-      --font-body: "Outfit", system-ui, sans-serif;
-      --font-mono: "IBM Plex Mono", ui-monospace, monospace;
+      --ink: #f4f8ff;
+      --ink-soft: #c5d4e8;
+      --muted: #8ea3bb;
+      --line: rgba(90, 170, 230, 0.28);
+      --panel: rgba(6, 16, 32, 0.72);
+      --cyan: #5cefff;
+      --mint: #7dffe1;
+      --gold: #ffd36a;
+      --amber: #ffb020;
+      --held: #3dffc8;
+      --node: #071422;
+      --font: "Outfit", system-ui, sans-serif;
+      --mono: "IBM Plex Mono", ui-monospace, monospace;
     }
-
     * { box-sizing: border-box; }
     html { scroll-behavior: smooth; }
     body {
       margin: 0;
       color: var(--ink);
-      background:
-        radial-gradient(1200px 500px at 10% -10%, rgba(83, 71, 138, 0.10), transparent 60%),
-        radial-gradient(900px 400px at 100% 0%, rgba(15, 118, 110, 0.07), transparent 55%),
-        var(--paper);
-      font-family: var(--font-body);
-      font-size: 15px;
+      background: #03060d;
+      font-family: var(--font);
+      font-size: 16px;
       line-height: 1.45;
       -webkit-font-smoothing: antialiased;
-      text-rendering: optimizeLegibility;
     }
-
     .sheet {
-      width: min(1100px, calc(100% - 2rem));
-      margin: 1.5rem auto 2.5rem;
-      background: var(--card);
-      border: 1px solid var(--line);
-      border-radius: 14px;
-      box-shadow: var(--shadow);
+      position: relative;
+      width: min(1180px, calc(100% - 1.5rem));
+      margin: 0.8rem auto 2rem;
+      padding: 1.1rem 1.25rem 1.3rem;
+      border: 1px solid rgba(80, 160, 230, 0.22);
+      border-radius: 22px;
+      background:
+        radial-gradient(900px 280px at 70% 0%, rgba(20, 90, 180, 0.28), transparent 60%),
+        radial-gradient(700px 240px at 10% 8%, rgba(0, 180, 200, 0.08), transparent 55%),
+        linear-gradient(180deg, #07111d 0%, #050910 42%, #050910 100%);
+      box-shadow: 0 30px 80px rgba(0, 0, 0, 0.45);
       overflow: hidden;
     }
+    .sheet::before {
+      content: "";
+      pointer-events: none;
+      position: absolute;
+      inset: 0 0 auto 0;
+      height: 420px;
+      background-image:
+        radial-gradient(1px 1px at 8% 22%, rgba(255,255,255,.7), transparent 60%),
+        radial-gradient(1.2px 1.2px at 18% 48%, rgba(180,220,255,.6), transparent 60%),
+        radial-gradient(1px 1px at 32% 18%, #fff, transparent 60%),
+        radial-gradient(1px 1px at 46% 36%, rgba(255,255,255,.45), transparent 60%),
+        radial-gradient(1.4px 1.4px at 61% 14%, #fff, transparent 60%),
+        radial-gradient(1px 1px at 74% 28%, rgba(160,220,255,.7), transparent 60%),
+        radial-gradient(1px 1px at 88% 16%, #fff, transparent 60%),
+        radial-gradient(1px 1px at 93% 42%, rgba(255,255,255,.4), transparent 60%);
+      opacity: 0.85;
+    }
+    .trail {
+      position: absolute;
+      left: 0; right: 0;       top: 0;
+      width: 100%;
+      height: 190px;
+      pointer-events: none;
+    }
+    .trail path { fill: none; stroke-linecap: round; }
+    .trail .glow { stroke: url(#trail); stroke-width: 18; opacity: 0.85; }
+    .trail .mid { stroke: url(#trail); stroke-width: 5; opacity: 0.55; }
+    .trail .core { stroke: #f7fbff; stroke-width: 1.4; opacity: 0.9; }
 
+    .topbar, .hero, .panel, .band, .close, footer.meta { position: relative; z-index: 1; }
     .topbar {
       display: flex;
-      flex-wrap: wrap;
-      align-items: baseline;
       justify-content: space-between;
-      gap: 0.75rem 1.5rem;
-      padding: 1rem 1.35rem;
-      border-bottom: 1px solid var(--line);
-      background: linear-gradient(180deg, #fbfcfd, #f3f6f9);
+      align-items: flex-start;
+      gap: 1rem;
     }
-
     .eyebrow {
-      font-family: var(--font-mono);
+      margin: 0;
+      font-family: var(--mono);
       font-size: 0.72rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: #b7c9de;
+    }
+    .eyebrow span { color: var(--cyan); margin: 0 0.35rem; }
+    .kicker-title {
+      margin: 0.28rem 0 0;
+      font-size: 1.35rem;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+    }
+    .channels { display: flex; flex-wrap: wrap; gap: 0.4rem; align-items: center; }
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-family: var(--mono);
+      font-size: 0.66rem;
       letter-spacing: 0.08em;
       text-transform: uppercase;
-      color: var(--steel);
-      font-weight: 600;
+      color: var(--gold);
+      border: 1px solid rgba(255, 196, 70, 0.55);
+      background: rgba(40, 28, 6, 0.45);
+      border-radius: 999px;
+      padding: 0.38rem 0.7rem;
     }
-
-    .channels {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.5rem;
+    .pill i {
+      width: 0.45rem; height: 0.45rem; border-radius: 50%;
+      background: var(--gold);
+      box-shadow: 0 0 8px var(--gold);
     }
-
-    .channels button,
-    .channels a.btn {
+    .sheet[data-mode="blocked"] .pill { color: var(--amber); border-color: rgba(255, 160, 40, 0.7); }
+    .sheet[data-mode="blocked"] .pill i { background: var(--amber); box-shadow: 0 0 8px var(--amber); }
+    .sheet[data-mode="held"] .pill {
+      color: #d9fff4;
+      border-color: rgba(61, 255, 200, 0.65);
+      background: rgba(6, 40, 32, 0.55);
+    }
+    .sheet[data-mode="held"] .pill i { background: var(--held); box-shadow: 0 0 8px var(--held); }
+    .channels button, .channels a.btn, .next-gate, .mark-held {
       appearance: none;
-      border: 1px solid var(--line);
-      background: #fff;
-      color: var(--ink);
-      font-family: var(--font-mono);
-      font-size: 0.72rem;
-      letter-spacing: 0.02em;
-      padding: 0.45rem 0.7rem;
+      border: 1px solid rgba(140, 180, 220, 0.28);
+      background: transparent;
+      color: var(--ink-soft);
+      font-family: var(--mono);
+      font-size: 0.66rem;
+      letter-spacing: 0.04em;
+      padding: 0.36rem 0.6rem;
       border-radius: 999px;
       cursor: pointer;
       text-decoration: none;
-      transition: border-color 160ms ease, transform 120ms ease, background 160ms ease;
     }
-
-    .channels button:hover,
-    .channels a.btn:hover {
-      border-color: var(--steel);
-      background: #f4f2fa;
-    }
-
-    .channels button:active,
-    .channels a.btn:active {
-      transform: scale(0.97);
-    }
-
-    header.hero {
-      padding: 1.5rem 1.35rem 1.25rem;
-      display: grid;
-      gap: 1.25rem;
-      grid-template-columns: 1.15fr 0.85fr;
-      align-items: end;
-      border-bottom: 1px solid var(--line);
+    .channels button:hover, .channels a.btn:hover, .next-gate:hover, .mark-held:hover {
+      border-color: var(--cyan);
+      color: var(--ink);
     }
 
     h1 {
-      margin: 0.35rem 0 0.55rem;
-      font-family: var(--font-display);
-      font-size: clamp(1.85rem, 3.4vw, 2.55rem);
-      line-height: 1.12;
-      letter-spacing: -0.02em;
-      font-weight: 700;
+      margin: 1.15rem 0 0.45rem;
       max-width: 16ch;
+      font-size: clamp(2.5rem, 5.4vw, 4.15rem);
+      line-height: 0.96;
+      letter-spacing: -0.04em;
+      font-weight: 650;
     }
-
-    .lede {
-      margin: 0;
-      color: var(--ink-soft);
-      font-size: 1.02rem;
-      max-width: 42ch;
+    h1 em {
+      font-style: normal;
+      background: linear-gradient(100deg, #b8fff2 0%, #3dffc8 55%, #7ee0ff 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
     }
-
-    .lede strong { color: var(--ink); font-weight: 600; }
-
+    .hook { margin: 0; max-width: 46ch; color: #d5e4f4; font-size: 1.05rem; }
     .verbs {
-      margin: 0 0 0.45rem;
-      font-family: var(--font-mono);
-      font-size: 0.78rem;
-      letter-spacing: 0.02em;
-      color: var(--steel);
-      font-weight: 600;
-      max-width: 46ch;
+      margin: 0.45rem 0 0;
+      font-family: var(--mono);
+      font-size: 0.75rem;
+      color: var(--cyan);
+      letter-spacing: 0.03em;
     }
 
-    .stack {
-      display: grid;
-      gap: 0.45rem;
+    .chain-wrap {
+      margin-top: 1.15rem;
+      padding: 0.95rem 0.85rem 0.8rem;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: rgba(4, 12, 24, 0.55);
+      box-shadow: inset 0 0 40px rgba(20, 80, 140, 0.12);
     }
-
-    .layer {
-      display: grid;
-      grid-template-columns: 4.6rem 1fr;
-      gap: 0.75rem;
-      align-items: center;
-      padding: 0.55rem 0.7rem;
-      border-radius: 8px;
-      border: 1px solid transparent;
-      color: #fff;
-      animation: rise 520ms cubic-bezier(0.16, 1, 0.3, 1) both;
-    }
-
-    .layer:nth-child(1) { background: var(--layer-rag); animation-delay: 40ms; }
-    .layer:nth-child(2) { background: var(--layer-agent); animation-delay: 110ms; }
-    .layer:nth-child(3) { background: var(--layer-mcp); animation-delay: 180ms; }
-    .layer:nth-child(4) { background: var(--layer-a2a); animation-delay: 250ms; }
-
-    .layer code {
-      font-family: var(--font-mono);
-      font-size: 0.72rem;
-      font-weight: 600;
-      letter-spacing: 0.04em;
-      opacity: 0.92;
-    }
-
-    .layer span {
-      font-size: 0.84rem;
-      line-height: 1.3;
-      font-weight: 500;
-    }
-
-    @keyframes rise {
-      from { opacity: 0; transform: translateY(8px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      .layer { animation: none; }
-    }
-
-    section {
-      padding: 1.1rem 1.35rem 1.2rem;
-      border-bottom: 1px solid var(--line);
-    }
-
-    h2 {
-      margin: 0 0 0.75rem;
-      font-family: var(--font-mono);
-      font-size: 0.72rem;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: var(--steel);
-      font-weight: 600;
-    }
-
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 0.9rem;
-    }
-
-    th, td {
-      text-align: left;
-      vertical-align: top;
-      padding: 0.55rem 0.45rem;
-      border-bottom: 1px solid #e2e8ef;
-    }
-
-    th {
-      font-family: var(--font-mono);
-      font-size: 0.68rem;
-      letter-spacing: 0.06em;
+    .chain-label {
+      margin: 0 0 0.7rem;
+      font-family: var(--mono);
+      font-size: 0.66rem;
+      letter-spacing: 0.14em;
       text-transform: uppercase;
       color: var(--muted);
-      font-weight: 500;
-      padding-top: 0;
     }
-
-    tr:last-child td { border-bottom: none; }
-
-    table.decisions td.problem { color: var(--ink); font-weight: 500; width: 32%; }
-    table.decisions td.reach { color: var(--ink-soft); width: 26%; }
-    table.decisions td.example {
-      color: var(--ink-soft);
-      font-size: 0.84rem;
-      width: 42%;
-    }
-    td.reach b {
-      color: var(--signal);
-      font-weight: 650;
-      font-family: var(--font-mono);
-      font-size: 0.78rem;
-      letter-spacing: 0.02em;
-    }
-
-    a.use-link {
-      color: inherit;
-      text-decoration: none;
-      border-bottom: 1px solid rgba(15, 118, 110, 0.35);
-      transition: border-color 140ms ease, color 140ms ease;
-    }
-
-    a.use-link:hover,
-    a.use-link:focus-visible {
-      color: var(--steel-deep);
-      border-bottom-color: var(--steel);
-      outline: none;
-    }
-
-    a.use-link:focus-visible {
-      box-shadow: 0 0 0 3px rgba(36, 90, 122, 0.25);
-      border-radius: 2px;
-    }
-
-    .pick a {
-      color: inherit;
-      text-decoration: none;
-      border-bottom: 1px solid rgba(36, 90, 122, 0.3);
-    }
-
-    .pick a:hover,
-    .pick a:focus-visible {
-      border-bottom-color: var(--steel);
-      outline: none;
-    }
-
-    .tri {
+    .chain {
+      position: relative;
       display: grid;
-      grid-template-columns: 1fr 1fr 1fr;
-      gap: 0;
-      border-bottom: 1px solid var(--line);
-    }
-
-    .tri > section {
-      border-bottom: none;
-      border-right: 1px solid var(--line);
-    }
-
-    .tri > section:last-child { border-right: none; }
-
-    .gates {
-      display: grid;
-      gap: 0.55rem;
-    }
-
-    .gate {
-      padding: 0.55rem 0.65rem;
-      border: 1px solid var(--line);
-      border-radius: 8px;
-      background: #fff;
-    }
-
-    .gate strong {
-      display: block;
-      font-size: 0.86rem;
-      margin-bottom: 0.2rem;
-    }
-
-    .gate span {
-      font-size: 0.8rem;
-      color: var(--ink-soft);
-    }
-
-    .behavior {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 0.75rem;
-    }
-
-    .panel {
-      background: #fff;
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      padding: 0.85rem 0.9rem;
-    }
-
-    .panel h3 {
-      margin: 0 0 0.35rem;
-      font-size: 0.98rem;
-      font-weight: 650;
-    }
-
-    .panel p {
-      margin: 0 0 0.55rem;
-      color: var(--ink-soft);
-      font-size: 0.88rem;
-    }
-
-    .panel ul {
-      margin: 0;
-      padding: 0;
-      list-style: none;
-      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
       gap: 0.35rem;
     }
-
-    .panel li {
-      position: relative;
-      padding-left: 0.85rem;
-      font-size: 0.84rem;
-      color: var(--ink);
-    }
-
-    .panel li::before {
-      content: "";
+    .beam {
       position: absolute;
-      left: 0;
-      top: 0.55em;
-      width: 0.35rem;
-      height: 0.35rem;
-      border-radius: 50%;
-      background: var(--steel);
+      z-index: 0;
+      top: 1.45rem;
+      left: 8%;
+      right: 8%;
+      height: 2px;
+      background: rgba(90, 170, 210, 0.25);
+      pointer-events: none;
     }
-
-    .tag {
-      display: inline-block;
-      font-family: var(--font-mono);
-      font-size: 0.65rem;
-      letter-spacing: 0.05em;
-      text-transform: uppercase;
-      padding: 0.18rem 0.4rem;
-      border-radius: 4px;
-      margin-bottom: 0.4rem;
-      font-weight: 600;
+    .beam i {
+      display: block;
+      height: 100%;
+      width: calc(var(--at) * 25%);
+      background: linear-gradient(90deg, #1a8cff, #5cefff 55%, #ffd36a);
+      box-shadow: 0 0 12px rgba(90, 220, 255, 0.75);
     }
-
-    .tag.rules { background: #e8eef4; color: var(--steel-deep); }
-    .tag.skills { background: var(--signal-soft); color: #115e59; }
-
-    .aside-stack {
+    .sheet[data-stage="intent"] { --at: 0; }
+    .sheet[data-stage="window"] { --at: 1; }
+    .sheet[data-stage="proof"] { --at: 2; }
+    .sheet[data-stage="cutover"] { --at: 3; }
+    .sheet[data-stage="observe"] { --at: 4; }
+    .sheet[data-mode="held"] .beam i { background: var(--held); box-shadow: 0 0 12px rgba(61, 255, 200, 0.7); }
+    .sheet[data-mode="blocked"] .beam i { background: linear-gradient(90deg, #1a8cff, var(--amber)); }
+    .stage {
+      position: relative;
+      z-index: 1;
+      appearance: none;
+      border: 0;
+      background: transparent;
+      color: inherit;
+      font-family: inherit;
+      cursor: pointer;
       display: flex;
       flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding: 0;
     }
-
-    .picker {
-      display: grid;
-      gap: 0.55rem;
+    .stage .node {
+      width: min(100%, 8.5rem);
+      height: 2.9rem;
+      border-radius: 999px;
+      border: 1px solid rgba(90, 220, 255, 0.45);
+      background: radial-gradient(80px 30px at 50% 50%, rgba(40, 140, 200, 0.25), rgba(6, 16, 30, 0.9));
+      box-shadow: 0 0 16px rgba(40, 160, 220, 0.18);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.4rem;
+      color: var(--cyan);
     }
-
-    .pick {
-      display: grid;
-      grid-template-columns: 7.5rem 1fr;
-      gap: 0.65rem;
-      padding: 0.55rem 0;
-      border-bottom: 1px solid #e2e8ef;
+    .stage .node svg { width: 1.2rem; height: 1.2rem; overflow: visible; }
+    .stage .num { font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.06em; }
+    .stage b { display: block; margin-top: 0.45rem; font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.08em; }
+    .stage em { display: block; margin-top: 0.15rem; font-style: normal; color: var(--muted); font-size: 0.72rem; max-width: 14ch; line-height: 1.3; }
+    .stage.is-selected .node {
+      color: var(--gold);
+      border-color: rgba(255, 211, 106, 0.9);
+      box-shadow: 0 0 22px rgba(255, 196, 60, 0.45), inset 0 0 16px rgba(255, 190, 40, 0.12);
+      background: radial-gradient(80px 30px at 50% 50%, rgba(180, 120, 20, 0.35), rgba(20, 14, 4, 0.92));
     }
+    .sheet[data-mode="blocked"] .stage.is-selected .node {
+      color: var(--amber);
+      border-color: var(--amber);
+      box-shadow: 0 0 22px rgba(255, 160, 40, 0.4);
+    }
+    .sheet[data-mode="held"] .stage.is-selected .node {
+      color: var(--held);
+      border-color: var(--held);
+      box-shadow: 0 0 22px rgba(61, 255, 200, 0.4);
+      background: radial-gradient(80px 30px at 50% 50%, rgba(20, 120, 90, 0.35), rgba(4, 20, 16, 0.92));
+    }
+    .sheet[data-mode="blocked"] .stage.is-ahead { opacity: 0.38; }
+    .caption { margin: 0.75rem 0 0; text-align: center; color: var(--muted); font-size: 0.8rem; }
 
-    .pick:last-child { border-bottom: none; }
-
-    .pick strong {
-      font-family: var(--font-mono);
-      font-size: 0.74rem;
-      letter-spacing: 0.02em;
-      color: var(--steel-deep);
+    .band { margin-top: 0.95rem; }
+    .block-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 0.75rem;
+      align-items: baseline;
+      margin-bottom: 0.65rem;
+    }
+    h2 {
+      margin: 0;
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--cyan);
       font-weight: 600;
     }
+    .block-note, .view-all { margin: 0; color: var(--muted); font-size: 0.82rem; }
+    .view-all { color: var(--cyan); text-decoration: none; font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.06em; text-transform: uppercase; }
+    .subhead { margin: -0.35rem 0 0.65rem; color: var(--ink-soft); font-size: 0.92rem; }
 
-    .pick span {
-      font-size: 0.84rem;
+    .sc-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0.6rem; }
+    .sc-card {
+      border: 1px solid rgba(90, 160, 210, 0.28);
+      border-radius: 14px;
+      background: rgba(6, 16, 30, 0.72);
+      padding: 0.75rem 0.75rem 0.7rem;
+      min-height: 100%;
+    }
+    .sheet[data-scenario=""] .sc-card[data-scenario="windows"],
+    .sc-card.is-on {
+      border-color: rgba(80, 230, 190, 0.75);
+      box-shadow: 0 0 0 1px rgba(80, 230, 190, 0.18), 0 0 24px rgba(40, 180, 140, 0.16);
+    }
+    .sc-select {
+      appearance: none;
+      width: 100%;
+      text-align: left;
+      border: 0;
+      background: transparent;
+      color: inherit;
+      font-family: inherit;
+      cursor: pointer;
+      padding: 0;
+    }
+    .sc-ico { display: flex; align-items: center; gap: 0.4rem; color: var(--cyan); margin-bottom: 0.4rem; }
+    .sc-ico svg { width: 1.05rem; height: 1.05rem; }
+    .sc-ico small { font-family: var(--mono); font-size: 0.66rem; letter-spacing: 0.08em; }
+    .sc-select strong { display: block; font-size: 0.98rem; letter-spacing: -0.02em; line-height: 1.25; }
+    .sc-select em { display: block; margin-top: 0.25rem; font-style: normal; color: var(--muted); font-size: 0.78rem; line-height: 1.35; min-height: 2.6em; }
+    .sc-facts { margin: 0.55rem 0 0; display: grid; gap: 0.28rem; }
+    .sc-facts div { display: grid; grid-template-columns: 5.4rem 1fr; gap: 0.35rem; }
+    .sc-facts dt { font-family: var(--mono); font-size: 0.58rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); padding-top: 0.15rem; }
+    .sc-facts dd { margin: 0; font-size: 0.78rem; color: var(--ink-soft); }
+
+    .split { display: grid; grid-template-columns: 1.25fr 0.85fr; gap: 0.7rem; }
+    .panel {
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: var(--panel);
+      padding: 0.85rem 0.9rem 0.9rem;
+    }
+    .panel h2 { margin-bottom: 0.15rem; }
+    .panel .subhead { margin: 0.15rem 0 0.7rem; }
+    .gate-tabs { display: flex; flex-wrap: wrap; gap: 0.35rem; margin-bottom: 0.75rem; }
+    .gate-tab {
+      appearance: none;
+      border: 1px solid rgba(90, 170, 210, 0.3);
+      background: transparent;
       color: var(--ink-soft);
+      font-family: var(--mono);
+      font-size: 0.62rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      border-radius: 999px;
+      padding: 0.32rem 0.55rem;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
     }
+    .gate-tab svg { width: 0.9rem; height: 0.9rem; }
+    .gate-tab.is-selected {
+      color: #04221c;
+      background: var(--mint);
+      border-color: var(--mint);
+    }
+    .gate-body { display: grid; grid-template-columns: 8.5rem 1fr; gap: 0.8rem; align-items: center; }
+    .mark { text-align: center; color: var(--cyan); }
+    .mark-ico {
+      width: 4.6rem; height: 4.6rem; margin: 0 auto 0.4rem;
+      border-radius: 50%;
+      border: 1px solid rgba(90, 230, 210, 0.45);
+      display: grid; place-items: center;
+      box-shadow: 0 0 24px rgba(40, 200, 180, 0.2), inset 0 0 18px rgba(40, 180, 160, 0.12);
+      background: radial-gradient(circle at 50% 40%, rgba(40, 160, 180, 0.25), rgba(4, 16, 28, 0.2));
+    }
+    .mark-ico svg { width: 2rem; height: 2rem; filter: drop-shadow(0 0 6px currentColor); }
+    .mark b { display: block; font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.08em; }
+    .mark em { display: block; margin-top: 0.15rem; font-style: normal; color: var(--muted); font-size: 0.72rem; }
+    .checks { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.45rem; }
+    .checks li { display: grid; grid-template-columns: 1rem 1fr; gap: 0.15rem 0.45rem; align-items: start; }
+    .checks li::before {
+      content: "";
+      grid-row: 1 / span 2;
+      width: 0.7rem; height: 0.7rem; margin-top: 0.2rem;
+      border-radius: 50%;
+      border: 1.5px solid var(--mint);
+      box-shadow: 0 0 8px rgba(80, 255, 200, 0.35);
+    }
+    .checks b, .checks span { grid-column: 2; }
+    .checks b { display: block; font-size: 0.9rem; }
+    .checks span { display: block; color: var(--muted); font-size: 0.78rem; }
+    .gate-foot { display: flex; justify-content: flex-end; gap: 0.45rem; margin-top: 0.75rem; flex-wrap: wrap; }
+    .when-held { display: none; }
+    .sheet[data-mode="held"] .when-open { display: none; }
+    .sheet[data-mode="held"] .when-held { display: block; }
+    .mark-held { display: none; }
+    .sheet[data-stage="observe"] .mark-held { display: inline-block; }
+    .sheet[data-mode="blocked"] .mark-held { display: none; }
 
-    .ladder {
+    .layers { display: grid; grid-template-columns: minmax(9rem, 13rem) 1fr; gap: 0.75rem; align-items: center; }
+    .layer-shot {
+      width: 100%;
+      max-width: 230px;
+      display: block;
+      border-radius: 14px;
+      background: #061018;
+    }
+    .legend { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.55rem; }
+    .legend li { display: grid; grid-template-columns: 0.7rem 1fr; gap: 0.45rem; align-items: start; }
+    .legend i { width: 0.55rem; height: 0.55rem; border-radius: 50%; margin-top: 0.28rem; box-shadow: 0 0 8px currentColor; }
+    .legend b { display: block; font-size: 0.88rem; }
+    .legend span { display: block; color: var(--muted); font-size: 0.75rem; }
+    .c1 { color: #7ee8ff; background: #7ee8ff; }
+    .c2 { color: #5dffe0; background: #5dffe0; }
+    .c3 { color: #b6ff7a; background: #b6ff7a; }
+    .c4 { color: #ffd36a; background: #ffd36a; }
+
+    .measure-grid { display: grid; grid-template-columns: 1fr 1fr 1.15fr; gap: 0.7rem; }
+    .measure-col h3 {
+      margin: 0 0 0.55rem;
+      font-family: var(--mono);
+      font-size: 0.66rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--cyan);
+    }
+    .measure-col article { display: grid; grid-template-columns: 1.6rem 1fr; gap: 0.45rem; margin-bottom: 0.65rem; }
+    .measure-col svg { width: 1.35rem; height: 1.35rem; margin-top: 0.1rem; color: var(--cyan); }
+    .measure-col b { display: block; font-size: 0.92rem; }
+    .measure-col span { display: block; color: var(--muted); font-size: 0.78rem; }
+    .trace-head { display: flex; justify-content: space-between; gap: 0.4rem; align-items: center; margin-bottom: 0.35rem; }
+    .trace-head b { font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); font-weight: 500; }
+    .trace-head strong { display: block; font-size: 1rem; color: var(--ink); letter-spacing: 0; text-transform: none; }
+    .badge {
+      font-family: var(--mono);
+      font-size: 0.62rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--gold);
+      border: 1px solid rgba(255, 211, 106, 0.5);
+      border-radius: 999px;
+      padding: 0.2rem 0.45rem;
+    }
+    .sheet[data-mode="held"] .badge { color: var(--held); border-color: rgba(61, 255, 200, 0.55); }
+    .trace { width: 100%; height: 86px; display: block; }
+    .note { margin: 0.65rem 0 0; color: var(--muted); font-size: 0.8rem; }
+
+    .close {
+      margin-top: 0.95rem;
+      min-height: 380px;
+      border-radius: 16px;
+      overflow: hidden;
+      border: 1px solid rgba(90, 160, 210, 0.25);
+      position: relative;
+      background:
+        linear-gradient(90deg, rgba(2, 8, 16, 0.78) 0%, rgba(2, 8, 16, 0.18) 38%, rgba(2, 8, 16, 0.05) 52%, rgba(2, 8, 16, 0.62) 100%),
+        url("assets/ridge-dusk.jpg") center 62% / cover no-repeat;
+    }
+    .close-copy {
+      position: relative;
+      z-index: 1;
       display: grid;
-      gap: 0.35rem;
-      counter-reset: step;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 1rem;
+      padding: 1.4rem 1.2rem;
+      min-height: 380px;
+      align-items: center;
+    }
+    .principle {
+      margin: 0.35rem 0 0;
+      max-width: 20ch;
+      font-size: clamp(1.35rem, 2.4vw, 1.85rem);
+      line-height: 1.2;
+      letter-spacing: -0.03em;
+      font-weight: 600;
+      color: var(--mint);
+      text-shadow: 0 2px 18px rgba(0, 0, 0, 0.75);
+    }
+    .more b { display: block; font-family: var(--mono); font-size: 0.66rem; letter-spacing: 0.12em; text-transform: uppercase; color: #d5e4f4; margin-bottom: 0.35rem; text-shadow: 0 2px 12px rgba(0,0,0,0.7); }
+    .more p { margin: 0; max-width: 32ch; color: #d5e4f4; font-size: 0.92rem; text-shadow: 0 2px 12px rgba(0,0,0,0.7); }
+    .chips { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 0.7rem; }
+    .chips span {
+      font-family: var(--mono);
+      font-size: 0.6rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.35);
+      padding-bottom: 0.1rem;
+      color: #e8f2ff;
     }
 
-    .ladder li {
-      list-style: none;
-      counter-increment: step;
-      display: grid;
-      grid-template-columns: 1.6rem 1fr;
-      gap: 0.55rem;
-      align-items: start;
-      font-size: 0.86rem;
-      padding: 0.2rem 0;
-    }
-
+    .ref { margin-top: 1rem; padding-top: 0.2rem; }
+    .split-ref { display: grid; grid-template-columns: 1.15fr 0.85fr; gap: 1.25rem; }
+    .pick { display: grid; grid-template-columns: minmax(14rem, max-content) 1fr; gap: 0.45rem 0.8rem; padding: 0.45rem 0; border-bottom: 1px solid rgba(120, 170, 210, 0.16); }
+    .pick strong { font-family: var(--mono); font-size: 0.74rem; font-weight: 600; }
+    .pick span, .kill span, .found span, td.example { color: var(--ink-soft); font-size: 0.84rem; }
+    .ladder { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.35rem; counter-reset: step; }
+    .ladder li { counter-increment: step; display: grid; grid-template-columns: 1.5rem 1fr; gap: 0.45rem; align-items: start; font-size: 0.9rem; }
     .ladder li::before {
       content: counter(step);
-      font-family: var(--font-mono);
-      font-size: 0.7rem;
-      font-weight: 600;
-      color: var(--steel);
-      background: #e8eef4;
+      font-family: var(--mono);
+      font-size: 0.66rem;
+      color: var(--cyan);
+      border: 1px solid rgba(92, 239, 255, 0.35);
       border-radius: 4px;
-      width: 1.45rem;
-      height: 1.45rem;
-      display: grid;
-      place-items: center;
-      margin-top: 0.05rem;
+      width: 1.35rem; height: 1.35rem;
+      display: grid; place-items: center;
     }
+    .kill { margin-top: 0.75rem; padding-top: 0.65rem; border-top: 1px solid var(--line); }
+    .kill strong { display: block; margin-bottom: 0.15rem; }
+    .table-wrap { overflow-x: auto; }
+    table { width: 100%; border-collapse: collapse; font-size: 0.86rem; }
+    th, td { text-align: left; vertical-align: top; padding: 0.5rem 0.4rem 0.5rem 0; border-bottom: 1px solid rgba(120, 170, 210, 0.14); }
+    th { font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); font-weight: 500; }
+    td.problem { width: 30%; }
+    a.use-link, .pick a, .note a, .credit a { color: var(--cyan); text-decoration: none; border-bottom: 1px solid rgba(92, 239, 255, 0.35); }
+    .anti-list { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 0.35rem 1rem; }
+    .anti-list li { position: relative; padding-left: 0.9rem; }
+    .anti-list li::before { content: "×"; position: absolute; left: 0; color: var(--amber); font-weight: 700; }
+    .found-row { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 0.7rem; }
+    .found strong { display: block; font-family: var(--mono); font-size: 0.64rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--cyan); margin-bottom: 0.15rem; }
+    footer.meta { margin-top: 1rem; padding-top: 0.75rem; border-top: 1px solid var(--line); display: grid; gap: 0.35rem; }
+    .version-row { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 0.4rem 1rem; }
+    .version { font-family: var(--mono); font-size: 0.75rem; color: #c5d7ea; }
+    .credit { display: flex; flex-wrap: wrap; gap: 0.35rem 0.8rem; color: var(--muted); font-size: 0.8rem; }
+    .changed { margin: 0; color: var(--ink-soft); font-size: 0.8rem; }
+    .changed b { font-family: var(--mono); font-size: 0.64rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); margin-right: 0.35rem; }
+    .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
+    button:focus-visible, a:focus-visible { outline: 2px solid var(--cyan); outline-offset: 3px; }
 
-    .antis {
-      background: linear-gradient(180deg, #fcfaf8, #f8f1eb);
-    }
-
-    .foundation {
-      padding: 0.85rem 1.35rem 1rem;
-      border-bottom: 1px solid var(--line);
-      background: #f3f6f9;
-    }
-
-    .found-row {
-      display: grid;
-      grid-template-columns: repeat(5, 1fr);
-      gap: 0.65rem 0.85rem;
-    }
-
-    .found strong {
-      display: block;
-      font-family: var(--font-mono);
-      font-size: 0.68rem;
-      letter-spacing: 0.04em;
-      text-transform: uppercase;
-      color: var(--steel);
-      font-weight: 600;
-      margin-bottom: 0.2rem;
-    }
-
-    .found span {
-      font-size: 0.78rem;
-      color: var(--ink-soft);
-      line-height: 1.3;
-    }
-
-    .anti-list {
-      margin: 0;
-      padding: 0;
-      list-style: none;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 0.45rem 1rem;
-    }
-
-    .anti-list li {
-      font-size: 0.86rem;
-      color: var(--ink);
-      padding-left: 0.9rem;
-      position: relative;
-    }
-
-    .anti-list li::before {
-      content: "\00D7";
-      position: absolute;
-      left: 0;
-      color: var(--warn);
-      font-weight: 700;
-    }
-
-    .note {
-      margin: 0.85rem 0 0;
-      font-size: 0.84rem;
-      color: var(--ink-soft);
-      max-width: 70ch;
-    }
-
-    footer.meta {
-      padding: 0.95rem 1.35rem 1.15rem;
-      background: #f3f6f9;
-      display: grid;
-      gap: 0.55rem;
-    }
-
-    .version-row {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: baseline;
-      justify-content: space-between;
-      gap: 0.5rem 1.25rem;
-    }
-
-    .version {
-      font-family: var(--font-mono);
-      font-size: 0.78rem;
-      color: var(--steel-deep);
-      font-weight: 500;
-    }
-
-    .changed {
-      margin: 0;
-      font-size: 0.82rem;
-      color: var(--ink-soft);
-    }
-
-    .changed b {
-      font-family: var(--font-mono);
-      font-size: 0.7rem;
-      letter-spacing: 0.04em;
-      text-transform: uppercase;
-      color: var(--muted);
-      font-weight: 600;
-      margin-right: 0.4rem;
-    }
-
-    .credit {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.35rem 1rem;
-      align-items: baseline;
-      font-size: 0.82rem;
-      color: var(--muted);
-    }
-
-    .credit a {
-      color: var(--steel);
-      text-decoration: none;
-      font-weight: 500;
-    }
-
-    .credit a:hover { text-decoration: underline; }
-
-    .share-banner {
-      display: none;
-    }
-
-    @media (max-width: 900px) {
-      header.hero,
-      .tri,
-      .behavior,
-      .anti-list {
-        grid-template-columns: 1fr;
-      }
-      .tri > section { border-right: none; border-bottom: 1px solid var(--line); }
-      .tri > section:last-child { border-bottom: none; }
-      .pick { grid-template-columns: 1fr; gap: 0.2rem; }
-      h1 { max-width: none; }
+    @media (max-width: 980px) {
+      .sc-grid, .split, .measure-grid, .close-copy, .split-ref { grid-template-columns: 1fr; }
       .found-row { grid-template-columns: 1fr 1fr; }
-      table.decisions td.problem,
-      table.decisions td.reach,
-      table.decisions td.example { width: auto; }
+      h1 { max-width: none; }
     }
-
+    @media (max-width: 720px) {
+      .sheet { padding: 0.9rem 0.75rem 1rem; }
+      .chain { grid-template-columns: 1fr; }
+      .beam { display: none; }
+      .stage { flex-direction: row; text-align: left; gap: 0.65rem; }
+      .stage .node { width: 7.2rem; flex: none; }
+      .stage em { max-width: none; }
+      .sc-grid, .anti-list, .found-row, .gate-body, .layers { grid-template-columns: 1fr; }
+      .sc-select em { min-height: 0; }
+      .pick { grid-template-columns: 1fr; }
+      .principle { max-width: none; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .trail .core { animation: none; }
+    }
     @media print {
-      @page {
-        size: A4 landscape;
-        margin: 8mm;
-      }
-
-      body {
-        background: #fff;
-        font-size: 10.5pt;
-      }
-
-      .sheet {
-        width: 100%;
-        margin: 0;
-        border: none;
-        border-radius: 0;
-        box-shadow: none;
-      }
-
-      .channels,
-      .share-banner { display: none !important; }
-
-      .topbar { padding: 0.4rem 0 0.55rem; background: none; }
-      header.hero { padding: 0.55rem 0 0.7rem; gap: 0.85rem; }
-      section { padding: 0.55rem 0 0.65rem; }
-      footer.meta { padding: 0.45rem 0 0; background: none; }
-      .foundation { padding: 0.45rem 0; background: none; }
-      .layer { animation: none; print-color-adjust: exact; -webkit-print-color-adjust: exact; }
-      .panel, .antis, .foundation { break-inside: avoid; }
-      a { color: inherit; text-decoration: none; border-bottom: none !important; }
+      @page { size: A4 landscape; margin: 8mm; }
+      body { background: #fff; color: #18212b; }
+      .sheet { width: 100%; margin: 0; padding: 0; background: #fff; border: none; box-shadow: none; }
+      .sheet::before, .trail, .channels button, .channels a.btn, .mark-held, .next-gate { display: none !important; }
+      .close { background: #fff !important; }
+      h1 em { background: none; color: #0f5f6b; -webkit-text-fill-color: #0f5f6b; }
+      .hook, .verbs, .caption, .principle, .more p, .version, .pick span, .checks span { color: #18212b; }
+      .gate-copy[hidden] { display: block !important; }
+      .panel, .sc-card, .chain-wrap, .close { background: #fff; box-shadow: none; }
+      .principle { text-shadow: none; }
     }
   </style>
 </head>
 <body>
-  <article class="sheet" id="field-card">
+  <article class="sheet" id="field-card" data-stage="cutover" data-mode="open" data-scenario="">
+    <p id="live" class="sr-only" aria-live="polite"></p>
+    <svg class="sprite" aria-hidden="true" width="0" height="0" style="position:absolute">
+      <defs>
+        <symbol id="i-target" viewBox="0 0 24 24">
+          <circle cx="12" cy="12" r="7.2" fill="none" stroke="currentColor" stroke-width="1.6"/>
+          <circle cx="12" cy="12" r="3.1" fill="none" stroke="currentColor" stroke-width="1.6"/>
+          <circle cx="12" cy="12" r="1" fill="currentColor"/>
+          <path d="M12 2.1v2.2M12 19.7v2.2M2.1 12h2.2M19.7 12h2.2" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+        </symbol>
+        <symbol id="i-cal" viewBox="0 0 24 24">
+          <rect x="3.8" y="5.2" width="16.4" height="14.6" rx="2" fill="none" stroke="currentColor" stroke-width="1.6"/>
+          <path d="M8 3.2v3.4M16 3.2v3.4M3.8 9.6h16.4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+          <circle cx="8.2" cy="13.6" r="0.8" fill="currentColor"/>
+          <circle cx="12" cy="13.6" r="0.8" fill="currentColor"/>
+          <circle cx="15.8" cy="13.6" r="0.8" fill="currentColor"/>
+        </symbol>
+        <symbol id="i-shield" viewBox="0 0 24 24">
+          <path d="M12 2.8l6.6 2.4v5.3c0 3.8-2.6 6.7-6.6 8-4-1.3-6.6-4.2-6.6-8V5.2L12 2.8z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+          <path d="M9 11.3l1.9 1.9 4-4.1" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+        </symbol>
+        <symbol id="i-rocket" viewBox="0 0 24 24">
+          <path d="M12 2.2c2.3 2.5 3.5 5.2 3.5 8.1v2.4l2.2 1.6v2.1h-3.2L13.1 21h-2.2l-1.4-4.6H6.3v-2.1l2.2-1.6V10.3c0-2.9 1.2-5.6 3.5-8.1z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+          <circle cx="12" cy="10" r="1.15" fill="currentColor"/>
+          <path d="M8.8 16.4c-.9 1.4-1.6 2.4-1.6 2.4M15.2 16.4c.9 1.4 1.6 2.4 1.6 2.4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+        </symbol>
+        <symbol id="i-pulse" viewBox="0 0 24 24">
+          <path d="M2.2 12h3.4l2-4.6 3.6 9.2 2.3-4.6h8.3" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+          <circle cx="21.2" cy="12" r="1" fill="currentColor"/>
+        </symbol>
+        <symbol id="i-person" viewBox="0 0 24 24">
+          <circle cx="12" cy="8" r="2.5" fill="none" stroke="currentColor" stroke-width="1.6"/>
+          <path d="M6.6 19.2v-1.1c0-2.4 2.2-4 5.4-4s5.4 1.6 5.4 4v1.1" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+        </symbol>
+        <symbol id="i-cloud" viewBox="0 0 24 24">
+          <path d="M7.4 17.4h8.8a3.4 3.4 0 0 0 .5-6.8 4.7 4.7 0 0 0-9-1.1 3.3 3.3 0 0 0-.3 7.9z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+        </symbol>
+        <symbol id="i-chart" viewBox="0 0 24 24">
+          <path d="M3.8 16.6l4.2-4.3 2.8 2.6 4.3-5.6 5.1 3.4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M15.2 9.2h5v4.6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+        </symbol>
+        <symbol id="i-clock" viewBox="0 0 24 24">
+          <circle cx="12" cy="12" r="7.4" fill="none" stroke="currentColor" stroke-width="1.6"/>
+          <path d="M12 8v4.6l2.8 1.6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+        </symbol>
+        <symbol id="i-arrow" viewBox="0 0 24 24">
+          <path d="M4.5 12h14M13 7.2l5.8 4.8L13 16.8" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+        </symbol>
+        <symbol id="i-back" viewBox="0 0 24 24">
+          <path d="M8.2 8H4.4V4.2" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M5.2 8.4a7.2 7.2 0 1 1-1.1 4.4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+        </symbol>
+      </defs>
+    </svg>
+    <svg class="trail" viewBox="0 0 1200 260" aria-hidden="true">
+      <defs>
+        <linearGradient id="trail" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0" stop-color="#1a6cff" stop-opacity="0"/>
+          <stop offset="0.22" stop-color="#3ec6ff"/>
+          <stop offset="0.5" stop-color="#7dffe1"/>
+          <stop offset="0.78" stop-color="#fff4c8"/>
+          <stop offset="1" stop-color="#ffd36a"/>
+        </linearGradient>
+        <filter id="trailBlur" x="-8%" y="-60%" width="116%" height="220%">
+          <feGaussianBlur stdDeviation="8"/>
+        </filter>
+      </defs>
+      <g fill="#fff">
+        <circle cx="70" cy="36" r="1.1"/><circle cx="160" cy="78" r="0.8" opacity="0.7"/>
+        <circle cx="250" cy="28" r="1.2"/><circle cx="390" cy="64" r="0.7" opacity="0.6"/>
+        <circle cx="520" cy="22" r="1"/><circle cx="680" cy="48" r="0.8" opacity="0.7"/>
+        <circle cx="860" cy="18" r="1.2"/><circle cx="980" cy="40" r="0.8"/>
+        <circle cx="1100" cy="24" r="1"/>
+      </g>
+      <path class="glow" filter="url(#trailBlur)" d="M-40 78 C 180 96, 280 18, 520 34 S 860 6, 1160 30"/>
+      <path class="mid" d="M-40 78 C 180 96, 280 18, 520 34 S 860 6, 1160 30"/>
+      <path class="core" d="M-40 78 C 180 96, 280 18, 520 34 S 860 6, 1160 30"/>
+      <circle cx="1160" cy="30" r="11" fill="#ffd36a" opacity="0.35"/>
+      <circle cx="1160" cy="30" r="3.5" fill="#fff"/>
+    </svg>
+
     <div class="topbar">
-      <div class="eyebrow">Field card · Technology delivery</div>
-      <div class="channels no-print">
+      <div>
+        <p class="eyebrow">Orbit <span>/</span> Delivery</p>
+        <p class="kicker-title">Technology Delivery</p>
+      </div>
+      <div class="channels">
+        <span class="pill" id="status-pill"><i></i><span id="status-label">Outcome open</span></span>
         <button type="button" onclick="window.print()">Print / PDF</button>
         <button type="button" id="copy-link">Copy link</button>
         <a class="btn" href="https://alextouvras.com" rel="noopener">alextouvras.com</a>
@@ -639,195 +660,506 @@
     </div>
 
     <header class="hero">
-      <div>
-        <div class="eyebrow">Evidence before the call</div>
-        <h1>Delivery is a sequence, not a ticket</h1>
-        <p class="verbs">Name → calendar → prove → cut over</p>
-        <p class="lede">
-          Intent, window, proof, and cutover are <strong>layers</strong>.
-          Methods are lanes. Pipeline green is not the same as held in production — name rollback before anyone calls the change done.
-        </p>
-      </div>
-      <div class="stack" aria-label="Four-layer stack">
-        <div class="layer"><code>INTENT</code><span>Outcome — what this change is for, owned</span></div>
-        <div class="layer"><code>WINDOW</code><span>Calendars — platform, security, business freeze</span></div>
-        <div class="layer"><code>PROOF</code><span>Evidence — dependencies, blast radius, metrics</span></div>
-        <div class="layer"><code>CUTOVER</code><span>Sequence — rollback named before green</span></div>
-      </div>
+      <h1>Delivery is a sequence, <em>not a ticket.</em></h1>
+      <p class="hook">From business intent to a change that holds in production.</p>
+      <p class="verbs">Name → calendar → prove → cut over</p>
     </header>
 
-    <section>
-      <h2>Problem → use → example</h2>
-      <table class="decisions">
-        <thead>
-          <tr>
-            <th>If the real problem is…</th>
-            <th>Use</th>
-            <th>Example case</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td class="problem">Platform, security, and business clocks disagree</td>
-            <td class="reach"><a class="use-link" href="https://learn.microsoft.com/en-us/azure/devops/pipelines/process/approvals" target="_blank" rel="noopener noreferrer" title="Azure Pipelines: approvals and checks"><b>Change window</b></a></td>
-            <td class="example">Middleware patch waits for the freeze, then a named business-hours check — not a chat “we’ll find a slot”</td>
-          </tr>
-          <tr>
-            <td class="problem">Nobody can name who owns the dependency</td>
-            <td class="reach"><a class="use-link" href="https://learn.microsoft.com/en-us/azure/devops/boards/plans/review-team-plans" target="_blank" rel="noopener noreferrer" title="Azure Boards: Delivery Plans"><b>Dependency map</b></a></td>
-            <td class="example">Azure app change that needs a cert rotation: owner, blocker, and date on one plan; status names the wait</td>
-          </tr>
-          <tr>
-            <td class="problem">Must reverse without a weekend restore</td>
-            <td class="reach"><a class="use-link" href="https://learn.microsoft.com/en-us/azure/azure-app-configuration/concept-feature-management" target="_blank" rel="noopener noreferrer" title="Azure App Configuration: feature management"><b>Feature flag</b></a></td>
-            <td class="example">New middleware route ships dark; flip on for one tenant, flip off if error rate moves — code deploy ≠ user release</td>
-          </tr>
-          <tr>
-            <td class="problem">Pipeline is green; ops is not ready</td>
-            <td class="reach"><a class="use-link" href="https://martinfowler.com/bliki/ContinuousDelivery.html" target="_blank" rel="noopener noreferrer" title="Martin Fowler: Continuous Delivery"><b>Done that survives the room</b></a></td>
-            <td class="example">Rollback steps and who gets paged sit in the change note before anyone says green — tests passing is not held</td>
-          </tr>
-          <tr>
-            <td class="problem">Too many “ready” items, no sequence</td>
-            <td class="reach"><a class="use-link" href="https://www.mountaingoatsoftware.com/blog/ai-doesnt-eliminate-agile-teams-it-increases-the-need-for-great-ones" target="_blank" rel="noopener noreferrer" title="Mike Cohn: AI increases the need for great agile teams"><b>Priority gate</b></a></td>
-            <td class="example">Three Azure changes drafted in an afternoon; only the cert that blocks Friday’s window goes first — “not yet” is a decision</td>
-          </tr>
-          <tr>
-            <td class="problem">AI made drafts cheap; sequence got worse</td>
-            <td class="reach"><a class="use-link" href="https://learn.microsoft.com/en-us/azure/devops/pipelines/process/approvals" target="_blank" rel="noopener noreferrer" title="Azure Pipelines: environment approvals"><b>Human Approve</b></a></td>
-            <td class="example">Copilot wrote the runbook; a person still owns what next and why not yet — same gate Orbit uses for publish</td>
-          </tr>
-          <tr>
-            <td class="problem">After ship, nobody can tell if it held</td>
-            <td class="reach"><a class="use-link" href="https://learn.microsoft.com/en-us/azure/azure-monitor/overview" target="_blank" rel="noopener noreferrer" title="Azure Monitor overview"><b>Watch the service</b></a></td>
-            <td class="example">Error rate and queue depth for 30 minutes post-cutover; if they move, rollback is already written</td>
-          </tr>
-          <tr>
-            <td class="problem">Snowflake middleware / env drift</td>
-            <td class="reach"><a class="use-link" href="https://learn.microsoft.com/en-us/azure/azure-resource-manager/bicep/overview" target="_blank" rel="noopener noreferrer" title="Bicep overview"><b>Infra as code</b></a></td>
-            <td class="example">App setting and network rule in Bicep (or Terraform); the next environment is a replay, not a memory</td>
-          </tr>
-          <tr>
-            <td class="problem">Status lives in a chat thread</td>
-            <td class="reach"><a class="use-link" href="https://learn.microsoft.com/en-us/azure/devops/boards/get-started/what-is-azure-boards" target="_blank" rel="noopener noreferrer" title="What is Azure Boards"><b>Visible work</b></a></td>
-            <td class="example">Blocker named on the board item; standup does not replace a written wait</td>
-          </tr>
-          <tr>
-            <td class="problem">Need fast feedback on main, not a long-lived branch</td>
-            <td class="reach"><a class="use-link" href="https://trunkbaseddevelopment.com/" target="_blank" rel="noopener noreferrer" title="Trunk Based Development"><b>Small batches on trunk</b></a></td>
-            <td class="example">Incomplete UI stays behind a flag; main stays releasable — Fowler’s CD test, not a two-week merge</td>
-          </tr>
-          <tr>
-            <td class="problem">Don’t know if delivery is actually getting healthier</td>
-            <td class="reach"><a class="use-link" href="https://dora.dev/guides/dora-metrics-four-keys/" target="_blank" rel="noopener noreferrer" title="DORA: four keys"><b>Four keys</b></a></td>
-            <td class="example">Lead time and change-fail rate next to the Azure ops pack; velocity theatre stays off this path</td>
-          </tr>
-        </tbody>
-      </table>
-      <p class="note">Default order: name the intent and owner → calendars and dependencies → evidence pack → rollback + page path → small sequenced change (flag if you must reverse) → watch whether it held.</p>
+    <section class="chain-wrap" aria-labelledby="chain-label">
+      <p class="chain-label" id="chain-label">The delivery chain</p>
+      <div class="chain" role="tablist" aria-label="Delivery chain">
+        <div class="beam" aria-hidden="true"><i></i></div>
+        <button type="button" class="stage" id="tab-intent" data-stage="intent" role="tab" aria-selected="false" aria-controls="gate-intent" tabindex="-1">
+          <span class="node"><span class="num">01</span><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-target"/></svg></span>
+          <span><b>INTENT</b><em>Outcome + owner</em></span>
+        </button>
+        <button type="button" class="stage" id="tab-window" data-stage="window" role="tab" aria-selected="false" aria-controls="gate-window" tabindex="-1">
+          <span class="node"><span class="num">02</span><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-cal"/></svg></span>
+          <span><b>WINDOW</b><em>Dependencies + timing</em></span>
+        </button>
+        <button type="button" class="stage" id="tab-proof" data-stage="proof" role="tab" aria-selected="false" aria-controls="gate-proof" tabindex="-1">
+          <span class="node"><span class="num">03</span><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-shield"/></svg></span>
+          <span><b>PROOF</b><em>Risk + readiness</em></span>
+        </button>
+        <button type="button" class="stage is-selected" id="tab-cutover" data-stage="cutover" role="tab" aria-selected="true" aria-controls="gate-cutover" tabindex="0">
+          <span class="node"><span class="num">04</span><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-rocket"/></svg></span>
+          <span><b>CUTOVER</b><em>Release + rollback</em></span>
+        </button>
+        <button type="button" class="stage" id="tab-observe" data-stage="observe" role="tab" aria-selected="false" aria-controls="gate-observe" tabindex="-1">
+          <span class="node"><span class="num">05</span><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-pulse"/></svg></span>
+          <span><b>OBSERVE</b><em>Production evidence</em></span>
+        </button>
+      </div>
+      <p class="caption" id="chain-caption">Illustrative sequence · A release is not complete until its outcome has been checked.</p>
     </section>
 
-    <div class="tri">
-      <section>
-        <h2>Tool picker</h2>
-        <div class="picker">
-          <div class="pick"><strong><a href="https://trunkbaseddevelopment.com/" target="_blank" rel="noopener noreferrer">Trunk-based</a></strong><span>Small batches; main stays releasable</span></div>
-          <div class="pick"><strong><a href="https://docs.github.com/en/actions" target="_blank" rel="noopener noreferrer">GitHub Actions</a> / <a href="https://learn.microsoft.com/en-us/azure/devops/pipelines/get-started/what-is-azure-pipelines" target="_blank" rel="noopener noreferrer">Azure Pipelines</a></strong><span>Fast feedback on the change</span></div>
-          <div class="pick"><strong><a href="https://learn.microsoft.com/en-us/azure/azure-app-configuration/concept-feature-management" target="_blank" rel="noopener noreferrer">Feature flags</a></strong><span>Reversible cutover; deploy ≠ release</span></div>
-          <div class="pick"><strong><a href="https://learn.microsoft.com/en-us/azure/azure-resource-manager/bicep/overview" target="_blank" rel="noopener noreferrer">Bicep</a> / <a href="https://developer.hashicorp.com/terraform/intro" target="_blank" rel="noopener noreferrer">Terraform</a></strong><span>Repeatable infra, not a snowflake box</span></div>
-          <div class="pick"><strong><a href="https://learn.microsoft.com/en-us/azure/azure-monitor/overview" target="_blank" rel="noopener noreferrer">Azure Monitor</a></strong><span>Did the change hold after green?</span></div>
-          <div class="pick"><strong><a href="https://learn.microsoft.com/en-us/azure/devops/boards/get-started/what-is-azure-boards" target="_blank" rel="noopener noreferrer">Azure Boards</a></strong><span>Work and blockers visible across teams</span></div>
-          <div class="pick"><strong><a href="https://learn.microsoft.com/en-us/azure/devops/pipelines/process/approvals" target="_blank" rel="noopener noreferrer">Approvals / checks</a></strong><span>Human gate + business-hours window</span></div>
-        </div>
-      </section>
-
-      <section>
-        <h2>Ready vs green</h2>
-        <div class="gates">
-          <div class="gate">
-            <strong>Ready · specified</strong>
-            <span>Owner, window, blast radius, and rollback named. A ticket title is not an outcome.</span>
-          </div>
-          <div class="gate">
-            <strong>Green · held</strong>
-            <span>Pipeline pass is not ops done. Watch the service; keep the kill switch in reach.</span>
-          </div>
-          <div class="gate">
-            <strong>Memory check</strong>
-            <span>INTENT = outcome. WINDOW = whose clock. PROOF = evidence. CUTOVER = sequence + rollback.</span>
-          </div>
-        </div>
-      </section>
-
-      <section>
-        <h2>Ladder + gates</h2>
-        <ol class="ladder">
-          <li>Named intent + owner</li>
-          <li>Calendars + dependency map</li>
-          <li>Evidence pack (blast radius, metrics)</li>
-          <li>Rollback + page path written</li>
-          <li>Small sequenced change / flag</li>
-          <li>Watch whether it held</li>
-        </ol>
-        <div class="gate" style="margin-top:0.75rem">
-          <strong>Kill switch</strong>
-          <span>If you can’t name the owner, the window, and how to reverse, you don’t call it green.</span>
-        </div>
-      </section>
-    </div>
-
-    <section class="antis">
-      <h2>Anti-patterns</h2>
-      <ul class="anti-list">
-        <li>Ticket title as the outcome</li>
-        <li>Calling pipeline green with no rollback</li>
-        <li>Private AI speed as team capability</li>
-        <li>Shipping while calendars still collide</li>
-        <li>Chat-thread status with no named blocker</li>
-        <li>Automating priority or the “not yet” call</li>
-        <li>Long-lived branches instead of flags</li>
-        <li>Framework shopping (SAFe/Scrum) before sequence</li>
-      </ul>
+    <section class="band" id="situations">
+      <div class="block-head">
+        <h2>Decision scenarios</h2>
+        <a class="view-all" href="#jobs">View all examples</a>
+      </div>
+      <p class="subhead">Real situations. The decision, the evidence, and the next action sit on the card.</p>
+      <div class="sc-grid">
+        <article class="sc-card" data-scenario="windows" data-stage="window">
+          <button type="button" class="sc-select" aria-pressed="false">
+            <span class="sc-ico"><small>01</small><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-cal"/></svg></span>
+            <strong>Competing change windows</strong>
+            <em>Platform, security, and business clocks disagree.</em>
+          </button>
+          <dl class="sc-facts">
+            <div><dt>Decision</dt><dd><a class="use-link" href="https://learn.microsoft.com/en-us/azure/devops/pipelines/process/approvals" target="_blank" rel="noopener noreferrer">Change window</a></dd></div>
+            <div><dt>Evidence</dt><dd>Freeze, then a business-hours check.</dd></div>
+            <div><dt>Next action</dt><dd>The middleware patch waits.</dd></div>
+          </dl>
+        </article>
+        <article class="sc-card" data-scenario="owner" data-stage="proof">
+          <button type="button" class="sc-select" aria-pressed="false">
+            <span class="sc-ico"><small>02</small><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-person"/></svg></span>
+            <strong>Dependency has no owner</strong>
+            <em>A dependency is in the path, and nobody owns it.</em>
+          </button>
+          <dl class="sc-facts">
+            <div><dt>Decision</dt><dd><a class="use-link" href="https://learn.microsoft.com/en-us/azure/devops/boards/plans/review-team-plans" target="_blank" rel="noopener noreferrer">Dependency map</a></dd></div>
+            <div><dt>Evidence</dt><dd>Owner, blocker, and date on one plan.</dd></div>
+            <div><dt>Next action</dt><dd>Status names the wait.</dd></div>
+          </dl>
+        </article>
+        <article class="sc-card" data-scenario="green" data-stage="cutover">
+          <button type="button" class="sc-select" aria-pressed="false">
+            <span class="sc-ico"><small>03</small><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-cloud"/></svg></span>
+            <strong>Deployment passes, ops not ready</strong>
+            <em>The change is out. Rollback is not written.</em>
+          </button>
+          <dl class="sc-facts">
+            <div><dt>Decision</dt><dd><a class="use-link" href="https://martinfowler.com/bliki/ContinuousDelivery.html" target="_blank" rel="noopener noreferrer">Done that survives the room</a></dd></div>
+            <div><dt>Evidence</dt><dd>Rollback steps and who gets paged.</dd></div>
+            <div><dt>Next action</dt><dd>Write the reverse, then call it.</dd></div>
+          </dl>
+        </article>
+        <article class="sc-card" data-scenario="metrics" data-stage="observe">
+          <button type="button" class="sc-select" aria-pressed="false">
+            <span class="sc-ico"><small>04</small><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-chart"/></svg></span>
+            <strong>Metrics move after cutover</strong>
+            <em>Error rate or queue depth shifts in the watch window.</em>
+          </button>
+          <dl class="sc-facts">
+            <div><dt>Decision</dt><dd><a class="use-link" href="https://learn.microsoft.com/en-us/azure/azure-monitor/overview" target="_blank" rel="noopener noreferrer">Watch the service</a></dd></div>
+            <div><dt>Evidence</dt><dd>Error rate and queue depth, 30 minutes.</dd></div>
+            <div><dt>Next action</dt><dd>Roll back on the written path.</dd></div>
+          </dl>
+        </article>
+      </div>
     </section>
 
-    <section class="foundation" aria-label="Always-on foundation">
-      <h2>Always on</h2>
-      <div class="found-row">
-        <div class="found"><strong>Security</strong><span>Freeze, access, and who can flip the flag</span></div>
-        <div class="found"><strong>Governance</strong><span>Whose clock, whose change, whose rollback</span></div>
-        <div class="found"><strong>Observability</strong><span>Watch the service after green</span></div>
-        <div class="found"><strong>Evals</strong><span>Held metrics — lead time, fail rate — not velocity theatre</span></div>
-        <div class="found"><strong>Human Approve</strong><span>Rollback named before anyone calls it done</span></div>
+    <section class="band">
+      <div class="split">
+        <div class="panel">
+          <h2>Delivery gates</h2>
+          <p class="subhead">Each stage has a rule. Pipeline green is not proof.</p>
+          <div class="gate-tabs" role="group" aria-label="Gate">
+            <button type="button" class="gate-tab" data-stage="intent"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-target"/></svg>Intent</button>
+            <button type="button" class="gate-tab" data-stage="window"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-cal"/></svg>Window</button>
+            <button type="button" class="gate-tab" data-stage="proof"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-shield"/></svg>Proof</button>
+            <button type="button" class="gate-tab is-selected" data-stage="cutover"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-rocket"/></svg>Cutover</button>
+            <button type="button" class="gate-tab" data-stage="observe"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-pulse"/></svg>Observe</button>
+          </div>
+          <div class="gate-copy" id="gate-intent" data-gate="intent" hidden>
+            <div class="gate-body">
+              <div class="mark"><div class="mark-ico"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-target"/></svg></div><b>INTENT</b><em>Outcome + owner</em></div>
+              <ul class="checks">
+                <li><b>Named outcome</b><span>What is this change for?</span></li>
+                <li><b>Owner</b><span>Which person owns it?</span></li>
+                <li><b>Not a title</b><span>A ticket title is not the outcome.</span></li>
+              </ul>
+            </div>
+          </div>
+          <div class="gate-copy" id="gate-window" data-gate="window" hidden>
+            <div class="gate-body">
+              <div class="mark"><div class="mark-ico"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-cal"/></svg></div><b>WINDOW</b><em>Dependencies + timing</em></div>
+              <ul class="checks">
+                <li><b>Clocks</b><span>Platform, security, and the business freeze.</span></li>
+                <li><b>One window</b><span>A date and a check, not a chat slot.</span></li>
+                <li><b>Hold</b><span>Colliding calendars stop the signal.</span></li>
+              </ul>
+            </div>
+          </div>
+          <div class="gate-copy" id="gate-proof" data-gate="proof" hidden>
+            <div class="gate-body">
+              <div class="mark"><div class="mark-ico"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-shield"/></svg></div><b>PROOF</b><em>Risk + readiness</em></div>
+              <ul class="checks">
+                <li><b>Dependency owner</b><span>Who owns the wait, the blocker, and the date.</span></li>
+                <li><b>Blast radius</b><span>What the change can touch.</span></li>
+                <li><b>Before the call</b><span>The evidence pack exists first.</span></li>
+              </ul>
+            </div>
+          </div>
+          <div class="gate-copy" id="gate-cutover" data-gate="cutover">
+            <div class="gate-body">
+              <div class="mark"><div class="mark-ico"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-rocket"/></svg></div><b>CUTOVER</b><em>Release + rollback</em></div>
+              <ul class="checks">
+                <li><b>Named owner</b><span>Who is accountable for the change?</span></li>
+                <li><b>Rollback plan</b><span>How do we get back if needed?</span></li>
+                <li><b>Monitoring plan</b><span>What do we watch, and for how long?</span></li>
+                <li><b>Communication</b><span>Who gets paged, and when?</span></li>
+              </ul>
+            </div>
+          </div>
+          <div class="gate-copy" id="gate-observe" data-gate="observe" hidden>
+            <div class="gate-body">
+              <div class="mark"><div class="mark-ico"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-pulse"/></svg></div><b>OBSERVE</b><em>Production evidence</em></div>
+              <ul class="checks">
+                <li><b>Watch window</b><span>Thirty minutes after cutover is the working example.</span></li>
+                <li><b>Signals</b><span>Error rate and queue depth.</span></li>
+                <li><b>Written reverse</b><span>The rollback already exists.</span></li>
+                <li><div class="when-open"><b>Still open</b><span>The chain stays open until the outcome is checked.</span></div><div class="when-held"><b>Checked</b><span>The watched signals held. Recovery stays in reach.</span></div></li>
+              </ul>
+            </div>
+          </div>
+          <div class="gate-foot">
+            <button type="button" class="mark-held" id="mark-held">Mark the outcome checked</button>
+            <button type="button" class="next-gate" id="next-gate">Next gate</button>
+          </div>
+        </div>
+
+        <div class="panel">
+          <h2>The four layers</h2>
+          <p class="subhead">From business outcome to operational evidence.</p>
+          <div class="layers">
+            <img class="layer-shot" src="assets/layer-stack.jpg" alt="Four glass layers, from cyan to gold" width="220" height="220">
+            <ol class="legend">
+              <li><i class="c1"></i><div><b>Business outcome</b><span>Why the change matters.</span></div></li>
+              <li><i class="c2"></i><div><b>Delivery system</b><span>People, dependencies, calendars.</span></div></li>
+              <li><i class="c3"></i><div><b>Engineering controls</b><span>Test, release, reverse.</span></div></li>
+              <li><i class="c4"></i><div><b>Operational evidence</b><span>How you know it held.</span></div></li>
+            </ol>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="band panel" id="measures">
+      <div class="block-head">
+        <h2>Measures of success</h2>
+      </div>
+      <p class="subhead">Flow says how the work moves. Outcome says whether it held. Activity is not a measure.</p>
+      <div class="measure-grid">
+        <div class="measure-col">
+          <h3>Delivery flow</h3>
+          <article><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-clock"/></svg><div><b>Lead time</b><span>From named intent to the change in production.</span></div></article>
+          <article><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-arrow"/></svg><div><b>Change-failure rate</b><span>How often a change is reversed or patched.</span></div></article>
+        </div>
+        <div class="measure-col">
+          <h3>Operational outcomes</h3>
+          <article><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-back"/></svg><div><b>Recovery time</b><span>How fast the written rollback returns the service.</span></div></article>
+          <article><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-pulse"/></svg><div><b>Service health</b><span>Whether the watched signals held after green.</span></div></article>
+        </div>
+        <div class="panel" style="padding:0.7rem 0.75rem">
+          <div class="trace-head">
+            <div><b>Latency</b><strong>—</strong></div>
+            <div><b>Error rate</b><strong>—</strong></div>
+            <span class="badge" id="trace-badge">Open</span>
+          </div>
+          <svg class="trace" viewBox="0 0 280 90" aria-hidden="true">
+            <defs>
+              <linearGradient id="cFill" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0" stop-color="#5cefff" stop-opacity="0.35"/>
+                <stop offset="1" stop-color="#5cefff" stop-opacity="0"/>
+              </linearGradient>
+              <linearGradient id="gFill" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0" stop-color="#ffd36a" stop-opacity="0.3"/>
+                <stop offset="1" stop-color="#ffd36a" stop-opacity="0"/>
+              </linearGradient>
+            </defs>
+            <g stroke="rgba(150,190,220,0.16)" stroke-width="1">
+              <path d="M0 22h280M0 44h280M0 66h280"/>
+            </g>
+            <path d="M0 58 C 30 58, 40 30, 70 34 S 120 70, 150 48 200 22, 240 36 270 50, 280 42 V 90 H 0 Z" fill="url(#cFill)"/>
+            <path d="M0 64 C 40 64, 60 50, 100 54 S 160 72, 200 46 250 30, 280 38 V 90 H 0 Z" fill="url(#gFill)"/>
+            <path d="M0 58 C 30 58, 40 30, 70 34 S 120 70, 150 48 200 22, 240 36 270 50, 280 42" fill="none" stroke="#5cefff" stroke-width="2"/>
+            <path d="M0 64 C 40 64, 60 50, 100 54 S 160 72, 200 46 250 30, 280 38" fill="none" stroke="#ffd36a" stroke-width="2"/>
+          </svg>
+          <p class="note" style="margin:0.25rem 0 0">Illustrative trace. Name the figure when this portfolio has measured it.</p>
+        </div>
+      </div>
+      <p class="note">Name them beside the <a href="https://dora.dev/guides/dora-metrics-four-keys/" target="_blank" rel="noopener noreferrer">four keys</a>. Publish a figure only when this portfolio has measured it. Velocity stays off this path.</p>
+    </section>
+
+    <section class="close" aria-labelledby="principle-label">
+      <div class="close-copy">
+        <div>
+          <h2 id="principle-label">The leadership principle</h2>
+          <p class="principle">A change is not done when the pipeline turns green. It is done when the intended outcome is verified — and the team knows how to recover if it isn't.</p>
+        </div>
+        <div class="more">
+          <b>More than delivery</b>
+          <p>Technology delivery is how a change earns confidence: in the sequence, in the team, and in the outcome.</p>
+          <div class="chips"><span>People</span><span>Process</span><span>Technology</span><span>Outcomes</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="ref" id="jobs">
+      <div class="split-ref">
+        <div>
+          <div class="block-head"><h2>Tool picker · by constraint</h2></div>
+          <div class="picker">
+            <div class="pick"><strong><a href="https://trunkbaseddevelopment.com/" target="_blank" rel="noopener noreferrer">Trunk-based development</a></strong><span>Small batches; main stays releasable</span></div>
+            <div class="pick"><strong><a href="https://docs.github.com/en/actions" target="_blank" rel="noopener noreferrer">GitHub Actions</a> / <a href="https://learn.microsoft.com/en-us/azure/devops/pipelines/get-started/what-is-azure-pipelines" target="_blank" rel="noopener noreferrer">Azure Pipelines</a></strong><span>Fast feedback on the change</span></div>
+            <div class="pick"><strong><a href="https://learn.microsoft.com/en-us/azure/azure-app-configuration/concept-feature-management" target="_blank" rel="noopener noreferrer">Feature flags</a></strong><span>Reversible cutover; deploy is not the release</span></div>
+            <div class="pick"><strong><a href="https://learn.microsoft.com/en-us/azure/azure-resource-manager/bicep/overview" target="_blank" rel="noopener noreferrer">Bicep</a> / <a href="https://developer.hashicorp.com/terraform/intro" target="_blank" rel="noopener noreferrer">Terraform</a></strong><span>Repeatable infra, not a snowflake box</span></div>
+            <div class="pick"><strong><a href="https://learn.microsoft.com/en-us/azure/azure-monitor/overview" target="_blank" rel="noopener noreferrer">Azure Monitor</a></strong><span>Did the change hold after green?</span></div>
+            <div class="pick"><strong><a href="https://learn.microsoft.com/en-us/azure/devops/boards/get-started/what-is-azure-boards" target="_blank" rel="noopener noreferrer">Azure Boards</a></strong><span>Work and blockers visible across teams</span></div>
+            <div class="pick"><strong><a href="https://learn.microsoft.com/en-us/azure/devops/pipelines/process/approvals" target="_blank" rel="noopener noreferrer">Approvals and checks</a></strong><span>Human gate and a business-hours window</span></div>
+          </div>
+        </div>
+        <div>
+          <div class="block-head"><h2>Ladder</h2></div>
+          <ol class="ladder">
+            <li>Named intent and owner</li>
+            <li>Calendars and a dependency map</li>
+            <li>Evidence pack: blast radius, metrics</li>
+            <li>Rollback and page path written</li>
+            <li>Small sequenced change, or a flag</li>
+            <li>Watch whether it held</li>
+          </ol>
+          <div class="kill">
+            <strong>Kill switch</strong>
+            <span>If you can’t name the owner, the window, and how to reverse, you don’t call it green.</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="band">
+        <div class="block-head">
+          <h2>Other jobs</h2>
+          <p class="block-note">Same spine. These cases stay on the card.</p>
+        </div>
+        <div class="table-wrap">
+          <table class="decisions">
+            <thead>
+              <tr><th>If the real problem is…</th><th>Use</th><th>Example case</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="problem">Must reverse without a weekend restore</td>
+                <td class="reach"><a class="use-link" href="https://learn.microsoft.com/en-us/azure/azure-app-configuration/concept-feature-management" target="_blank" rel="noopener noreferrer" title="Azure App Configuration: feature management"><b>Feature flag</b></a></td>
+                <td class="example">New middleware route ships dark; flip on for one tenant, flip off if error rate moves — code deploy ≠ user release</td>
+              </tr>
+              <tr>
+                <td class="problem">Too many “ready” items, no sequence</td>
+                <td class="reach"><a class="use-link" href="https://www.mountaingoatsoftware.com/blog/ai-doesnt-eliminate-agile-teams-it-increases-the-need-for-great-ones" target="_blank" rel="noopener noreferrer" title="Mike Cohn: AI increases the need for great agile teams"><b>Priority gate</b></a></td>
+                <td class="example">Three Azure changes drafted in an afternoon; only the cert that blocks Friday’s window goes first — “not yet” is a decision</td>
+              </tr>
+              <tr>
+                <td class="problem">AI made drafts cheap; sequence got worse</td>
+                <td class="reach"><a class="use-link" href="https://learn.microsoft.com/en-us/azure/devops/pipelines/process/approvals" target="_blank" rel="noopener noreferrer" title="Azure Pipelines: environment approvals"><b>Human Approve</b></a></td>
+                <td class="example">Copilot wrote the runbook; a person still owns what next and why not yet — same gate Orbit uses for publish</td>
+              </tr>
+              <tr>
+                <td class="problem">Snowflake middleware, or env drift</td>
+                <td class="reach"><a class="use-link" href="https://learn.microsoft.com/en-us/azure/azure-resource-manager/bicep/overview" target="_blank" rel="noopener noreferrer" title="Bicep overview"><b>Infra as code</b></a></td>
+                <td class="example">App setting and network rule in Bicep (or Terraform); the next environment is a replay, not a memory</td>
+              </tr>
+              <tr>
+                <td class="problem">Status lives in a chat thread</td>
+                <td class="reach"><a class="use-link" href="https://learn.microsoft.com/en-us/azure/devops/boards/get-started/what-is-azure-boards" target="_blank" rel="noopener noreferrer" title="What is Azure Boards"><b>Visible work</b></a></td>
+                <td class="example">Blocker named on the board item; standup does not replace a written wait</td>
+              </tr>
+              <tr>
+                <td class="problem">Need fast feedback on main, not a long-lived branch</td>
+                <td class="reach"><a class="use-link" href="https://trunkbaseddevelopment.com/" target="_blank" rel="noopener noreferrer" title="Trunk Based Development"><b>Small batches on trunk</b></a></td>
+                <td class="example">Incomplete UI stays behind a flag; main stays releasable — Fowler’s CD test, not a two-week merge</td>
+              </tr>
+              <tr>
+                <td class="problem">Don’t know if delivery is actually getting healthier</td>
+                <td class="reach"><a class="use-link" href="https://dora.dev/guides/dora-metrics-four-keys/" target="_blank" rel="noopener noreferrer" title="DORA: four keys"><b>Four keys</b></a></td>
+                <td class="example">Lead time and change-fail rate next to the Azure ops pack; velocity theatre stays off this path</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="band">
+        <div class="block-head"><h2>Anti-patterns</h2></div>
+        <ul class="anti-list">
+          <li>Ticket title as the outcome</li>
+          <li>Calling pipeline green with no rollback</li>
+          <li>Private AI speed as team capability</li>
+          <li>Shipping while calendars still collide</li>
+          <li>Chat-thread status with no named blocker</li>
+          <li>Automating priority or the “not yet” call</li>
+          <li>Long-lived branches instead of flags</li>
+          <li>Framework shopping (SAFe/Scrum) before sequence</li>
+        </ul>
+      </div>
+
+      <div class="band" aria-label="Always-on foundation">
+        <div class="block-head"><h2>Always on</h2></div>
+        <div class="found-row">
+          <div class="found"><strong>Security</strong><span>Freeze, access, and who can flip the flag</span></div>
+          <div class="found"><strong>Governance</strong><span>Whose clock, whose change, whose rollback</span></div>
+          <div class="found"><strong>Observability</strong><span>Watch the service after green</span></div>
+          <div class="found"><strong>Evals</strong><span>Held metrics — lead time, fail rate — and a figure only when measured</span></div>
+          <div class="found"><strong>Human Approve</strong><span>Rollback named before anyone calls it done</span></div>
+        </div>
       </div>
     </section>
 
     <footer class="meta">
       <div class="version-row">
-        <div class="version" id="version-stamp">v2026.40 · Reviewed 1 Oct 2026 · Next: November</div>
+        <div class="version" id="version-stamp">v2026.42 · Reviewed 13 Oct 2026 · Next: November</div>
         <div class="credit">
           <span>Alex Touvras</span>
           <a href="https://alextouvras.com">alextouvras.com</a>
           <span>Delivery · Data · AI automation</span>
         </div>
       </div>
-      <p class="changed"><b>Changed</b> Monthly review — picker and jobs unchanged</p>
+      <p class="changed"><b>Changed</b> Ridge photograph and glass layer stack replace the drawn figures. No invented metrics. Picker unchanged.</p>
     </footer>
   </article>
-
   <script>
     (function () {
-      var btn = document.getElementById("copy-link");
-      if (!btn) return;
-      btn.addEventListener("click", async function () {
-        var url = window.location.href;
-        try {
-          await navigator.clipboard.writeText(url);
-          btn.textContent = "Copied";
-          setTimeout(function () { btn.textContent = "Copy link"; }, 1400);
-        } catch (e) {
-          window.prompt("Copy this URL:", url);
+      var article = document.getElementById("field-card");
+      var stages = ["intent", "window", "proof", "cutover", "observe"];
+      var state = { stage: "cutover", mode: "open", scenario: "" };
+      var booted = false;
+      var label = document.getElementById("status-label");
+      var badge = document.getElementById("trace-badge");
+      var caption = document.getElementById("chain-caption");
+      var heldBtn = document.getElementById("mark-held");
+      var live = document.getElementById("live");
+      var stageButtons = Array.prototype.slice.call(document.querySelectorAll(".stage"));
+      var gateTabs = Array.prototype.slice.call(document.querySelectorAll(".gate-tab"));
+      var scenarioCards = Array.prototype.slice.call(document.querySelectorAll(".sc-card"));
+      var labels = { open: "Outcome open", held: "Held", blocked: "Blocked" };
+      var captions = {
+        open: "Illustrative sequence · A release is not complete until its outcome has been checked.",
+        held: "Outcome checked. Recovery is still written. The kill switch stays in reach.",
+        blocked: "The signal stops at this gate."
+      };
+
+      function render() {
+        var idx = stages.indexOf(state.stage);
+        article.dataset.stage = state.stage;
+        article.dataset.mode = state.mode;
+        article.dataset.scenario = state.scenario;
+        stageButtons.forEach(function (btn, i) {
+          var on = btn.dataset.stage === state.stage;
+          btn.classList.toggle("is-selected", on);
+          btn.classList.toggle("is-ahead", state.mode === "blocked" && stages.indexOf(btn.dataset.stage) > idx);
+          btn.setAttribute("aria-selected", on ? "true" : "false");
+          btn.tabIndex = on ? 0 : -1;
+        });
+        gateTabs.forEach(function (btn) {
+          btn.classList.toggle("is-selected", btn.dataset.stage === state.stage);
+        });
+        stages.forEach(function (id) {
+          var panel = document.getElementById("gate-" + id);
+          if (!panel) return;
+          if (id === state.stage) panel.removeAttribute("hidden");
+          else panel.setAttribute("hidden", "");
+        });
+        scenarioCards.forEach(function (card) {
+          var on = state.scenario && card.dataset.scenario === state.scenario;
+          card.classList.toggle("is-on", on);
+          var btn = card.querySelector(".sc-select");
+          if (btn) btn.setAttribute("aria-pressed", on ? "true" : "false");
+        });
+        if (label) label.textContent = labels[state.mode] || labels.open;
+        if (badge) badge.textContent = state.mode === "held" ? "Held" : (state.mode === "blocked" ? "Blocked" : "Open");
+        if (caption) caption.textContent = captions[state.mode] || captions.open;
+        if (heldBtn) {
+          heldBtn.textContent = state.mode === "held" ? "Reopen — outcome not verified" : "Mark the outcome checked";
         }
+        if (booted && live) live.textContent = (labels[state.mode] || "") + ". Gate: " + state.stage + ".";
+      }
+
+      function selectStage(stage) {
+        var keepHeld = state.mode === "held" && stage === "observe";
+        state.stage = stage;
+        state.scenario = "";
+        state.mode = keepHeld ? "held" : "open";
+        render();
+      }
+
+      stageButtons.forEach(function (btn) {
+        btn.addEventListener("click", function () { selectStage(btn.dataset.stage); });
       });
+      gateTabs.forEach(function (btn) {
+        btn.addEventListener("click", function () { selectStage(btn.dataset.stage); });
+      });
+
+      var chain = document.querySelector(".chain");
+      if (chain) {
+        chain.addEventListener("keydown", function (e) {
+          if (e.key !== "ArrowRight" && e.key !== "ArrowLeft") return;
+          var i = stages.indexOf(state.stage);
+          i += e.key === "ArrowRight" ? 1 : -1;
+          if (i < 0 || i >= stages.length) return;
+          e.preventDefault();
+          selectStage(stages[i]);
+          stageButtons[i].focus();
+        });
+      }
+
+      scenarioCards.forEach(function (card) {
+        var btn = card.querySelector(".sc-select");
+        if (!btn) return;
+        btn.addEventListener("click", function () {
+          var id = card.dataset.scenario;
+          if (state.scenario === id) {
+            state.scenario = "";
+            state.mode = "open";
+            state.stage = "cutover";
+          } else {
+            state.scenario = id;
+            state.stage = card.dataset.stage;
+            state.mode = "blocked";
+          }
+          render();
+        });
+      });
+
+      var next = document.getElementById("next-gate");
+      if (next) {
+        next.addEventListener("click", function () {
+          var i = (stages.indexOf(state.stage) + 1) % stages.length;
+          selectStage(stages[i]);
+        });
+      }
+
+      if (heldBtn) {
+        heldBtn.addEventListener("click", function () {
+          if (state.mode === "blocked") return;
+          if (state.mode === "held") {
+            state.mode = "open";
+            state.stage = "observe";
+          } else {
+            state.mode = "held";
+            state.stage = "observe";
+            state.scenario = "";
+          }
+          render();
+        });
+      }
+
+      var copy = document.getElementById("copy-link");
+      if (copy) {
+        copy.addEventListener("click", async function () {
+          var url = window.location.href;
+          try {
+            await navigator.clipboard.writeText(url);
+            copy.textContent = "Copied";
+            setTimeout(function () { copy.textContent = "Copy link"; }, 1400);
+          } catch (err) {
+            window.prompt("Copy this URL:", url);
+          }
+        });
+      }
+
+      render();
+      booted = true;
     })();
   </script>
 </body>
