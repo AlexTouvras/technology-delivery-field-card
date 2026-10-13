@@ -26,7 +26,7 @@ Standalone Technology Delivery Field Card one-pager (`index.html`). Public artif
 - Screen language is the control-room layout: star trail, lit chain capsules, scenario cards, cutover checklist, stacked layers, illustrative trace with no invented figures. Status stays Outcome open / Blocked / Held. Print remaps to ink on paper
 - Fail-closed weekly refresh: PR `## Summary` or `data/judgment.md` required; Friday 18:00 review agent publishes
 - From 2026-10 the public footer stamp is monthly: `Next: <month>` (example `Next: November`). Version id stays ISO week. The 13 Oct 2026 chain upgrade is `v2026.42`. Do not run `bump:version` as-is: it still writes `Next: week of …`.
-- Orbit sync: `public/delivery-field-card/index.html` plus `assets/ridge-dusk.jpg` and `assets/layer-stack.jpg` via the shared field-card registry
+- A merge to `main` runs `.github/workflows/sync-site.yml`. It posts a `sync` token to Orbit, which copies `index.html` and `assets/` to `public/delivery-field-card/`. Apply review still merges and copies the same files. Until Orbit accepts `sync`, the job falls back to approve and copies `index.html` only.
 
 ## Dependencies
 
@@ -42,7 +42,7 @@ Standalone Technology Delivery Field Card one-pager (`index.html`). Public artif
 |------|------|
 | Local workspace | `C:\Users\kater\.cursor\projects\technology-delivery-field-card` |
 | Automation draft | `C:\Users\kater\.cursor\projects\website\.cursor\automations\delivery-field-card-weekly-content-pass.json` |
-| Orbit static copy | `website/public/delivery-field-card/index.html` |
+| Orbit static copy | `website/public/delivery-field-card/` (`index.html` and `assets/`) |
 
 ## Verify
 

@@ -5,7 +5,7 @@
 | Field | Value |
 |-------|-------|
 | GitHub | `AlexTouvras/technology-delivery-field-card` |
-| Orbit sync path | `public/delivery-field-card/index.html` |
+| Orbit sync path | `public/delivery-field-card/index.html` and `public/delivery-field-card/assets/` |
 | Default branch | `main` |
 
 ## Automations
@@ -15,6 +15,7 @@
 | Weekly discovery | GHA `weekly-refresh.yml` (manual) | opens PR | none |
 | Weekly judgment | Cursor Fri 17:00 | PR `## Summary` | none — stop for review |
 | Weekly review | Orbit Cursor Fri 18:00 | Apply review + #orbit FYI | review agent is the gate |
+| Sync site | GHA `sync-site.yml` on push to `main` | copies `index.html` and `assets/` onto Orbit | merge is the trigger |
 | Judgment watchdog | GHA `judgment-watchdog.yml` Mon | #orbit FYI if PR still open | re-run review agent |
 
 ## Required secrets
@@ -34,4 +35,4 @@ npm run ship:check
 
 - [ ] `npm run check:links` passes
 - [ ] PR has `## Summary` with `Decision: update|no-change`
-- [ ] Orbit static copy synced after Apply review
+- [ ] Orbit static copy synced after Apply review, or after a merge to `main` (Sync site)

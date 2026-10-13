@@ -8,6 +8,6 @@
     "discover": "node scripts/discover.mjs",
     "notify:slack": "node scripts/notify-slack.mjs",
     "refresh": "node scripts/check-links.mjs; node scripts/discover.mjs; node scripts/bump-version.mjs",
-    "ship:check": "npm run check:links"
+    "ship:check": "node --test scripts/sync-site.test.mjs && npm run check:links"
   }
 }

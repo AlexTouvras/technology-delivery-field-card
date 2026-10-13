@@ -30,12 +30,13 @@ Same fail-closed pattern as the Agentic AI and Data Analytics field cards:
 | Piece | What it does |
 |---|---|
 | **Friday Cursor Automation (17:00 local)** | Discovers tools, edits the card when earned, leaves the PR open |
+| **Merge to `main`** | Sync site copies `index.html` and `assets/` onto Orbit (`alextouvras.com/delivery-field-card/`). Pages deploys from the same push |
 | **Friday review agent (18:00 local)** | The publish gate: publishes or keeps the previous card |
 | **Slack #orbit** | Laconic FYI after review (Review / Considered / Changed / Online + Check card). Not the gate |
 | **Mon watchdog** | If Friday review never applied, warn in #orbit to re-run the review agent |
 | **Broken-link issue** | Opens a labeled issue when Use/tool URLs fail |
 
-The Friday content agent runs `npm run discover`. `weekly-refresh.yml` is manual backup only (`workflow_dispatch`). The Friday 18:00 review agent is the publish gate (`Apply review`).
+The Friday content agent runs `npm run discover`. `weekly-refresh.yml` is manual backup only (`workflow_dispatch`). The Friday 18:00 review agent is the publish gate (`Apply review`). A merge to `main` also runs Sync site, which asks Orbit to copy the card. Apply-review merges are skipped there so Slack is not posted twice.
 
 ### Secrets (this repo)
 
