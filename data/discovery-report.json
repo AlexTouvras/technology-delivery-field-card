@@ -1,9 +1,9 @@
 {
-  "discoveredAt": "2026-10-01T14:02:52.042Z",
+  "discoveredAt": "2026-11-01T14:02:18.838Z",
   "summary": {
     "watchlistItems": 18,
     "notOnCard": 7,
-    "freshReleases": 5,
+    "freshReleases": 6,
     "novelSearchHits": 22,
     "candidateCount": 19
   },
@@ -26,7 +26,7 @@
       "kind": "watchlist-not-on-card",
       "name": "OpenTelemetry",
       "reason": "Tracked in watchlist but not present on the public card",
-      "stars": 4346,
+      "stars": 4380,
       "docs": [
         "https://opentelemetry.io/docs/"
       ],
@@ -40,7 +40,7 @@
       "kind": "watchlist-not-on-card",
       "name": "Argo CD",
       "reason": "Tracked in watchlist but not present on the public card",
-      "stars": 24302,
+      "stars": 24507,
       "docs": [
         "https://argo-cd.readthedocs.io/"
       ],
@@ -54,7 +54,7 @@
       "kind": "watchlist-not-on-card",
       "name": "Flux",
       "reason": "Tracked in watchlist but not present on the public card",
-      "stars": 8435,
+      "stars": 8490,
       "docs": [
         "https://fluxcd.io/flux/"
       ],
@@ -92,7 +92,7 @@
       "kind": "watchlist-not-on-card",
       "name": "OpenFeature",
       "reason": "Tracked in watchlist but not present on the public card",
-      "stars": 1265,
+      "stars": 1286,
       "docs": [
         "https://openfeature.dev/docs/reference/intro"
       ],
@@ -106,7 +106,7 @@
       "kind": "github-search-novel",
       "name": "90DaysOfDevOps",
       "reason": "This repository started out as a learning in public project for myself and has now become a structured learning map for many in the community. We have 3 years under our belt covering all things DevOps, including Principles, Processes, Tooling and Use Cases surrounding this vast topic. ",
-      "stars": 29788,
+      "stars": 29924,
       "docs": [
         "https://www.90daysofdevops.com/"
       ],
@@ -120,7 +120,7 @@
       "kind": "github-search-novel",
       "name": "argo-workflows",
       "reason": "Workflow Engine for Kubernetes",
-      "stars": 17015,
+      "stars": 17076,
       "docs": [
         "https://argo-workflows.readthedocs.io/"
       ],
@@ -134,7 +134,7 @@
       "kind": "github-search-novel",
       "name": "Jenkins-Zero-To-Hero",
       "reason": "Install Jenkins, configure Docker as slave, set up cicd, deploy applications to k8s using Argo CD in GitOps way.",
-      "stars": 10071,
+      "stars": 10116,
       "docs": [
         "https://www.youtube.com/@AbhishekVeeramalla"
       ],
@@ -148,7 +148,7 @@
       "kind": "github-search-novel",
       "name": "homelab",
       "reason": "Fully automated homelab from empty disk to running services with a single command.",
-      "stars": 9647,
+      "stars": 9706,
       "docs": [
         "https://homelab.khuedoan.com"
       ],
@@ -162,7 +162,7 @@
       "kind": "github-search-novel",
       "name": "sealed-secrets",
       "reason": "A Kubernetes controller and tool for one-way encrypted Secrets",
-      "stars": 9294,
+      "stars": 9327,
       "docs": [],
       "repos": [
         "bitnami/sealed-secrets"
@@ -174,7 +174,7 @@
       "kind": "github-search-novel",
       "name": "flux",
       "reason": "Successor: https://github.com/fluxcd/flux2",
-      "stars": 6855,
+      "stars": 6856,
       "docs": [
         "https://fluxcd.io"
       ],
@@ -188,7 +188,7 @@
       "kind": "github-search-novel",
       "name": "devtron",
       "reason": "The only Kubernetes dashboard you need",
-      "stars": 5610,
+      "stars": 5631,
       "docs": [
         "https://devtron.ai"
       ],
@@ -200,21 +200,9 @@
     },
     {
       "kind": "github-search-novel",
-      "name": "gaia",
-      "reason": "Build powerful pipelines in any programming language.",
-      "stars": 5216,
-      "docs": [],
-      "repos": [
-        "gaia-pipeline/gaia"
-      ],
-      "htmlUrl": "https://github.com/gaia-pipeline/gaia",
-      "priority": "high"
-    },
-    {
-      "kind": "github-search-novel",
       "name": "terrascan",
       "reason": "Detect compliance and security violations across Infrastructure as Code to mitigate risk before provisioning cloud native infrastructure.",
-      "stars": 5214,
+      "stars": 5215,
       "docs": [
         "https://runterrascan.io"
       ],
@@ -226,9 +214,21 @@
     },
     {
       "kind": "github-search-novel",
+      "name": "gaia",
+      "reason": "Build powerful pipelines in any programming language.",
+      "stars": 5213,
+      "docs": [],
+      "repos": [
+        "gaia-pipeline/gaia"
+      ],
+      "htmlUrl": "https://github.com/gaia-pipeline/gaia",
+      "priority": "high"
+    },
+    {
+      "kind": "github-search-novel",
       "name": "digger",
       "reason": "Digger is an open source IaC orchestration tool. Digger allows you to run IaC in your existing CI pipeline ⚡️  ",
-      "stars": 5045,
+      "stars": 5062,
       "docs": [
         "https://digger.dev"
       ],
@@ -242,7 +242,7 @@
       "kind": "github-search-novel",
       "name": "werf",
       "reason": "A solution for implementing efficient and consistent software delivery to Kubernetes facilitating best practices.",
-      "stars": 4726,
+      "stars": 4739,
       "docs": [
         "https://werf.io"
       ],
@@ -256,7 +256,7 @@
       "kind": "github-search-novel",
       "name": "jx",
       "reason": "Jenkins X provides automated CI+CD for Kubernetes with Preview Environments on Pull Requests using Cloud Native pipelines from Tekton",
-      "stars": 4692,
+      "stars": 4690,
       "docs": [
         "https://jenkins-x.io/"
       ],
@@ -269,54 +269,64 @@
   ],
   "freshReleases": [
     {
-      "name": "Feature flags",
+      "name": "GitHub Actions",
       "onCard": true,
       "release": {
-        "tag": "4.8.0",
-        "publishedAt": "2026-09-24T05:38:29Z",
-        "url": "https://github.com/microsoft/FeatureManagement-Dotnet/releases/tag/4.8.0"
+        "tag": "v2.338.2",
+        "publishedAt": "2026-10-26T14:45:12Z",
+        "url": "https://github.com/actions/runner/releases/tag/v2.338.2"
       },
-      "daysSinceRelease": 7
+      "daysSinceRelease": 5
     },
     {
       "name": "Terraform",
       "onCard": true,
       "release": {
-        "tag": "v1.16.4",
-        "publishedAt": "2026-09-23T12:44:16Z",
-        "url": "https://github.com/hashicorp/terraform/releases/tag/v1.16.4"
+        "tag": "v1.17.1",
+        "publishedAt": "2026-10-28T18:02:22Z",
+        "url": "https://github.com/hashicorp/terraform/releases/tag/v1.17.1"
       },
-      "daysSinceRelease": 8
+      "daysSinceRelease": 3
     },
     {
       "name": "OpenTelemetry",
       "onCard": false,
       "release": {
-        "tag": "v1.61.0",
-        "publishedAt": "2026-09-14T14:53:49Z",
-        "url": "https://github.com/open-telemetry/opentelemetry-specification/releases/tag/v1.61.0"
+        "tag": "v1.62.0",
+        "publishedAt": "2026-10-22T23:32:52Z",
+        "url": "https://github.com/open-telemetry/opentelemetry-specification/releases/tag/v1.62.0"
       },
-      "daysSinceRelease": 16
+      "daysSinceRelease": 9
     },
     {
       "name": "Argo CD",
       "onCard": false,
       "release": {
-        "tag": "v3.5.3",
-        "publishedAt": "2026-09-14T07:58:59Z",
-        "url": "https://github.com/argoproj/argo-cd/releases/tag/v3.5.3"
+        "tag": "v3.5.6",
+        "publishedAt": "2026-10-20T19:26:34Z",
+        "url": "https://github.com/argoproj/argo-cd/releases/tag/v3.5.6"
       },
-      "daysSinceRelease": 17
+      "daysSinceRelease": 11
     },
     {
       "name": "Flux",
       "onCard": false,
       "release": {
-        "tag": "v2.9.6",
-        "publishedAt": "2026-10-01T09:56:48Z",
-        "url": "https://github.com/fluxcd/flux2/releases/tag/v2.9.6"
+        "tag": "v2.10.0",
+        "publishedAt": "2026-10-26T15:37:42Z",
+        "url": "https://github.com/fluxcd/flux2/releases/tag/v2.10.0"
       },
-      "daysSinceRelease": 0
+      "daysSinceRelease": 5
+    },
+    {
+      "name": "OpenFeature",
+      "onCard": false,
+      "release": {
+        "tag": "specification/assets/provider-tck/v0.1.0",
+        "publishedAt": "2026-10-16T15:11:30Z",
+        "url": "https://github.com/open-feature/spec/releases/tag/specification/assets/provider-tck/v0.1.0"
+      },
+      "daysSinceRelease": 15
     }
   ],
   "watchlistStatus": [
@@ -342,30 +352,30 @@
       "repos": [
         {
           "fullName": "actions/runner",
-          "stars": 6301,
-          "forks": 1443,
-          "pushedAt": "2026-10-01T13:33:46Z",
+          "stars": 6373,
+          "forks": 1476,
+          "pushedAt": "2026-10-30T05:09:41Z",
           "description": "The Runner for GitHub Actions :rocket:",
           "homepage": "https://github.com/features/actions",
           "topics": [],
           "archived": false,
           "latestRelease": {
-            "tag": "v2.337.0",
-            "publishedAt": "2026-08-26T14:33:29Z",
-            "url": "https://github.com/actions/runner/releases/tag/v2.337.0"
+            "tag": "v2.338.2",
+            "publishedAt": "2026-10-26T14:45:12Z",
+            "url": "https://github.com/actions/runner/releases/tag/v2.338.2"
           },
-          "daysSincePush": 0,
-          "daysSinceRelease": 35
+          "daysSincePush": 2,
+          "daysSinceRelease": 5
         }
       ],
       "signal": {
-        "stars": 6301,
-        "daysSincePush": 0,
-        "daysSinceRelease": 35,
+        "stars": 6373,
+        "daysSincePush": 2,
+        "daysSinceRelease": 5,
         "latestRelease": {
-          "tag": "v2.337.0",
-          "publishedAt": "2026-08-26T14:33:29Z",
-          "url": "https://github.com/actions/runner/releases/tag/v2.337.0"
+          "tag": "v2.338.2",
+          "publishedAt": "2026-10-26T14:45:12Z",
+          "url": "https://github.com/actions/runner/releases/tag/v2.338.2"
         }
       }
     },
@@ -391,9 +401,9 @@
       "repos": [
         {
           "fullName": "microsoft/FeatureManagement-Dotnet",
-          "stars": 1180,
-          "forks": 129,
-          "pushedAt": "2026-09-30T17:18:28Z",
+          "stars": 1184,
+          "forks": 128,
+          "pushedAt": "2026-10-27T07:37:55Z",
           "description": "Microsoft.FeatureManagement provides standardized APIs for enabling feature flags within applications. Utilize this library to secure a consistent experience when developing applications that use patterns such as beta access, rollout, dark deployments, and more.",
           "homepage": null,
           "topics": [],
@@ -403,14 +413,14 @@
             "publishedAt": "2026-09-24T05:38:29Z",
             "url": "https://github.com/microsoft/FeatureManagement-Dotnet/releases/tag/4.8.0"
           },
-          "daysSincePush": 0,
-          "daysSinceRelease": 7
+          "daysSincePush": 5,
+          "daysSinceRelease": 38
         }
       ],
       "signal": {
-        "stars": 1180,
-        "daysSincePush": 0,
-        "daysSinceRelease": 7,
+        "stars": 1184,
+        "daysSincePush": 5,
+        "daysSinceRelease": 38,
         "latestRelease": {
           "tag": "4.8.0",
           "publishedAt": "2026-09-24T05:38:29Z",
@@ -429,9 +439,9 @@
       "repos": [
         {
           "fullName": "Azure/bicep",
-          "stars": 3650,
-          "forks": 832,
-          "pushedAt": "2026-10-01T09:13:21Z",
+          "stars": 3661,
+          "forks": 833,
+          "pushedAt": "2026-11-01T09:14:18Z",
           "description": "Bicep is a declarative language for describing and deploying Azure resources",
           "homepage": "",
           "topics": [
@@ -441,22 +451,22 @@
           ],
           "archived": false,
           "latestRelease": {
-            "tag": "v0.47.16",
-            "publishedAt": "2026-09-08T18:04:56Z",
-            "url": "https://github.com/Azure/bicep/releases/tag/v0.47.16"
+            "tag": "v0.48.1",
+            "publishedAt": "2026-10-05T19:06:48Z",
+            "url": "https://github.com/Azure/bicep/releases/tag/v0.48.1"
           },
           "daysSincePush": 0,
-          "daysSinceRelease": 22
+          "daysSinceRelease": 26
         }
       ],
       "signal": {
-        "stars": 3650,
+        "stars": 3661,
         "daysSincePush": 0,
-        "daysSinceRelease": 22,
+        "daysSinceRelease": 26,
         "latestRelease": {
-          "tag": "v0.47.16",
-          "publishedAt": "2026-09-08T18:04:56Z",
-          "url": "https://github.com/Azure/bicep/releases/tag/v0.47.16"
+          "tag": "v0.48.1",
+          "publishedAt": "2026-10-05T19:06:48Z",
+          "url": "https://github.com/Azure/bicep/releases/tag/v0.48.1"
         }
       }
     },
@@ -471,9 +481,9 @@
       "repos": [
         {
           "fullName": "hashicorp/terraform",
-          "stars": 49804,
-          "forks": 10635,
-          "pushedAt": "2026-10-01T13:30:22Z",
+          "stars": 50339,
+          "forks": 10600,
+          "pushedAt": "2026-11-01T09:15:07Z",
           "description": "Terraform enables you to safely and predictably create, change, and improve infrastructure. It is a source-available tool that codifies APIs into declarative configuration files that can be shared amongst team members, treated as code, edited, reviewed, and versioned.",
           "homepage": "http://developer.hashicorp.com/terraform",
           "topics": [
@@ -485,22 +495,22 @@
           ],
           "archived": false,
           "latestRelease": {
-            "tag": "v1.16.4",
-            "publishedAt": "2026-09-23T12:44:16Z",
-            "url": "https://github.com/hashicorp/terraform/releases/tag/v1.16.4"
+            "tag": "v1.17.1",
+            "publishedAt": "2026-10-28T18:02:22Z",
+            "url": "https://github.com/hashicorp/terraform/releases/tag/v1.17.1"
           },
           "daysSincePush": 0,
-          "daysSinceRelease": 8
+          "daysSinceRelease": 3
         }
       ],
       "signal": {
-        "stars": 49804,
+        "stars": 50339,
         "daysSincePush": 0,
-        "daysSinceRelease": 8,
+        "daysSinceRelease": 3,
         "latestRelease": {
-          "tag": "v1.16.4",
-          "publishedAt": "2026-09-23T12:44:16Z",
-          "url": "https://github.com/hashicorp/terraform/releases/tag/v1.16.4"
+          "tag": "v1.17.1",
+          "publishedAt": "2026-10-28T18:02:22Z",
+          "url": "https://github.com/hashicorp/terraform/releases/tag/v1.17.1"
         }
       }
     },
@@ -564,9 +574,9 @@
       "repos": [
         {
           "fullName": "open-telemetry/opentelemetry-specification",
-          "stars": 4346,
-          "forks": 1003,
-          "pushedAt": "2026-09-30T16:39:14Z",
+          "stars": 4380,
+          "forks": 1009,
+          "pushedAt": "2026-10-31T15:44:13Z",
           "description": "Specifications for OpenTelemetry",
           "homepage": "https://opentelemetry.io",
           "topics": [
@@ -574,22 +584,22 @@
           ],
           "archived": false,
           "latestRelease": {
-            "tag": "v1.61.0",
-            "publishedAt": "2026-09-14T14:53:49Z",
-            "url": "https://github.com/open-telemetry/opentelemetry-specification/releases/tag/v1.61.0"
+            "tag": "v1.62.0",
+            "publishedAt": "2026-10-22T23:32:52Z",
+            "url": "https://github.com/open-telemetry/opentelemetry-specification/releases/tag/v1.62.0"
           },
           "daysSincePush": 0,
-          "daysSinceRelease": 16
+          "daysSinceRelease": 9
         }
       ],
       "signal": {
-        "stars": 4346,
+        "stars": 4380,
         "daysSincePush": 0,
-        "daysSinceRelease": 16,
+        "daysSinceRelease": 9,
         "latestRelease": {
-          "tag": "v1.61.0",
-          "publishedAt": "2026-09-14T14:53:49Z",
-          "url": "https://github.com/open-telemetry/opentelemetry-specification/releases/tag/v1.61.0"
+          "tag": "v1.62.0",
+          "publishedAt": "2026-10-22T23:32:52Z",
+          "url": "https://github.com/open-telemetry/opentelemetry-specification/releases/tag/v1.62.0"
         }
       }
     },
@@ -604,9 +614,9 @@
       "repos": [
         {
           "fullName": "argoproj/argo-cd",
-          "stars": 24302,
-          "forks": 7901,
-          "pushedAt": "2026-10-01T13:50:27Z",
+          "stars": 24507,
+          "forks": 8101,
+          "pushedAt": "2026-11-01T12:23:06Z",
           "description": "Declarative Continuous Deployment for Kubernetes",
           "homepage": "https://argo-cd.readthedocs.io",
           "topics": [
@@ -629,22 +639,22 @@
           ],
           "archived": false,
           "latestRelease": {
-            "tag": "v3.5.3",
-            "publishedAt": "2026-09-14T07:58:59Z",
-            "url": "https://github.com/argoproj/argo-cd/releases/tag/v3.5.3"
+            "tag": "v3.5.6",
+            "publishedAt": "2026-10-20T19:26:34Z",
+            "url": "https://github.com/argoproj/argo-cd/releases/tag/v3.5.6"
           },
           "daysSincePush": 0,
-          "daysSinceRelease": 17
+          "daysSinceRelease": 11
         }
       ],
       "signal": {
-        "stars": 24302,
+        "stars": 24507,
         "daysSincePush": 0,
-        "daysSinceRelease": 17,
+        "daysSinceRelease": 11,
         "latestRelease": {
-          "tag": "v3.5.3",
-          "publishedAt": "2026-09-14T07:58:59Z",
-          "url": "https://github.com/argoproj/argo-cd/releases/tag/v3.5.3"
+          "tag": "v3.5.6",
+          "publishedAt": "2026-10-20T19:26:34Z",
+          "url": "https://github.com/argoproj/argo-cd/releases/tag/v3.5.6"
         }
       }
     },
@@ -659,9 +669,9 @@
       "repos": [
         {
           "fullName": "fluxcd/flux2",
-          "stars": 8435,
-          "forks": 792,
-          "pushedAt": "2026-10-01T09:49:39Z",
+          "stars": 8490,
+          "forks": 812,
+          "pushedAt": "2026-11-01T00:55:59Z",
           "description": "Open and extensible continuous delivery solution for Kubernetes. Powered by GitOps Toolkit.",
           "homepage": "https://fluxcd.io",
           "topics": [
@@ -674,22 +684,22 @@
           ],
           "archived": false,
           "latestRelease": {
-            "tag": "v2.9.6",
-            "publishedAt": "2026-10-01T09:56:48Z",
-            "url": "https://github.com/fluxcd/flux2/releases/tag/v2.9.6"
+            "tag": "v2.10.0",
+            "publishedAt": "2026-10-26T15:37:42Z",
+            "url": "https://github.com/fluxcd/flux2/releases/tag/v2.10.0"
           },
           "daysSincePush": 0,
-          "daysSinceRelease": 0
+          "daysSinceRelease": 5
         }
       ],
       "signal": {
-        "stars": 8435,
+        "stars": 8490,
         "daysSincePush": 0,
-        "daysSinceRelease": 0,
+        "daysSinceRelease": 5,
         "latestRelease": {
-          "tag": "v2.9.6",
-          "publishedAt": "2026-10-01T09:56:48Z",
-          "url": "https://github.com/fluxcd/flux2/releases/tag/v2.9.6"
+          "tag": "v2.10.0",
+          "publishedAt": "2026-10-26T15:37:42Z",
+          "url": "https://github.com/fluxcd/flux2/releases/tag/v2.10.0"
         }
       }
     },
@@ -726,8 +736,8 @@
       "repos": [
         {
           "fullName": "dora-team/fourkeys",
-          "stars": 2237,
-          "forks": 612,
+          "stars": 2236,
+          "forks": 606,
           "pushedAt": "2024-01-23T16:12:12Z",
           "description": "Platform for monitoring the four key software delivery metrics of software delivery",
           "homepage": "",
@@ -741,14 +751,14 @@
             "publishedAt": "2023-05-04T00:46:35Z",
             "url": "https://github.com/dora-team/fourkeys/releases/tag/v1.0.2"
           },
-          "daysSincePush": 981,
-          "daysSinceRelease": 1246
+          "daysSincePush": 1012,
+          "daysSinceRelease": 1277
         }
       ],
       "signal": {
-        "stars": 2237,
-        "daysSincePush": 981,
-        "daysSinceRelease": 1246,
+        "stars": 2236,
+        "daysSincePush": 1012,
+        "daysSinceRelease": 1277,
         "latestRelease": {
           "tag": "v1.0.2",
           "publishedAt": "2023-05-04T00:46:35Z",
@@ -778,9 +788,9 @@
       "repos": [
         {
           "fullName": "open-feature/spec",
-          "stars": 1265,
-          "forks": 59,
-          "pushedAt": "2026-10-01T07:55:43Z",
+          "stars": 1286,
+          "forks": 62,
+          "pushedAt": "2026-10-31T23:05:57Z",
           "description": "OpenFeature specification",
           "homepage": "https://openfeature.dev",
           "topics": [
@@ -790,22 +800,22 @@
           ],
           "archived": false,
           "latestRelease": {
-            "tag": "v0.9.0",
-            "publishedAt": "2026-07-29T17:35:02Z",
-            "url": "https://github.com/open-feature/spec/releases/tag/v0.9.0"
+            "tag": "specification/assets/provider-tck/v0.1.0",
+            "publishedAt": "2026-10-16T15:11:30Z",
+            "url": "https://github.com/open-feature/spec/releases/tag/specification/assets/provider-tck/v0.1.0"
           },
           "daysSincePush": 0,
-          "daysSinceRelease": 63
+          "daysSinceRelease": 15
         }
       ],
       "signal": {
-        "stars": 1265,
+        "stars": 1286,
         "daysSincePush": 0,
-        "daysSinceRelease": 63,
+        "daysSinceRelease": 15,
         "latestRelease": {
-          "tag": "v0.9.0",
-          "publishedAt": "2026-07-29T17:35:02Z",
-          "url": "https://github.com/open-feature/spec/releases/tag/v0.9.0"
+          "tag": "specification/assets/provider-tck/v0.1.0",
+          "publishedAt": "2026-10-16T15:11:30Z",
+          "url": "https://github.com/open-feature/spec/releases/tag/specification/assets/provider-tck/v0.1.0"
         }
       }
     }
@@ -817,11 +827,11 @@
       "top": [
         {
           "fullName": "microsoft/FeatureManagement-Dotnet",
-          "stars": 1180
+          "stars": 1184
         },
         {
           "fullName": "featurevisor/featurevisor",
-          "stars": 811
+          "stars": 814
         }
       ]
     },
@@ -831,7 +841,7 @@
       "top": [
         {
           "fullName": "mlrun/mlrun",
-          "stars": 1701
+          "stars": 1704
         },
         {
           "fullName": "SAP/jenkins-library",
@@ -849,23 +859,23 @@
       "top": [
         {
           "fullName": "MichaelCade/90DaysOfDevOps",
-          "stars": 29788
+          "stars": 29924
         },
         {
           "fullName": "tenable/terrascan",
-          "stars": 5214
+          "stars": 5215
         },
         {
           "fullName": "diggerhq/digger",
-          "stars": 5045
+          "stars": 5062
         },
         {
           "fullName": "gofireflyio/aiac",
-          "stars": 3787
+          "stars": 3784
         },
         {
           "fullName": "terramate-io/terramate",
-          "stars": 3633
+          "stars": 3643
         }
       ]
     },
@@ -875,23 +885,23 @@
       "top": [
         {
           "fullName": "openfaas/faas",
-          "stars": 26251
+          "stars": 26253
         },
         {
           "fullName": "argoproj/argo-cd",
-          "stars": 24302
+          "stars": 24507
         },
         {
           "fullName": "argoproj/argo-workflows",
-          "stars": 17015
+          "stars": 17076
         },
         {
           "fullName": "meshery/meshery",
-          "stars": 11892
+          "stars": 12095
         },
         {
           "fullName": "iam-veeramalla/Jenkins-Zero-To-Hero",
-          "stars": 10071
+          "stars": 10116
         }
       ]
     },
