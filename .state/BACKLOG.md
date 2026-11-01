@@ -16,6 +16,7 @@
 - [x] 2026-W35 weekly judgment (no picker/job change; discovery CI did not open a PR)
 - [x] 2026-W36 weekly judgment (no picker/job change; discovery CI did not open a PR)
 - [x] 2026-10 monthly judgment (no picker/job change; stamp `Next: November`)
+- [x] 2026-11 monthly judgment (no picker/job change; stamp `Next: December`)
 
 ## Later
 
